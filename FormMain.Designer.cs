@@ -31,16 +31,27 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage_ModifyData = new System.Windows.Forms.TabPage();
+            this.richTextBox_ListDead = new System.Windows.Forms.RichTextBox();
+            this.richTextBox_ListActive = new System.Windows.Forms.RichTextBox();
+            this.richTextBox_ListWaiting = new System.Windows.Forms.RichTextBox();
+            this.button_ConfigListLogic = new System.Windows.Forms.Button();
+            this.button_EditMainLists = new System.Windows.Forms.Button();
+            this.button_EditLineage = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage_ConfigureCommands = new System.Windows.Forms.TabPage();
+            this.button_ConfigCommandBehavior = new System.Windows.Forms.Button();
+            this.button_ConfigCommandAliases = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage_LocalSettings = new System.Windows.Forms.TabPage();
+            this.button_ImportExportData = new System.Windows.Forms.Button();
+            this.button_ConfigCredentials = new System.Windows.Forms.Button();
+            this.button_ConfigHotkeys = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage_Debug = new System.Windows.Forms.TabPage();
+            this.button_ForceReconnect = new System.Windows.Forms.Button();
             this.checkBox_doVerboseLogging = new System.Windows.Forms.CheckBox();
             this.label_VersionInfo = new System.Windows.Forms.Label();
             this.richTextBox_ConsoleDebugLog = new System.Windows.Forms.RichTextBox();
-            this.button_ForceReconnect = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPage_ModifyData.SuspendLayout();
             this.tabPage_ConfigureCommands.SuspendLayout();
@@ -63,6 +74,12 @@
             // 
             // tabPage_ModifyData
             // 
+            this.tabPage_ModifyData.Controls.Add(this.richTextBox_ListDead);
+            this.tabPage_ModifyData.Controls.Add(this.richTextBox_ListActive);
+            this.tabPage_ModifyData.Controls.Add(this.richTextBox_ListWaiting);
+            this.tabPage_ModifyData.Controls.Add(this.button_ConfigListLogic);
+            this.tabPage_ModifyData.Controls.Add(this.button_EditMainLists);
+            this.tabPage_ModifyData.Controls.Add(this.button_EditLineage);
             this.tabPage_ModifyData.Controls.Add(this.label3);
             this.tabPage_ModifyData.Location = new System.Drawing.Point(4, 22);
             this.tabPage_ModifyData.Name = "tabPage_ModifyData";
@@ -72,16 +89,69 @@
             this.tabPage_ModifyData.Text = "Modify Data";
             this.tabPage_ModifyData.UseVisualStyleBackColor = true;
             // 
+            // richTextBox_ListDead
+            // 
+            this.richTextBox_ListDead.Location = new System.Drawing.Point(421, 240);
+            this.richTextBox_ListDead.Name = "richTextBox_ListDead";
+            this.richTextBox_ListDead.Size = new System.Drawing.Size(317, 103);
+            this.richTextBox_ListDead.TabIndex = 4;
+            this.richTextBox_ListDead.Text = "";
+            // 
+            // richTextBox_ListActive
+            // 
+            this.richTextBox_ListActive.Location = new System.Drawing.Point(421, 131);
+            this.richTextBox_ListActive.Name = "richTextBox_ListActive";
+            this.richTextBox_ListActive.Size = new System.Drawing.Size(317, 103);
+            this.richTextBox_ListActive.TabIndex = 4;
+            this.richTextBox_ListActive.Text = "";
+            // 
+            // richTextBox_ListWaiting
+            // 
+            this.richTextBox_ListWaiting.Location = new System.Drawing.Point(421, 22);
+            this.richTextBox_ListWaiting.Name = "richTextBox_ListWaiting";
+            this.richTextBox_ListWaiting.Size = new System.Drawing.Size(317, 103);
+            this.richTextBox_ListWaiting.TabIndex = 4;
+            this.richTextBox_ListWaiting.Text = "";
+            // 
+            // button_ConfigListLogic
+            // 
+            this.button_ConfigListLogic.Location = new System.Drawing.Point(20, 127);
+            this.button_ConfigListLogic.Name = "button_ConfigListLogic";
+            this.button_ConfigListLogic.Size = new System.Drawing.Size(184, 43);
+            this.button_ConfigListLogic.TabIndex = 3;
+            this.button_ConfigListLogic.Text = "Configure List Logic";
+            this.button_ConfigListLogic.UseVisualStyleBackColor = true;
+            // 
+            // button_EditMainLists
+            // 
+            this.button_EditMainLists.Location = new System.Drawing.Point(17, 66);
+            this.button_EditMainLists.Name = "button_EditMainLists";
+            this.button_EditMainLists.Size = new System.Drawing.Size(187, 43);
+            this.button_EditMainLists.TabIndex = 2;
+            this.button_EditMainLists.Text = "Edit Main Lists";
+            this.button_EditMainLists.UseVisualStyleBackColor = true;
+            // 
+            // button_EditLineage
+            // 
+            this.button_EditLineage.Location = new System.Drawing.Point(16, 22);
+            this.button_EditLineage.Name = "button_EditLineage";
+            this.button_EditLineage.Size = new System.Drawing.Size(189, 35);
+            this.button_EditLineage.TabIndex = 1;
+            this.button_EditLineage.Text = "Edit Lineage";
+            this.button_EditLineage.UseVisualStyleBackColor = true;
+            // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(34, 61);
+            this.label3.Location = new System.Drawing.Point(296, 386);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(563, 217);
+            this.label3.Size = new System.Drawing.Size(488, 33);
             this.label3.TabIndex = 0;
             this.label3.Text = "pop open list editors for every list, PLUS main editor with condensed view and po" + "p/push controls";
             // 
             // tabPage_ConfigureCommands
             // 
+            this.tabPage_ConfigureCommands.Controls.Add(this.button_ConfigCommandBehavior);
+            this.tabPage_ConfigureCommands.Controls.Add(this.button_ConfigCommandAliases);
             this.tabPage_ConfigureCommands.Controls.Add(this.label2);
             this.tabPage_ConfigureCommands.Location = new System.Drawing.Point(4, 22);
             this.tabPage_ConfigureCommands.Name = "tabPage_ConfigureCommands";
@@ -91,16 +161,38 @@
             this.tabPage_ConfigureCommands.Text = "Configure Commands";
             this.tabPage_ConfigureCommands.UseVisualStyleBackColor = true;
             // 
+            // button_ConfigCommandBehavior
+            // 
+            this.button_ConfigCommandBehavior.Location = new System.Drawing.Point(9, 57);
+            this.button_ConfigCommandBehavior.Name = "button_ConfigCommandBehavior";
+            this.button_ConfigCommandBehavior.Size = new System.Drawing.Size(210, 40);
+            this.button_ConfigCommandBehavior.TabIndex = 2;
+            this.button_ConfigCommandBehavior.Text = "Configure Command Behavior";
+            this.button_ConfigCommandBehavior.UseVisualStyleBackColor = true;
+            // 
+            // button_ConfigCommandAliases
+            // 
+            this.button_ConfigCommandAliases.Location = new System.Drawing.Point(8, 6);
+            this.button_ConfigCommandAliases.Name = "button_ConfigCommandAliases";
+            this.button_ConfigCommandAliases.Size = new System.Drawing.Size(212, 37);
+            this.button_ConfigCommandAliases.TabIndex = 1;
+            this.button_ConfigCommandAliases.Text = "Configure Command Aliases";
+            this.button_ConfigCommandAliases.UseVisualStyleBackColor = true;
+            this.button_ConfigCommandAliases.Click += new System.EventHandler(this.button_ConfigCommandAliases_Click);
+            // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(54, 65);
+            this.label2.Location = new System.Drawing.Point(225, 347);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(572, 174);
+            this.label2.Size = new System.Drawing.Size(550, 52);
             this.label2.TabIndex = 0;
             this.label2.Text = "configure command names and enable/disable them, configure command text sent to c" + "hat";
             // 
             // tabPage_LocalSettings
             // 
+            this.tabPage_LocalSettings.Controls.Add(this.button_ImportExportData);
+            this.tabPage_LocalSettings.Controls.Add(this.button_ConfigCredentials);
+            this.tabPage_LocalSettings.Controls.Add(this.button_ConfigHotkeys);
             this.tabPage_LocalSettings.Controls.Add(this.label1);
             this.tabPage_LocalSettings.Location = new System.Drawing.Point(4, 22);
             this.tabPage_LocalSettings.Name = "tabPage_LocalSettings";
@@ -109,9 +201,36 @@
             this.tabPage_LocalSettings.Text = "Local Settings";
             this.tabPage_LocalSettings.UseVisualStyleBackColor = true;
             // 
+            // button_ImportExportData
+            // 
+            this.button_ImportExportData.Location = new System.Drawing.Point(10, 100);
+            this.button_ImportExportData.Name = "button_ImportExportData";
+            this.button_ImportExportData.Size = new System.Drawing.Size(188, 39);
+            this.button_ImportExportData.TabIndex = 3;
+            this.button_ImportExportData.Text = "Import / Export Data";
+            this.button_ImportExportData.UseVisualStyleBackColor = true;
+            // 
+            // button_ConfigCredentials
+            // 
+            this.button_ConfigCredentials.Location = new System.Drawing.Point(8, 56);
+            this.button_ConfigCredentials.Name = "button_ConfigCredentials";
+            this.button_ConfigCredentials.Size = new System.Drawing.Size(191, 31);
+            this.button_ConfigCredentials.TabIndex = 2;
+            this.button_ConfigCredentials.Text = "Configure Twitch Credentials";
+            this.button_ConfigCredentials.UseVisualStyleBackColor = true;
+            // 
+            // button_ConfigHotkeys
+            // 
+            this.button_ConfigHotkeys.Location = new System.Drawing.Point(8, 13);
+            this.button_ConfigHotkeys.Name = "button_ConfigHotkeys";
+            this.button_ConfigHotkeys.Size = new System.Drawing.Size(191, 28);
+            this.button_ConfigHotkeys.TabIndex = 1;
+            this.button_ConfigHotkeys.Text = "Configure Hotkeys";
+            this.button_ConfigHotkeys.UseVisualStyleBackColor = true;
+            // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(216, 154);
+            this.label1.Location = new System.Drawing.Point(297, 204);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(301, 27);
             this.label1.TabIndex = 0;
@@ -129,6 +248,16 @@
             this.tabPage_Debug.TabIndex = 3;
             this.tabPage_Debug.Text = "Debug";
             this.tabPage_Debug.UseVisualStyleBackColor = true;
+            // 
+            // button_ForceReconnect
+            // 
+            this.button_ForceReconnect.Location = new System.Drawing.Point(685, 29);
+            this.button_ForceReconnect.Name = "button_ForceReconnect";
+            this.button_ForceReconnect.Size = new System.Drawing.Size(99, 21);
+            this.button_ForceReconnect.TabIndex = 5;
+            this.button_ForceReconnect.Text = "Force Reconnect";
+            this.button_ForceReconnect.UseVisualStyleBackColor = true;
+            this.button_ForceReconnect.Click += new System.EventHandler(this.button_ForceReconnect_Click);
             // 
             // checkBox_doVerboseLogging
             // 
@@ -157,16 +286,6 @@
             this.richTextBox_ConsoleDebugLog.TabIndex = 2;
             this.richTextBox_ConsoleDebugLog.Text = "";
             // 
-            // button_ForceReconnect
-            // 
-            this.button_ForceReconnect.Location = new System.Drawing.Point(685, 29);
-            this.button_ForceReconnect.Name = "button_ForceReconnect";
-            this.button_ForceReconnect.Size = new System.Drawing.Size(99, 21);
-            this.button_ForceReconnect.TabIndex = 5;
-            this.button_ForceReconnect.Text = "Force Reconnect";
-            this.button_ForceReconnect.UseVisualStyleBackColor = true;
-            this.button_ForceReconnect.Click += new System.EventHandler(this.button_ForceReconnect_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -184,13 +303,24 @@
             this.ResumeLayout(false);
         }
 
+        private System.Windows.Forms.Button button_ConfigCommandAliases;
+        private System.Windows.Forms.Button button_ConfigCommandBehavior;
+        private System.Windows.Forms.Button button_ConfigCredentials;
+        private System.Windows.Forms.Button button_ConfigHotkeys;
+        private System.Windows.Forms.Button button_ConfigListLogic;
+        private System.Windows.Forms.Button button_EditLineage;
+        private System.Windows.Forms.Button button_EditMainLists;
         private System.Windows.Forms.Button button_ForceReconnect;
+        private System.Windows.Forms.Button button_ImportExportData;
         private System.Windows.Forms.CheckBox checkBox_doVerboseLogging;
         private System.Windows.Forms.Label label_VersionInfo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RichTextBox richTextBox_ConsoleDebugLog;
+        private System.Windows.Forms.RichTextBox richTextBox_ListActive;
+        private System.Windows.Forms.RichTextBox richTextBox_ListDead;
+        private System.Windows.Forms.RichTextBox richTextBox_ListWaiting;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPage_ConfigureCommands;
         private System.Windows.Forms.TabPage tabPage_Debug;

@@ -20,9 +20,11 @@ namespace PagTool
         private ConnectionCredentials _credentials;
 
         private TwitchClient _twitchClient;
+        private FormMain _parent; //so i can ask it to do methods directly
 
-        public ChatBot()
+        public ChatBot(FormMain parent)
         {
+            _parent = parent;
             _twitchClient = new TwitchClient();
         }
 
@@ -36,6 +38,9 @@ namespace PagTool
             
             _twitchClient.Initialize(_credentials, twitchUsername);
             
+            //command handler
+            _twitchClient.OnChatCommandReceived += _OnChatCommandReceived;
+            
             // set up standard (always-on) event listeners
             _twitchClient.OnConnected += _OnConnected;
             _twitchClient.OnMessageReceived += _OnMessageReceived;
@@ -48,6 +53,8 @@ namespace PagTool
             // connect to IRC
             _twitchClient.Connect();
         }
+
+       
 
         // for use by the 'force reconnect' button
         internal void DisconnectWaitReconnect(string twitchUsername,
@@ -71,6 +78,17 @@ namespace PagTool
         internal void Chat(string message)
         {
             _twitchClient.SendMessage(_credentials.TwitchUsername, message);
+        }
+        
+        //handle all !-prefix messages: parse, check against all command aliases, then execute on a match
+        private void _OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
+        {
+            //todo
+            if (e.Command.CommandText == "name")
+            {
+                _parent.TryAddNameToWaitingList(e.Command.ChatMessage.Username);
+            }
+            //e.Command.CommandText
         }
 
         // event listener methods: basically just append any info received to the LogOutput variable

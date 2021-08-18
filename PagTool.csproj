@@ -16,6 +16,24 @@
       <Compile Include="config.ini">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Compile>
+      <Compile Update="ConfigCommandAliasDialog.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="ConfigCommandAliasDialog.Designer.cs">
+        <DependentUpon>ConfigCommandAliasDialog.cs</DependentUpon>
+      </Compile>
+      <Compile Update="ConfigCommandBehaviorDialog.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="ConfigCommandBehaviorDialog.Designer.cs">
+        <DependentUpon>ConfigCommandBehaviorDialog.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="ConfigCommandAliasDialog.resx">
+        <DependentUpon>ConfigCommandAliasDialog.cs</DependentUpon>
+      </EmbeddedResource>
     </ItemGroup>
 
 </Project>
