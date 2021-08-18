@@ -1,6 +1,6 @@
 ﻿namespace PagTool
 {
-    partial class Form1
+    partial class FormMain
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,17 +29,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.richTextBox_ConsoleDebugLog = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
-            // Form1
+            // richTextBox_ConsoleDebugLog
+            // 
+            this.richTextBox_ConsoleDebugLog.Location = new System.Drawing.Point(20, 22);
+            this.richTextBox_ConsoleDebugLog.Name = "richTextBox_ConsoleDebugLog";
+            this.richTextBox_ConsoleDebugLog.Size = new System.Drawing.Size(756, 408);
+            this.richTextBox_ConsoleDebugLog.TabIndex = 0;
+            this.richTextBox_ConsoleDebugLog.Text = "";
+            // 
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Controls.Add(this.richTextBox_ConsoleDebugLog);
+            this.Name = "FormMain";
+            this.Text = "FormMain";
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.RichTextBox richTextBox_ConsoleDebugLog;
 
         #endregion
     }
