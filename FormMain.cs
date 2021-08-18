@@ -12,17 +12,25 @@ namespace PagTool
         #region Field Variables
 
         // TODO: field variables
-        private ChatBot twitchChatBot = new ChatBot();
+        ChatBot _twitchChatBot = new ChatBot();
+        
+        //config file data variables
+        string[] _twitchBotCredentials;
+        // string[] _configData;
 
-        private string[] twitchBotCredentials;
-
+        //used to let threads know if the application is terminating
+        private bool _isApplicationClosing = false;
+        
         #endregion
         
         public FormMain()
         {
             // TODO: load configs, initialize variables, etc...
             //load twitch credentials
-            twitchBotCredentials = CheckFileAndLoadTwitchCredentials("_secret.safe");
+            _twitchBotCredentials = CheckFileAndLoadTwitchCredentials("_secret.safe");
+            
+            //TODO load config.ini data
+            
             
             // Load the form's components, then launch async tasks
             InitializeComponent();
@@ -32,19 +40,19 @@ namespace PagTool
             updateAndRefreshComponentsThread.Start();
             
             // connect twitch bot to IRC chat
-            twitchChatBot.Connect(twitchBotCredentials[0], twitchBotCredentials[1]); //todo again this needs to be much more secure but this will do for now
+            _twitchChatBot.Connect(_twitchBotCredentials[0], _twitchBotCredentials[1]); //todo again this needs to be much more secure but this will do for now
         }
         
         #region Component Update Thread
 
         void UpdateThreadTimer()
         {
-            while (true) // TODO: bad bad bad fix this
+            while (!_isApplicationClosing)
             {
                 Thread.Sleep(1000 * 5); // every five seconds
                 
                 //update the text from the log output
-                UpdateText(richTextBox_ConsoleDebugLog, twitchChatBot.LogOutput);
+                UpdateText(richTextBox_ConsoleDebugLog, _twitchChatBot.LogOutput);
             }
         }
         
@@ -78,7 +86,30 @@ namespace PagTool
             }
         }
         
-        #endregion        
+        #endregion
+
+        #region Event Handlers
+
+        // the application is closing: update variables to tell any external threads to stop
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _isApplicationClosing = true;
+        }
         
+        // Debug Menu 'do verbose logging' checkbox updated, begin showing/hiding verbose logging
+        private void checkBox_doVerboseLogging_CheckedChanged(object sender, EventArgs e)
+        {
+            _twitchChatBot.DoVerboseLogging = checkBox_doVerboseLogging.Checked;
+            // TODO save this setting to configs.
+        }
+
+        #endregion
+
+        // reconnect button on the Debug page clicked. manually disconnect from IRC, wait, then reconnect.
+        private void button_ForceReconnect_Click(object sender, EventArgs e)
+        {
+            // TODO: use _twitchChatBot.Chat(""); to post a message to chat -- should use the "chat message config" page for specific message
+            _twitchChatBot.DisconnectWaitReconnect(_twitchBotCredentials[0], _twitchBotCredentials[1]);
+        }
     }
 }

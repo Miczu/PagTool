@@ -12,9 +12,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="config.ini">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+      <None Remove="config.ini" />
+      <Compile Include="config.ini">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Compile>
     </ItemGroup>
 
 </Project>

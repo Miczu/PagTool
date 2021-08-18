@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
+using TwitchLib.Communication.Events;
 
 namespace PagTool
 {
     public class ChatBot
     {
         public string LogOutput = ""; // public variable that will be accessed to update debug log in FormMain
+
+        public bool DoVerboseLogging = false;
         
         // TODO: safely load and store credentials in some secure way
         private ConnectionCredentials _credentials;
@@ -31,13 +36,41 @@ namespace PagTool
             
             _twitchClient.Initialize(_credentials, twitchUsername);
             
-            // set up event listeners
+            // set up standard (always-on) event listeners
             _twitchClient.OnConnected += _OnConnected;
             _twitchClient.OnMessageReceived += _OnMessageReceived;
+            _twitchClient.OnDisconnected += _OnDisconnected;
+            _twitchClient.OnError += _OnError;
+
+            //verbose-only logging
             _twitchClient.OnLog += _OnLog;
-            
+
             // connect to IRC
             _twitchClient.Connect();
+        }
+
+        // for use by the 'force reconnect' button
+        internal void DisconnectWaitReconnect(string twitchUsername,
+            string twitchOAuth, int secondsToWaitBeforeReconnecting = 5)
+        {
+            LogOutput += $"[INFO] Disconnecting... \n";
+            _twitchClient.Disconnect();
+            //LogOutput += $"[INFO] Disconnected.\n";
+
+            Task wait = Task.Run(() =>
+            { 
+                //LogOutput += $"[INFO] Sleeping for {secondsToWaitBeforeReconnecting} seconds... \n";
+                Thread.Sleep(1000 * secondsToWaitBeforeReconnecting);
+                LogOutput += $"[INFO] Reconnecting... \n";
+                _twitchClient.Connect();
+                //LogOutput += $"[INFO] Reconnected.\n";
+            });
+        }
+
+        // write something to chat. 
+        internal void Chat(string message)
+        {
+            _twitchClient.SendMessage(_credentials.TwitchUsername, message);
         }
 
         // event listener methods: basically just append any info received to the LogOutput variable
@@ -56,8 +89,20 @@ namespace PagTool
         
         private void _OnLog(object sender, OnLogArgs e)
         {
-            // TODO: use a bool flag to choose whether or not to log vebose information
-            //LogOutput += "[VERBOSE] " + e.Data + "\n";
+            if(DoVerboseLogging)
+                LogOutput += "[VERBOSE] " + e.Data.ToString() + "\n";
+        }
+        
+        private void _OnDisconnected(object sender, OnDisconnectedEventArgs e)
+        {
+            LogOutput += $"[WARN] Disconnected!\n";
+            // TODO reconnect with increasing delay (do this in a Task and wait for ~10 seconds before beginning reconnect attempts in case of manual reconnect job)
+            // collect disconnect time, allow option to chat when bot was last available so people in chat can know they should retry !name if it would have been missed
+        }
+        
+        private void _OnError(object sender, OnErrorEventArgs e)
+        {
+            LogOutput += $"[ERR!] Thrown: {e.Exception.InnerException}. \"{e.Exception.Message}\" ... \n";
         }
     }
 }
