@@ -78,7 +78,9 @@ namespace PagTool
         // write something to chat. 
         internal void Chat(string message)
         {
-            _twitchClient.SendMessage(_credentials.TwitchUsername, message);
+            //empty messages seem to be handled fine by twitch anyways, but just for safety:
+            if(!String.IsNullOrWhiteSpace(message))
+                _twitchClient.SendMessage(_credentials.TwitchUsername, message);
         }
         
         //handle all !-prefix messages: parse, check against all command aliases, then execute on a match
@@ -113,7 +115,12 @@ namespace PagTool
 
         private string TryReplaceFormatStrings(string response, OnChatCommandReceivedArgs e)
         {
-            return response.Replace("$TEST", _parent.FormatStringDemo(e.Command.ChatMessage.Username));
+            //what information is already available via e
+            response = response.Replace("$USERNAME", e.Command.ChatMessage.Username);
+
+            //what information is available from _parent
+            response = response.Replace("$TEST", _parent.FormatStringDemo(e.Command.ChatMessage.Username));
+            return response;
         }
         
         // event listener methods: basically just append any info received to the LogOutput variable

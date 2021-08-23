@@ -79,18 +79,16 @@ namespace PagTool
         {
             //update the text from the log output
             UpdateText(richTextBox_ConsoleDebugLog, _twitchChatBot.LogOutput);
-            UpdateText(richTextBox_ListWaiting,
-                (_listWaiting.Count > 0
-                    ? _listWaiting.Count.ToString()
-                    : "null")); //todo temp, make these text fields multis and populate them correctly
-            UpdateText(richTextBox_ListActive, (_listActive.Count > 0 ? _listActive.Count.ToString() : "null"));
-            UpdateText(richTextBox_ListDead, (_listDead.Count > 0 ? _listDead.Count.ToString() : "null"));
+            
+            //update the display listBoxes
+            listBox_ListWaiting.Items.Clear(); listBox_ListWaiting.Items.AddRange(_listWaiting.ToArray());
+            listBox_ListActive.Items.Clear();  listBox_ListActive.Items.AddRange( _listActive.ToArray());
+            listBox_ListDead.Items.Clear();    listBox_ListDead.Items.AddRange(   _listDead.ToArray());
         }
 
         // https://www.codeproject.com/articles/269787/accessing-windows-forms-controls-across-threads
         // please work
         delegate void UpdateTextDelegate(Control control, string text);
-
         void UpdateText(Control control, string text)
         {
             if (control.InvokeRequired)

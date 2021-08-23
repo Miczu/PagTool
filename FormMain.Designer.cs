@@ -31,9 +31,9 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage_ModifyData = new System.Windows.Forms.TabPage();
-            this.richTextBox_ListDead = new System.Windows.Forms.RichTextBox();
-            this.richTextBox_ListActive = new System.Windows.Forms.RichTextBox();
-            this.richTextBox_ListWaiting = new System.Windows.Forms.RichTextBox();
+            this.listBox_ListDead = new System.Windows.Forms.ListBox();
+            this.listBox_ListActive = new System.Windows.Forms.ListBox();
+            this.listBox_ListWaiting = new System.Windows.Forms.ListBox();
             this.button_ConfigListLogic = new System.Windows.Forms.Button();
             this.button_EditMainLists = new System.Windows.Forms.Button();
             this.button_EditLineage = new System.Windows.Forms.Button();
@@ -74,9 +74,9 @@
             // 
             // tabPage_ModifyData
             // 
-            this.tabPage_ModifyData.Controls.Add(this.richTextBox_ListDead);
-            this.tabPage_ModifyData.Controls.Add(this.richTextBox_ListActive);
-            this.tabPage_ModifyData.Controls.Add(this.richTextBox_ListWaiting);
+            this.tabPage_ModifyData.Controls.Add(this.listBox_ListDead);
+            this.tabPage_ModifyData.Controls.Add(this.listBox_ListActive);
+            this.tabPage_ModifyData.Controls.Add(this.listBox_ListWaiting);
             this.tabPage_ModifyData.Controls.Add(this.button_ConfigListLogic);
             this.tabPage_ModifyData.Controls.Add(this.button_EditMainLists);
             this.tabPage_ModifyData.Controls.Add(this.button_EditLineage);
@@ -89,33 +89,33 @@
             this.tabPage_ModifyData.Text = "Modify Data";
             this.tabPage_ModifyData.UseVisualStyleBackColor = true;
             // 
-            // richTextBox_ListDead
+            // listBox_ListDead
             // 
-            this.richTextBox_ListDead.Location = new System.Drawing.Point(421, 240);
-            this.richTextBox_ListDead.Name = "richTextBox_ListDead";
-            this.richTextBox_ListDead.Size = new System.Drawing.Size(317, 103);
-            this.richTextBox_ListDead.TabIndex = 4;
-            this.richTextBox_ListDead.Text = "";
+            this.listBox_ListDead.FormattingEnabled = true;
+            this.listBox_ListDead.Location = new System.Drawing.Point(531, 250);
+            this.listBox_ListDead.Name = "listBox_ListDead";
+            this.listBox_ListDead.Size = new System.Drawing.Size(253, 108);
+            this.listBox_ListDead.TabIndex = 7;
             // 
-            // richTextBox_ListActive
+            // listBox_ListActive
             // 
-            this.richTextBox_ListActive.Location = new System.Drawing.Point(421, 131);
-            this.richTextBox_ListActive.Name = "richTextBox_ListActive";
-            this.richTextBox_ListActive.Size = new System.Drawing.Size(317, 103);
-            this.richTextBox_ListActive.TabIndex = 4;
-            this.richTextBox_ListActive.Text = "";
+            this.listBox_ListActive.FormattingEnabled = true;
+            this.listBox_ListActive.Location = new System.Drawing.Point(531, 136);
+            this.listBox_ListActive.Name = "listBox_ListActive";
+            this.listBox_ListActive.Size = new System.Drawing.Size(253, 108);
+            this.listBox_ListActive.TabIndex = 6;
             // 
-            // richTextBox_ListWaiting
+            // listBox_ListWaiting
             // 
-            this.richTextBox_ListWaiting.Location = new System.Drawing.Point(421, 22);
-            this.richTextBox_ListWaiting.Name = "richTextBox_ListWaiting";
-            this.richTextBox_ListWaiting.Size = new System.Drawing.Size(317, 103);
-            this.richTextBox_ListWaiting.TabIndex = 4;
-            this.richTextBox_ListWaiting.Text = "";
+            this.listBox_ListWaiting.FormattingEnabled = true;
+            this.listBox_ListWaiting.Location = new System.Drawing.Point(531, 22);
+            this.listBox_ListWaiting.Name = "listBox_ListWaiting";
+            this.listBox_ListWaiting.Size = new System.Drawing.Size(253, 108);
+            this.listBox_ListWaiting.TabIndex = 5;
             // 
             // button_ConfigListLogic
             // 
-            this.button_ConfigListLogic.Location = new System.Drawing.Point(20, 127);
+            this.button_ConfigListLogic.Location = new System.Drawing.Point(6, 96);
             this.button_ConfigListLogic.Name = "button_ConfigListLogic";
             this.button_ConfigListLogic.Size = new System.Drawing.Size(184, 43);
             this.button_ConfigListLogic.TabIndex = 3;
@@ -124,7 +124,7 @@
             // 
             // button_EditMainLists
             // 
-            this.button_EditMainLists.Location = new System.Drawing.Point(17, 66);
+            this.button_EditMainLists.Location = new System.Drawing.Point(6, 47);
             this.button_EditMainLists.Name = "button_EditMainLists";
             this.button_EditMainLists.Size = new System.Drawing.Size(187, 43);
             this.button_EditMainLists.TabIndex = 2;
@@ -133,7 +133,7 @@
             // 
             // button_EditLineage
             // 
-            this.button_EditLineage.Location = new System.Drawing.Point(16, 22);
+            this.button_EditLineage.Location = new System.Drawing.Point(6, 6);
             this.button_EditLineage.Name = "button_EditLineage";
             this.button_EditLineage.Size = new System.Drawing.Size(189, 35);
             this.button_EditLineage.TabIndex = 1;
@@ -318,10 +318,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ListBox listBox_ListActive;
+        private System.Windows.Forms.ListBox listBox_ListDead;
+        private System.Windows.Forms.ListBox listBox_ListWaiting;
         private System.Windows.Forms.RichTextBox richTextBox_ConsoleDebugLog;
-        private System.Windows.Forms.RichTextBox richTextBox_ListActive;
-        private System.Windows.Forms.RichTextBox richTextBox_ListDead;
-        private System.Windows.Forms.RichTextBox richTextBox_ListWaiting;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPage_ConfigureCommands;
         private System.Windows.Forms.TabPage tabPage_Debug;
