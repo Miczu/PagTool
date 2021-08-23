@@ -83,11 +83,15 @@ namespace PagTool
 
         public void RegisterAllHotkeys()
         {
-            //if hotkeys are registered, unregister them
-            
             //register all keys
             RegisterHotKey(this.Handle, HKIDSelectRandomUser, ConfigHotkey.HKModSelectRandomUser, ConfigHotkey.HKKeySelectRandomUser);
             
+        }
+
+        public void UnregisterAllHotkeys()
+        {
+            //unregister all hotkeys
+            UnregisterHotKey(this.Handle, HKIDSelectRandomUser);
         }
 
         //what to do when a global hotkey is triggered
@@ -96,6 +100,8 @@ namespace PagTool
             if (m.Msg == 0x0312 && m.WParam.ToInt32() == HKIDSelectRandomUser)
             {
                 //select random user
+                //MessageBox.Show("select random user hotkey triggered");
+                TrySelectRandomUser();
             }
 
             base.WndProc(ref m);
@@ -224,18 +230,28 @@ namespace PagTool
                 int pos = new Random().Next(_listWaiting.Count - 1);
                 string selected = _listWaiting.ElementAt(pos); //get random position in list
                 
+                //todo all this
                 // update lineage of selected
                 // copy selected to clipboard + lineage if wanted
-                // remove selected from waiting
-                // add selected to active
-                // log drawn user
-                // send response message to chat
-                // update display lists
                 
+                // remove selected from waiting
+                _listWaiting.RemoveAt(pos);
+                // add selected to active
+                _listActive.Add(selected);
+                
+                // log drawn user
+                _twitchChatBot.LogLine($"Selected random user from Waiting list: <{selected}>. Added to Active list.", ChatBot.LOG_LEVEL.LOG_INFO);
+                
+                // send response message to chat
+                // CMD: SelectRandom
+                // update display lists
+                DoAllUpdates();
             }
             else
             { // list is empty
+                
                 //log that and return
+                _twitchChatBot.LogLine($"Waiting list is empty! Cannot select random user.", ChatBot.LOG_LEVEL.LOG_WARNING);
                 //CMD: WaitingListEmpty
             }
         }
@@ -248,6 +264,7 @@ namespace PagTool
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             _isApplicationClosing = true;
+            UnregisterAllHotkeys();
         }
 
         // Debug Menu 'do verbose logging' checkbox updated, begin showing/hiding verbose logging
@@ -289,6 +306,7 @@ namespace PagTool
             ConfigHotkeyResult result = configHotkeyDialog.Show(ConfigHotkey);
             ConfigHotkey = result;
             WriteAllConfigToFiles();
+            RegisterAllHotkeys();
         }
 
         #endregion

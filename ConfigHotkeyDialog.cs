@@ -10,16 +10,12 @@ namespace PagTool
         public int HKModSelectRandomUser = 0; public int HKKeySelectRandomUser = 0; //select random user
             
         //default values
-        public ConfigHotkeyResult()
-        {
-            
-        }
+        public ConfigHotkeyResult() { }
 
         //override values
         public ConfigHotkeyResult(int hkModSelectRandomUser, int hkKeySelectRandomUser)
         {
             HKModSelectRandomUser = hkModSelectRandomUser; HKKeySelectRandomUser = hkKeySelectRandomUser;
-            
         }
     }
 
@@ -54,7 +50,6 @@ namespace PagTool
                 updatedSettings.HKModSelectRandomUser = mod;
                 updatedSettings.HKKeySelectRandomUser = e.KeyValue;
             }
-            
         }
 
         public ConfigHotkeyResult Show(ConfigHotkeyResult currentSettings)
