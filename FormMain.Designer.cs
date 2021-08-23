@@ -169,6 +169,7 @@
             this.button_ConfigCommandBehavior.TabIndex = 2;
             this.button_ConfigCommandBehavior.Text = "Configure Command Behavior";
             this.button_ConfigCommandBehavior.UseVisualStyleBackColor = true;
+            this.button_ConfigCommandBehavior.Click += new System.EventHandler(this.button_ConfigCommandBehavior_Click);
             // 
             // button_ConfigCommandAliases
             // 

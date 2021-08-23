@@ -14,12 +14,13 @@ namespace PagTool
 
         // TODO: field variables
         private ChatBot _twitchChatBot;
-        
+
         //config file data variables
         string[] _twitchBotCredentials;
 
         // stores all the config info from command aliases
         public ConfigCommandAliasResult ConfigCommandAlias;
+
         public ConfigCommandBehaviorResult ConfigCommandBehavior;
         //todo make a Result for each config dialog and use them to save/load config files
 
@@ -30,17 +31,17 @@ namespace PagTool
 
         //used to let threads know if the application is terminating
         private bool _isApplicationClosing = false;
-        
+
         #endregion
-        
+
         public FormMain()
         {
             // quickly instantiate this
             _twitchChatBot = new ChatBot(this);
-            
+
             // Load the form's components, then launch async tasks
             InitializeComponent();
-            
+
             // TODO: load configs, initialize variables, etc...
             //load twitch credentials and create 
             _twitchBotCredentials = CheckFileAndLoadTwitchCredentials("_secret.safe");
@@ -48,20 +49,21 @@ namespace PagTool
             //TODO load config.ini data
             //if these files don't exist, create a new default config Result for each respectively and then store it. otherwise, parse the file
             TryParseConfigCommandAlias();
-            //TryParseConfigCommandBehavior();
+            TryParseConfigCommandBehavior();
             //etc etc
 
             //first, update all elements manually
             DoAllUpdates();
-            
+
             // then, start thread to auto-refresh contents of components every 5 seconds
             Thread updateAndRefreshComponentsThread = new Thread(new ThreadStart(UpdateThreadTimer));
             updateAndRefreshComponentsThread.Start();
-            
+
             // connect twitch bot to IRC chat
-            _twitchChatBot.Connect(_twitchBotCredentials[0], _twitchBotCredentials[1]); //todo again this needs to be much more secure but this will do for now
+            _twitchChatBot.Connect(_twitchBotCredentials[0],
+                _twitchBotCredentials[1]); //todo again this needs to be much more secure but this will do for now
         }
-        
+
         #region Component Update Thread
 
         void UpdateThreadTimer()
@@ -77,11 +79,14 @@ namespace PagTool
         {
             //update the text from the log output
             UpdateText(richTextBox_ConsoleDebugLog, _twitchChatBot.LogOutput);
-            UpdateText(richTextBox_ListWaiting, ( _listWaiting.Count > 0 ? _listWaiting.Count.ToString() : "null") ); //todo temp, make these text fields multis and populate them correctly
-            UpdateText(richTextBox_ListActive, ( _listActive.Count > 0 ? _listActive.Count.ToString() : "null") );
-            UpdateText(richTextBox_ListDead, ( _listDead.Count > 0 ? _listDead.Count.ToString() : "null") );
+            UpdateText(richTextBox_ListWaiting,
+                (_listWaiting.Count > 0
+                    ? _listWaiting.Count.ToString()
+                    : "null")); //todo temp, make these text fields multis and populate them correctly
+            UpdateText(richTextBox_ListActive, (_listActive.Count > 0 ? _listActive.Count.ToString() : "null"));
+            UpdateText(richTextBox_ListDead, (_listDead.Count > 0 ? _listDead.Count.ToString() : "null"));
         }
-        
+
         // https://www.codeproject.com/articles/269787/accessing-windows-forms-controls-across-threads
         // please work
         delegate void UpdateTextDelegate(Control control, string text);
@@ -96,6 +101,7 @@ namespace PagTool
             else
                 control.Text = text;
         }
+
         #endregion
 
         #region Utility Functions
@@ -108,7 +114,7 @@ namespace PagTool
             {
                 // TODO: create this file and write default arguments to it
                 File.WriteAllText(filepath, "Store your twitch credentials in this file.");
-                return new[] { "DoesNotExist", "DoesNotExist"};
+                return new[] {"DoesNotExist", "DoesNotExist"};
             }
         }
 
@@ -130,15 +136,26 @@ namespace PagTool
                 File.WriteAllText("CommandAlias.config", JsonConvert.SerializeObject(ConfigCommandAlias));
             }
         }
-        
+        public void TryParseConfigCommandBehavior()
+        {
+            if (File.Exists("CommandBehavior.config"))
+                ConfigCommandBehavior =
+                    JsonConvert.DeserializeObject<ConfigCommandBehaviorResult>(File.ReadAllText("CommandBehavior.config"));
+            else
+            {
+                ConfigCommandBehavior = new ConfigCommandBehaviorResult();
+                File.WriteAllText("CommandBehavior.config", JsonConvert.SerializeObject(ConfigCommandBehavior));
+            }
+        }
+
         // save all Config to files
         public void WriteAllConfigToFiles()
         {
             File.WriteAllText("CommandAlias.config", JsonConvert.SerializeObject(ConfigCommandAlias));
-            //File.WriteAllText("CommandBehavior.config", JsonConvert.SerializeObject(ConfigCommandBehavior));
+            File.WriteAllText("CommandBehavior.config", JsonConvert.SerializeObject(ConfigCommandBehavior));
             // etc...
         }
-        
+
         #endregion
 
         #region Event Handlers
@@ -148,14 +165,14 @@ namespace PagTool
         {
             _isApplicationClosing = true;
         }
-        
+
         // Debug Menu 'do verbose logging' checkbox updated, begin showing/hiding verbose logging
         private void checkBox_doVerboseLogging_CheckedChanged(object sender, EventArgs e)
         {
             _twitchChatBot.DoVerboseLogging = checkBox_doVerboseLogging.Checked;
             // TODO save this setting to configs.
         }
-        
+
         // reconnect button on the Debug page clicked. manually disconnect from IRC, wait, then reconnect.
         private void button_ForceReconnect_Click(object sender, EventArgs e)
         {
@@ -173,9 +190,15 @@ namespace PagTool
             //todo refresh, potentially reconnect
         }
         
+        private void button_ConfigCommandBehavior_Click(object sender, EventArgs e)
+        {
+            ConfigCommandBehaviorDialog configCommandBehaviorDialog = new ConfigCommandBehaviorDialog();
+            ConfigCommandBehaviorResult result = configCommandBehaviorDialog.Show(ConfigCommandBehavior); //get updated settings if any
+            ConfigCommandBehavior = result; //store new settings into memory
+            WriteAllConfigToFiles(); //save settings
+            //todo refresh
+        }
+
         #endregion
-
-
-        
     }
 }
