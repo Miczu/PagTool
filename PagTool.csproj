@@ -28,6 +28,12 @@
       <Compile Update="ConfigCommandBehaviorDialog.Designer.cs">
         <DependentUpon>ConfigCommandBehaviorDialog.cs</DependentUpon>
       </Compile>
+      <Compile Update="ConfigHotkeyDialog.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="ConfigHotkeyDialog.Designer.cs">
+        <DependentUpon>ConfigHotkeyDialog.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -36,6 +42,9 @@
       </EmbeddedResource>
       <EmbeddedResource Update="ConfigCommandBehaviorDialog.resx">
         <DependentUpon>ConfigCommandBehaviorDialog.cs</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Update="ConfigHotkeyDialog.resx">
+        <DependentUpon>ConfigHotkeyDialog.cs</DependentUpon>
       </EmbeddedResource>
     </ItemGroup>
 

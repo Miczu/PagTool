@@ -228,6 +228,7 @@
             this.button_ConfigHotkeys.TabIndex = 1;
             this.button_ConfigHotkeys.Text = "Configure Hotkeys";
             this.button_ConfigHotkeys.UseVisualStyleBackColor = true;
+            this.button_ConfigHotkeys.Click += new System.EventHandler(this.button_ConfigHotkeys_Click);
             // 
             // label1
             // 

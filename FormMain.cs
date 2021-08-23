@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -19,9 +20,10 @@ namespace PagTool
         //config file data variables
         string[] _twitchBotCredentials;
 
-        // stores all the config info from command aliases
-        public ConfigCommandAliasResult ConfigCommandAlias;
-        public ConfigCommandBehaviorResult ConfigCommandBehavior;
+        // dialog results: store all the information for each configurable aspect to the program
+        public ConfigCommandAliasResult ConfigCommandAlias; //command aliases
+        public ConfigCommandBehaviorResult ConfigCommandBehavior; //chat responses and switches to define behaviors
+        public ConfigHotkeyResult ConfigHotkey; //hotkey information
         //todo make a Result for each config dialog and use them to save/load config files
 
         //three lists.
@@ -50,7 +52,7 @@ namespace PagTool
             //if these files don't exist, create a new default config Result for each respectively and then store it. otherwise, parse the file
             TryParseConfigCommandAlias();
             TryParseConfigCommandBehavior();
-            //hotkey settings
+            TryParseConfigHotkey();
             //etc etc
 
             //first, update all elements manually
@@ -70,20 +72,8 @@ namespace PagTool
 
         #region Hotkey Management
         
-        //variables to store hotkey hook IDs
-        const int HKIDSelectRandomUser = 1;
-        const int HKIDClearList = 2;
-        const int HKIDShuffleActiveList = 3;
-        
-        //variables to store hotkey MODIFIER keys
-        private int HKModSelectRandomUser;
-        private int HKModClearList;
-        private int HKModShuffleActiveList;
-        
-        //variables to store hotkey KEYS
-        private int HKKeySelectRandomUser;
-        private int HKKeyClearList;
-        private int HKKeyShuffleActiveList;
+        //variables to store hotkey hook IDs, const here for static context (IDs don't need to change ever, just be re-registered)
+        public const int HKIDSelectRandomUser = 1; 
 
         //import hotkey register functions
         [DllImport("user32.dll")]
@@ -96,10 +86,10 @@ namespace PagTool
             //if hotkeys are registered, unregister them
             
             //register all keys
-            //RegisterHotKey(this.Handle, HKIDSelectRandomUser, HKModSelectRandomUser, HKKeySelectRandomUser);
+            RegisterHotKey(this.Handle, HKIDSelectRandomUser, ConfigHotkey.HKModSelectRandomUser, ConfigHotkey.HKKeySelectRandomUser);
             
         }
-        
+
         //what to do when a global hotkey is triggered
         protected override void WndProc(ref Message m)
         {
@@ -107,14 +97,7 @@ namespace PagTool
             {
                 //select random user
             }
-            if (m.Msg == 0x0312 && m.WParam.ToInt32() == HKIDClearList)
-            {
-                //clear list
-            }
-            if (m.Msg == 0x0312 && m.WParam.ToInt32() == HKIDShuffleActiveList)
-            {
-                //shuffle active
-            }
+
             base.WndProc(ref m);
         }
 
@@ -194,12 +177,24 @@ namespace PagTool
                 File.WriteAllText("CommandBehavior.config", JsonConvert.SerializeObject(ConfigCommandBehavior));
             }
         }
+        public void TryParseConfigHotkey()
+        {
+            if (File.Exists("Hotkey.config"))
+                ConfigHotkey =
+                    JsonConvert.DeserializeObject<ConfigHotkeyResult>(File.ReadAllText("Hotkey.config"));
+            else
+            {
+                ConfigHotkey = new ConfigHotkeyResult();
+                File.WriteAllText("Hotkey.config", JsonConvert.SerializeObject(ConfigHotkey));
+            }
+        }
 
         // save all Config to files
         public void WriteAllConfigToFiles()
         {
             File.WriteAllText("CommandAlias.config", JsonConvert.SerializeObject(ConfigCommandAlias));
             File.WriteAllText("CommandBehavior.config", JsonConvert.SerializeObject(ConfigCommandBehavior));
+            File.WriteAllText("Hotkey.config", JsonConvert.SerializeObject(ConfigHotkey));
             // etc...
         }
 
@@ -207,10 +202,10 @@ namespace PagTool
 
         #region Data Structure Interactions
 
-        public void TryAddNameToWaitingList(string name)
+        public void TryAddNameToWaitingList(string name) //add user in chat to waitlist
         {
             //todo this and the other lists for good measure
-            //todo check for repeat occurrences, log info/warning
+            //todo blacklist
             if (_listWaiting.Contains(name)) //if name already exists in list
             {
                 _twitchChatBot.LogLine($"Name already exists in Waiting List: <{name}>. Skipped.", ChatBot.LOG_LEVEL.LOG_WARNING); //CMD: NameAlreadyExists
@@ -219,6 +214,29 @@ namespace PagTool
             {
                 _listWaiting.Add(name); //CMD: NameAdd
                 _twitchChatBot.LogLine($"Added to Waiting List: <{name}>.", ChatBot.LOG_LEVEL.LOG_INFO);
+            }
+        }
+
+        public void TrySelectRandomUser() //get a random user from waitlist (according to SelectRandom behavior options)
+        {
+            if (_listWaiting.Count > 0) //make sure the list isn't empty
+            { //todo behavior & priority switches
+                int pos = new Random().Next(_listWaiting.Count - 1);
+                string selected = _listWaiting.ElementAt(pos); //get random position in list
+                
+                // update lineage of selected
+                // copy selected to clipboard + lineage if wanted
+                // remove selected from waiting
+                // add selected to active
+                // log drawn user
+                // send response message to chat
+                // update display lists
+                
+            }
+            else
+            { // list is empty
+                //log that and return
+                //CMD: WaitingListEmpty
             }
         }
 
@@ -264,6 +282,14 @@ namespace PagTool
             WriteAllConfigToFiles(); //save settings
             //todo refresh
         }
+        
+        private void button_ConfigHotkeys_Click(object sender, EventArgs e)
+        {
+            ConfigHotkeyDialog configHotkeyDialog = new ConfigHotkeyDialog();
+            ConfigHotkeyResult result = configHotkeyDialog.Show(ConfigHotkey);
+            ConfigHotkey = result;
+            WriteAllConfigToFiles();
+        }
 
         #endregion
 
@@ -275,5 +301,7 @@ namespace PagTool
         }
 
         #endregion
+
+        
     }
 }

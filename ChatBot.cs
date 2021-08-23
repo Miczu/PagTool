@@ -32,7 +32,6 @@ namespace PagTool
         /// <summary>
         /// Connect to the Twitch channel using stored credentials.
         /// </summary>
-        
         internal void Connect(string twitchUsername, string twitchOAuth)
         {
             _credentials = new ConnectionCredentials(twitchUsername, twitchOAuth);
@@ -59,17 +58,15 @@ namespace PagTool
         internal void DisconnectWaitReconnect(string twitchUsername,
             string twitchOAuth, int secondsToWaitBeforeReconnecting = 5)
         {
-            LogOutput += $"[INFO] Disconnecting... \n";
+            LogOutput += $"{ParseLogLevel(LOG_LEVEL.LOG_WARNING)}Disconnecting... \n";
             _twitchClient.Disconnect();
-            //LogOutput += $"[INFO] Disconnected.\n";
 
             Task wait = Task.Run(() =>
             { 
                 //LogOutput += $"[INFO] Sleeping for {secondsToWaitBeforeReconnecting} seconds... \n";
                 Thread.Sleep(1000 * secondsToWaitBeforeReconnecting);
-                LogOutput += $"[INFO] Reconnecting... \n";
+                LogOutput += $"{ParseLogLevel(LOG_LEVEL.LOG_INFO)}Reconnecting... \n";
                 _twitchClient.Connect();
-                //LogOutput += $"[INFO] Reconnected.\n";
             });
         }
 
@@ -84,22 +81,18 @@ namespace PagTool
             {
                 case LOG_LEVEL.LOG_INFO:
                     return "[INFO] ";
-                    break;
                 
                 case LOG_LEVEL.LOG_WARNING:
                     return "[WARN] ";
-                    break;
                 
                 case LOG_LEVEL.LOG_ERROR:
                     return "[ERR!] ";
-                    break;
                 
                 case LOG_LEVEL.LOG_VERBOSE:
                     return "[VERBOSE] ";
-                    break;
                 
-                case LOG_LEVEL.LOG_DEFAULT:
-                case LOG_LEVEL.LOG_CHAT:
+                //case LOG_LEVEL.LOG_DEFAULT:
+                //case LOG_LEVEL.LOG_CHAT:
                 default:
                     return "";
             }
