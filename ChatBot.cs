@@ -55,8 +55,6 @@ namespace PagTool
             _twitchClient.Connect();
         }
 
-       
-
         // for use by the 'force reconnect' button
         internal void DisconnectWaitReconnect(string twitchUsername,
             string twitchOAuth, int secondsToWaitBeforeReconnecting = 5)
@@ -74,6 +72,48 @@ namespace PagTool
                 //LogOutput += $"[INFO] Reconnected.\n";
             });
         }
+
+        #region Manual Logging
+
+        //one stop shop for formatting logging tags so i can edit them once here and parse them from anywhere they might be used
+        internal enum LOG_LEVEL { LOG_DEFAULT = 0, LOG_INFO, LOG_WARNING, LOG_ERROR, LOG_VERBOSE, LOG_CHAT};
+
+        internal string ParseLogLevel(LOG_LEVEL level)
+        {
+            switch (level)
+            {
+                case LOG_LEVEL.LOG_INFO:
+                    return "[INFO] ";
+                    break;
+                
+                case LOG_LEVEL.LOG_WARNING:
+                    return "[WARN] ";
+                    break;
+                
+                case LOG_LEVEL.LOG_ERROR:
+                    return "[ERR!] ";
+                    break;
+                
+                case LOG_LEVEL.LOG_VERBOSE:
+                    return "[VERBOSE] ";
+                    break;
+                
+                case LOG_LEVEL.LOG_DEFAULT:
+                case LOG_LEVEL.LOG_CHAT:
+                default:
+                    return "";
+            }
+        }
+
+        //log a line to the debug log
+        internal void LogLine(string logMessage, LOG_LEVEL logLevel = 0)
+        {
+            LogOutput += $"{ParseLogLevel(logLevel)}{logMessage}\n";
+        }
+
+        #endregion
+
+        #region Chat
 
         // write something to chat. 
         internal void Chat(string message)
@@ -109,8 +149,6 @@ namespace PagTool
                         // TODO all of the above 
                     }
                 }
-            
-            
         }
 
         private string TryReplaceFormatStrings(string response, OnChatCommandReceivedArgs e)
@@ -122,37 +160,45 @@ namespace PagTool
             response = response.Replace("$TEST", _parent.FormatStringDemo(e.Command.ChatMessage.Username));
             return response;
         }
-        
+
+        #endregion
+
+        #region Auto-Logging
+
         // event listener methods: basically just append any info received to the LogOutput variable
         // TODO: this needs to be truncated eventually so as to not have some infinitely large string
         
         // TODO: clean these up + implement
         private void _OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
-            LogOutput += $"[CHAT] <{e.ChatMessage.Username}>: {e.ChatMessage.Message}\n";
+            LogOutput += $"{ParseLogLevel(LOG_LEVEL.LOG_DEFAULT)}<{e.ChatMessage.Username}>: {e.ChatMessage.Message}\n";
         }
         
         private void _OnConnected(object sender, OnConnectedArgs e)
         {
-            LogOutput += $"[INFO] Connected to IRC: {e.BotUsername}\n";
+            LogOutput += $"{ParseLogLevel(LOG_LEVEL.LOG_INFO)}Connected to IRC: {e.BotUsername}\n";
         }
         
         private void _OnLog(object sender, OnLogArgs e)
         {
             if(DoVerboseLogging)
-                LogOutput += "[VERBOSE] " + e.Data.ToString() + "\n";
+                LogOutput += $"{ParseLogLevel(LOG_LEVEL.LOG_VERBOSE)}{e.Data.ToString()}\n";
         }
         
         private void _OnDisconnected(object sender, OnDisconnectedEventArgs e)
         {
-            LogOutput += $"[WARN] Disconnected!\n";
+            LogOutput += $"{ParseLogLevel(LOG_LEVEL.LOG_WARNING)}Disconnected!\n";
             // TODO reconnect with increasing delay (do this in a Task and wait for ~10 seconds before beginning reconnect attempts in case of manual reconnect job)
             // collect disconnect time, allow option to chat when bot was last available so people in chat can know they should retry !name if it would have been missed
         }
         
         private void _OnError(object sender, OnErrorEventArgs e)
         {
-            LogOutput += $"[ERR!] Thrown: {e.Exception.InnerException}. \"{e.Exception.Message}\" ... \n";
+            LogOutput += $"{ParseLogLevel(LOG_LEVEL.LOG_ERROR)}Thrown: {e.Exception.InnerException}. \"{e.Exception.Message}\" ... \n";
         }
+
+        #endregion
+        
+        
     }
 }

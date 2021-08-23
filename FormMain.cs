@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -20,7 +21,6 @@ namespace PagTool
 
         // stores all the config info from command aliases
         public ConfigCommandAliasResult ConfigCommandAlias;
-
         public ConfigCommandBehaviorResult ConfigCommandBehavior;
         //todo make a Result for each config dialog and use them to save/load config files
 
@@ -33,7 +33,7 @@ namespace PagTool
         private bool _isApplicationClosing = false;
 
         #endregion
-
+        
         public FormMain()
         {
             // quickly instantiate this
@@ -50,10 +50,14 @@ namespace PagTool
             //if these files don't exist, create a new default config Result for each respectively and then store it. otherwise, parse the file
             TryParseConfigCommandAlias();
             TryParseConfigCommandBehavior();
+            //hotkey settings
             //etc etc
 
             //first, update all elements manually
             DoAllUpdates();
+            
+            //register global hotkeys
+            //RegisterAllHotkeys();
 
             // then, start thread to auto-refresh contents of components every 5 seconds
             Thread updateAndRefreshComponentsThread = new Thread(new ThreadStart(UpdateThreadTimer));
@@ -63,6 +67,58 @@ namespace PagTool
             _twitchChatBot.Connect(_twitchBotCredentials[0],
                 _twitchBotCredentials[1]); //todo again this needs to be much more secure but this will do for now
         }
+
+        #region Hotkey Management
+        
+        //variables to store hotkey hook IDs
+        const int HKIDSelectRandomUser = 1;
+        const int HKIDClearList = 2;
+        const int HKIDShuffleActiveList = 3;
+        
+        //variables to store hotkey MODIFIER keys
+        private int HKModSelectRandomUser;
+        private int HKModClearList;
+        private int HKModShuffleActiveList;
+        
+        //variables to store hotkey KEYS
+        private int HKKeySelectRandomUser;
+        private int HKKeyClearList;
+        private int HKKeyShuffleActiveList;
+
+        //import hotkey register functions
+        [DllImport("user32.dll")]
+        public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int key);
+        [DllImport("user32.dll")]
+        public static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+        public void RegisterAllHotkeys()
+        {
+            //if hotkeys are registered, unregister them
+            
+            //register all keys
+            //RegisterHotKey(this.Handle, HKIDSelectRandomUser, HKModSelectRandomUser, HKKeySelectRandomUser);
+            
+        }
+        
+        //what to do when a global hotkey is triggered
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == HKIDSelectRandomUser)
+            {
+                //select random user
+            }
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == HKIDClearList)
+            {
+                //clear list
+            }
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == HKIDShuffleActiveList)
+            {
+                //shuffle active
+            }
+            base.WndProc(ref m);
+        }
+
+        #endregion
 
         #region Component Update Thread
 
@@ -87,7 +143,6 @@ namespace PagTool
         }
 
         // https://www.codeproject.com/articles/269787/accessing-windows-forms-controls-across-threads
-        // please work
         delegate void UpdateTextDelegate(Control control, string text);
         void UpdateText(Control control, string text)
         {
@@ -102,7 +157,7 @@ namespace PagTool
 
         #endregion
 
-        #region Utility Functions
+        #region File I/O
 
         string[] CheckFileAndLoadTwitchCredentials(string filepath)
         {
@@ -115,13 +170,7 @@ namespace PagTool
                 return new[] {"DoesNotExist", "DoesNotExist"};
             }
         }
-
-        public void TryAddNameToWaitingList(string name)
-        {
-            //todo this and the other lists for good measure
-            _listWaiting.Add(name);
-        }
-
+        
         //if it exists, deserialize the contents. otherwise, create a new default object, use it, and write it to the file
         public void TryParseConfigCommandAlias()
         {
@@ -152,6 +201,25 @@ namespace PagTool
             File.WriteAllText("CommandAlias.config", JsonConvert.SerializeObject(ConfigCommandAlias));
             File.WriteAllText("CommandBehavior.config", JsonConvert.SerializeObject(ConfigCommandBehavior));
             // etc...
+        }
+
+        #endregion
+
+        #region Data Structure Interactions
+
+        public void TryAddNameToWaitingList(string name)
+        {
+            //todo this and the other lists for good measure
+            //todo check for repeat occurrences, log info/warning
+            if (_listWaiting.Contains(name)) //if name already exists in list
+            {
+                _twitchChatBot.LogLine($"Name already exists in Waiting List: <{name}>. Skipped.", ChatBot.LOG_LEVEL.LOG_WARNING); //CMD: NameAlreadyExists
+            }
+            else
+            {
+                _listWaiting.Add(name); //CMD: NameAdd
+                _twitchChatBot.LogLine($"Added to Waiting List: <{name}>.", ChatBot.LOG_LEVEL.LOG_INFO);
+            }
         }
 
         #endregion
