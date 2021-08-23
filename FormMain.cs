@@ -200,5 +200,14 @@ namespace PagTool
         }
 
         #endregion
+
+        #region ChatBot Getters (Temp?)
+
+        public string FormatStringDemo(string username)
+        {
+            return $"Hello {username}, this format string works!";
+        }
+
+        #endregion
     }
 }

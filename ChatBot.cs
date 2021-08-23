@@ -93,19 +93,27 @@ namespace PagTool
                     if (e.Command.CommandText.Equals(s))
                     {
                         _parent.TryAddNameToWaitingList(e.Command.ChatMessage.Username); //TryAddName
+                        
                         // get response from Behavior
                         // pass response to TryReplaceFormatStrings to String.Replace (or whatever) $STRINGS with values, passing reference to e for context
+                        
                         // e can be used to further reflectively access _parent for getting info like lineage by asking it through username references
                         // e.g.: <AddName> Response: Added name! Lineage is $LINEAGE
                         // ->    <in ReplaceFormatStrings> hey _parent what is e.Command.ChatMessage.Username's current Lineage?
                         // in this way we can avoid passing a bunch of references around and maintain the correct context... hopefully no race conditions this way :)
                         
                         // chat response after replacing strings
+                        Chat(TryReplaceFormatStrings(_parent.ConfigCommandBehavior.ResponseCmdNameAdd, e));
                         // TODO all of the above 
                     }
                 }
             
             
+        }
+
+        private string TryReplaceFormatStrings(string response, OnChatCommandReceivedArgs e)
+        {
+            return response.Replace("$TEST", _parent.FormatStringDemo(e.Command.ChatMessage.Username));
         }
         
         // event listener methods: basically just append any info received to the LogOutput variable
