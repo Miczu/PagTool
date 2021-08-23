@@ -15,12 +15,16 @@ namespace PagTool
     public class ConfigCommandAliasResult
     {
         // list all switches / settings in order here
-        public bool DoCmdNameAdd; public string ArgsCmdNameAdd; public string[] AliasCmdNameAdd;
+        // for this dialog: command descriptor (e.g., Add Name (!name)) + command aliases (with one minimum default value)
+        public bool DoCmdNameAdd = true; public string[] AliasCmdNameAdd = new []{"name"};
+
+        //use defaults only
+        public ConfigCommandAliasResult() { }
 
         // define all default values in the constructor
-        public ConfigCommandAliasResult(bool doCmdNameAdd = true, string argsCmdNameAdd = "name", string[] aliasCmdNameAdd = null)
+        public ConfigCommandAliasResult(bool doCmdNameAdd, string[] aliasCmdNameAdd)
         {
-            DoCmdNameAdd = doCmdNameAdd; ArgsCmdNameAdd = argsCmdNameAdd; AliasCmdNameAdd = aliasCmdNameAdd;
+            DoCmdNameAdd = doCmdNameAdd; AliasCmdNameAdd = aliasCmdNameAdd;
         }
     }
     public partial class ConfigCommandAliasDialog : Form
@@ -36,9 +40,8 @@ namespace PagTool
             
             // set all components values based on currentSettings
             checkBox_DoCmdNameAdd.Checked = currentSettings.DoCmdNameAdd;
-            textBox_ArgsDoCmdNameAdd.Text = currentSettings.ArgsCmdNameAdd;
             textBox_AliasDoCmdNameAdd.Text = (currentSettings.AliasCmdNameAdd == null) ? 
-                "" : (String.Join(" ", currentSettings.AliasCmdNameAdd));
+                "name" : (String.Join(" ", currentSettings.AliasCmdNameAdd));
             
             //show the dialog
             var result = ShowDialog();
@@ -48,9 +51,9 @@ namespace PagTool
             {
                 //if so, set all updated settings and return it
                 updatedSettings.DoCmdNameAdd = checkBox_DoCmdNameAdd.Checked;
-                updatedSettings.ArgsCmdNameAdd = textBox_ArgsDoCmdNameAdd.Text;
-                updatedSettings.AliasCmdNameAdd = textBox_AliasDoCmdNameAdd.Text.Split(' ');
-
+                updatedSettings.AliasCmdNameAdd = (String.IsNullOrWhiteSpace(textBox_AliasDoCmdNameAdd.Text)) ? //if the text field is empty, make sure we set the default
+                    new[] {"name"} : textBox_AliasDoCmdNameAdd.Text.Split(' ');
+                
                 return updatedSettings;
             } else
                 return currentSettings;

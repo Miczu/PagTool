@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -84,13 +85,22 @@ namespace PagTool
         private void _OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
             //todo
-            if (e.Command.CommandText == "name")
-            {
-                _parent.TryAddNameToWaitingList(e.Command.ChatMessage.Username);
-            }
-            //e.Command.CommandText
+            // i don't know how else to iterate through these in a more efficient way, so i'm just going to bite the bullet
+            // at least this will work
+            
+            //CheckAgainstList(e.Command.CommandText, )
+            
+            
+            
+            
         }
 
+       // bool CheckAgainstList(string chatCommand, string[] argList)
+        //{
+            
+        //}
+        
+        
         // event listener methods: basically just append any info received to the LogOutput variable
         // TODO: this needs to be truncated eventually so as to not have some infinitely large string
         
