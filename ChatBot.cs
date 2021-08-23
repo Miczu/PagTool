@@ -84,22 +84,18 @@ namespace PagTool
         //handle all !-prefix messages: parse, check against all command aliases, then execute on a match
         private void _OnChatCommandReceived(object sender, OnChatCommandReceivedArgs e)
         {
-            //todo
-            // i don't know how else to iterate through these in a more efficient way, so i'm just going to bite the bullet
-            // at least this will work
-            
-            //CheckAgainstList(e.Command.CommandText, )
-            
-            
+            //iterate through parent's ConfigCommandAlias for every AliasCmd[] object (maybe TODO make a collection?)
+            //check for a match and if so do the associated action if DoCmd is set
+
+            if(_parent.ConfigCommandAlias.DoCmdNameAdd) // NameAdd
+                foreach (string s in _parent.ConfigCommandAlias.AliasCmdNameAdd)
+                {
+                    if (e.Command.CommandText.Equals(s)) 
+                        _parent.TryAddNameToWaitingList(e.Command.ChatMessage.Username); //TryAddName
+                }
             
             
         }
-
-       // bool CheckAgainstList(string chatCommand, string[] argList)
-        //{
-            
-        //}
-        
         
         // event listener methods: basically just append any info received to the LogOutput variable
         // TODO: this needs to be truncated eventually so as to not have some infinitely large string

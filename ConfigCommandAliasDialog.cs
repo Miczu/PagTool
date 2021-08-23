@@ -27,6 +27,11 @@ namespace PagTool
             DoCmdNameAdd = doCmdNameAdd; AliasCmdNameAdd = aliasCmdNameAdd;
         }
     }
+    
+    // IN THIS FORM: define the names of the !commands that chat can use to trigger various functions. 
+    // e.g., !name can be reconfigured to be any !text or !word chosen and will still trigger.
+    // can also define multiple aliases for each command.
+    // ChatBot will iterate through all AliasCmd[] during OnChatCommandReceived to check for a match
     public partial class ConfigCommandAliasDialog : Form
     {
         public ConfigCommandAliasDialog()
