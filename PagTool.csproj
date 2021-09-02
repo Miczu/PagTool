@@ -46,6 +46,12 @@
       <EmbeddedResource Update="ConfigHotkeyDialog.resx">
         <DependentUpon>ConfigHotkeyDialog.cs</DependentUpon>
       </EmbeddedResource>
+      <EmbeddedResource Update="FormMain.resx">
+        <DependentUpon>FormMain.cs</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Update="ConfigCommandBehaviorDialog.resx">
+        <DependentUpon>ConfigCommandBehaviorDialog.cs</DependentUpon>
+      </EmbeddedResource>
     </ItemGroup>
 
 </Project>
