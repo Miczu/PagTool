@@ -7,9 +7,29 @@ using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
+// todo lineage modes: I,II,III / 1,2,3 / #1, #2, #3 / One, Two, Three / The First, The Second / etc
+
+
 // considering renaming to PogTool LUL
 namespace PagTool
 {
+    //class to package data into one object for serialization
+    public class DataSet
+    {
+        public List<string> listWaiting;
+        public List<string> listActive;
+        public List<string> listDead;
+        public Dictionary<string, int> dictLineage;
+
+        public DataSet(List<string> waiting, List<string> active, List<string> dead, Dictionary<string, int> lineage)
+        {
+            listWaiting = waiting;
+            listActive = active;
+            listDead = dead;
+            dictLineage = lineage;
+        }
+    }
+    
     //catch-all for general application settings
     public class GeneralSettings
     {
@@ -51,6 +71,9 @@ namespace PagTool
         public List<string> _listActive = new List<string>();
         public List<string> _listDead = new List<string>();
 
+        // name, generation
+        public Dictionary<string, int> _dictLineage = new Dictionary<string, int>();
+
         //used to let threads know if the application is terminating
         private bool _isApplicationClosing = false;
 
@@ -76,6 +99,9 @@ namespace PagTool
             TryParseGeneralSettings();
             //etc etc
 
+            //this will check default CurrentDataSet file for any data from last run, and load it into memory
+            TryParseDataSet();
+            
             //first, update all elements manually
             DoAllUpdates();
             
@@ -87,6 +113,7 @@ namespace PagTool
             updateAndRefreshComponentsThread.Start();
 
             // connect twitch bot to IRC chat
+            //todo make this depend on DoConnectOnStartup
             _twitchChatBot.Connect(_twitchBotCredentials[0],
                 _twitchBotCredentials[1]); //todo again this needs to be much more secure but this will do for now
         }
@@ -137,7 +164,13 @@ namespace PagTool
             while (!_isApplicationClosing)
             {
                 Thread.Sleep(1000 * 5); // every five seconds
+                
+                //visual only
                 DoAllUpdates();
+                
+                // save data
+                WriteAllConfigToFiles();
+                WriteAllDataToFiles();
             }
         }
 
@@ -152,7 +185,13 @@ namespace PagTool
             listBox_ListDead.Items.Clear();    listBox_ListDead.Items.AddRange(   _listDead.ToArray());
 
             //update the Lineage listbox
-            
+            listBox_CurrentLineage.Items.Clear();
+            foreach (string s in _dictLineage.Keys)
+            {
+                _dictLineage.TryGetValue(s, out int val);
+                listBox_CurrentLineage.Items.Add(s + ": " + val.ToString());
+            }
+
             //set the state of all General Settings
             checkBox_doVerboseLogging.Checked = GeneralSettings.DoVerboseLog;
             checkBox_ConnectOnStartup.Checked = GeneralSettings.DoConnectOnStartup;
@@ -244,6 +283,28 @@ namespace PagTool
             // etc...
         }
 
+        // load dataset from path
+        public void TryParseDataSet(string path = "CurrentDataSet")
+        {
+            if (File.Exists(path))
+            {
+                DataSet newDataSet = JsonConvert.DeserializeObject<DataSet>(File.ReadAllText(path));
+                _listWaiting = newDataSet.listWaiting;
+                _listActive = newDataSet.listActive;
+                _listDead = newDataSet.listDead;
+                _dictLineage = newDataSet.dictLineage;
+            }
+            else
+                WriteAllDataToFiles(path);
+        }
+
+        //save current dataset to filepath
+        public void WriteAllDataToFiles(string path = "CurrentDataSet")
+        {
+            DataSet currentDataSet = new DataSet(_listWaiting, _listActive, _listDead, _dictLineage);
+            File.WriteAllText(path, JsonConvert.SerializeObject(currentDataSet));
+        }
+
         #endregion
 
         #region Data Structure Interactions
@@ -279,14 +340,25 @@ namespace PagTool
                 int pos = new Random().Next(_listWaiting.Count - 1);
                 string selected = _listWaiting.ElementAt(pos); //get random position in list
                 
-                //todo all this
                 // update lineage of selected
+                // check if name exists in lineage, if so increment. otherwise, add new at 1
+                if (_dictLineage.ContainsKey(selected))
+                {
+                    _dictLineage.TryGetValue(selected, out int val);
+                    _dictLineage[selected] = ++val;
+                }
+                else
+                {
+                    _dictLineage.Add(selected, 1);
+                }
+                
+                //todo all this
                 // copy selected to clipboard + lineage if wanted
                 
-                // remove selected from waiting
-                _listWaiting.RemoveAt(pos);
                 // add selected to active
                 _listActive.Add(selected);
+                // remove selected from waiting
+                _listWaiting.Remove(selected);
                 
                 // log drawn user
                 _twitchChatBot.LogLine($"Selected random user from Waiting list: <{selected}>. Added to Active list.", ChatBot.LOG_LEVEL.LOG_INFO);
@@ -433,6 +505,7 @@ namespace PagTool
 
         private void button_ListWaiting_MoveToActive_Click(object sender, EventArgs e)
         {
+            // todo ALSO trigger the normal Select Random User CMD
             int index = listBox_ListWaiting.SelectedIndex;
             
             // assert & only then do code
@@ -445,6 +518,20 @@ namespace PagTool
                 _listActive.Add(s);
                 // remove item from waiting
                 _listWaiting.Remove(s);
+                
+                //update lineage
+                if (_dictLineage.ContainsKey(s))
+                {
+                    _dictLineage.TryGetValue(s, out int val);
+                    _dictLineage[s] = ++val;
+                }
+                else
+                {
+                    _dictLineage.Add(s, 1);
+                }
+                
+                //todo copy to clipboard
+                //todo cmd
                 
                 //disable buttons
                 button_ListWaiting_Remove.Enabled = false;
@@ -718,6 +805,10 @@ namespace PagTool
         // the application is closing: update variables to tell any external threads to stop
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // save data
+            WriteAllConfigToFiles();
+            WriteAllDataToFiles();
+            
             _isApplicationClosing = true;
             UnregisterAllHotkeys();
         }
