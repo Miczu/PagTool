@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 
 // todo lineage modes: I,II,III / 1,2,3 / #1, #2, #3 / One, Two, Three / The First, The Second / etc
 // todo esc key closes addtolist dialog and enter selects ok
+// todo select random user button, clear list button & hotkey, shuffle lists buttons
 
 // considering renaming to PogTool LUL
 namespace PagTool

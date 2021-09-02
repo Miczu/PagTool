@@ -70,6 +70,7 @@
             this.checkBox_doVerboseLogging = new System.Windows.Forms.CheckBox();
             this.label_VersionInfo = new System.Windows.Forms.Label();
             this.richTextBox_ConsoleDebugLog = new System.Windows.Forms.RichTextBox();
+            this.button_SelectRandom = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPage_ModifyData.SuspendLayout();
             this.tabPage_Configure.SuspendLayout();
@@ -90,6 +91,7 @@
             // 
             // tabPage_ModifyData
             // 
+            this.tabPage_ModifyData.Controls.Add(this.button_SelectRandom);
             this.tabPage_ModifyData.Controls.Add(this.button_LoadData);
             this.tabPage_ModifyData.Controls.Add(this.button_LineageAdd);
             this.tabPage_ModifyData.Controls.Add(this.button_LineageRemove);
@@ -171,11 +173,18 @@
             // 
             // richTextBox_SelectedUserDisplay
             // 
+            this.richTextBox_SelectedUserDisplay.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.richTextBox_SelectedUserDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.richTextBox_SelectedUserDisplay.ForeColor = System.Drawing.Color.Lime;
             this.richTextBox_SelectedUserDisplay.Location = new System.Drawing.Point(6, 388);
+            this.richTextBox_SelectedUserDisplay.MaxLength = 150;
+            this.richTextBox_SelectedUserDisplay.Multiline = false;
             this.richTextBox_SelectedUserDisplay.Name = "richTextBox_SelectedUserDisplay";
+            this.richTextBox_SelectedUserDisplay.ReadOnly = true;
             this.richTextBox_SelectedUserDisplay.Size = new System.Drawing.Size(250, 30);
             this.richTextBox_SelectedUserDisplay.TabIndex = 28;
-            this.richTextBox_SelectedUserDisplay.Text = "";
+            this.richTextBox_SelectedUserDisplay.Text = "test name";
+            this.richTextBox_SelectedUserDisplay.WordWrap = false;
             // 
             // listBox_CurrentLineage
             // 
@@ -547,7 +556,7 @@
             this.label_VersionInfo.Name = "label_VersionInfo";
             this.label_VersionInfo.Size = new System.Drawing.Size(786, 20);
             this.label_VersionInfo.TabIndex = 3;
-            this.label_VersionInfo.Text = "Version 2.16 Beta || https://github.com/corptact/PagTool || Do Not Distribute || " + "Corporate Tactics 2021";
+            this.label_VersionInfo.Text = "Version 2.24 Beta || https://github.com/corptact/PagTool || Do Not Distribute || " + "Corporate Tactics 2021";
             this.label_VersionInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // richTextBox_ConsoleDebugLog
@@ -558,6 +567,15 @@
             this.richTextBox_ConsoleDebugLog.Size = new System.Drawing.Size(780, 363);
             this.richTextBox_ConsoleDebugLog.TabIndex = 2;
             this.richTextBox_ConsoleDebugLog.Text = "";
+            // 
+            // button_SelectRandom
+            // 
+            this.button_SelectRandom.Location = new System.Drawing.Point(6, 352);
+            this.button_SelectRandom.Name = "button_SelectRandom";
+            this.button_SelectRandom.Size = new System.Drawing.Size(250, 30);
+            this.button_SelectRandom.TabIndex = 33;
+            this.button_SelectRandom.Text = "Select Random Name";
+            this.button_SelectRandom.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -601,6 +619,7 @@
         private System.Windows.Forms.Button button_LoadData;
         private System.Windows.Forms.Button button_SaveData;
         private System.Windows.Forms.Button button_SaveDebugLog;
+        private System.Windows.Forms.Button button_SelectRandom;
         private System.Windows.Forms.CheckBox checkBox_ConnectOnStartup;
         private System.Windows.Forms.CheckBox checkBox_doVerboseLogging;
         private System.Windows.Forms.Label label_VersionInfo;
