@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 
 // todo lineage modes: I,II,III / 1,2,3 / #1, #2, #3 / One, Two, Three / The First, The Second / etc
-
+// todo esc key closes addtolist dialog and enter selects ok
 
 // considering renaming to PogTool LUL
 namespace PagTool
@@ -183,6 +183,15 @@ namespace PagTool
             listBox_ListWaiting.Items.Clear(); listBox_ListWaiting.Items.AddRange(_listWaiting.ToArray());
             listBox_ListActive.Items.Clear();  listBox_ListActive.Items.AddRange( _listActive.ToArray());
             listBox_ListDead.Items.Clear();    listBox_ListDead.Items.AddRange(   _listDead.ToArray());
+
+            if (_listWaiting.Count <= 0)
+            {
+                //todo CMD WAITLIST EMPTY
+                listBox_ListWaiting.Items.Add("(waiting list is empty...)");
+            }
+            
+            if (_listActive.Count <= 0) listBox_ListActive.Items.Add("(active list is empty...)");
+            if (_listDead.Count <= 0) listBox_ListDead.Items.Add("(dead list is empty...)");
 
             //update the Lineage listbox
             listBox_CurrentLineage.Items.Clear();
@@ -394,7 +403,8 @@ namespace PagTool
             else
             {
                 // not safe! disable the buttons and return false.
-                _twitchChatBot.LogLine("ListWaiting index out of bounds. Did not complete action.", ChatBot.LOG_LEVEL.LOG_WARNING);
+                //_twitchChatBot.LogLine("ListWaiting index out of bounds. Did not complete action.", ChatBot.LOG_LEVEL.LOG_WARNING);
+                // logging was too noisy LOL
                 
                 button_ListWaiting_Remove.Enabled = false;
                 button_ListWaiting_MoveToActive.Enabled = false;
@@ -413,7 +423,7 @@ namespace PagTool
             else
             {
                 // not safe! disable the buttons and return false.
-                _twitchChatBot.LogLine("ListActive index out of bounds. Did not complete action.", ChatBot.LOG_LEVEL.LOG_WARNING);
+                //_twitchChatBot.LogLine("ListActive index out of bounds. Did not complete action.", ChatBot.LOG_LEVEL.LOG_WARNING);
                 
                 button_ListActive_Remove.Enabled = false;
                 button_ListActive_MoveToWaiting.Enabled = false;
@@ -432,7 +442,7 @@ namespace PagTool
             else
             {
                 // not safe! disable the buttons and return false.
-                _twitchChatBot.LogLine("ListDead index out of bounds. Did not complete action.", ChatBot.LOG_LEVEL.LOG_WARNING);
+                //_twitchChatBot.LogLine("ListDead index out of bounds. Did not complete action.", ChatBot.LOG_LEVEL.LOG_WARNING);
                 
                 button_ListDead_Remove.Enabled = false;
                 button_ListDead_MoveToActive.Enabled = false;
@@ -800,6 +810,149 @@ namespace PagTool
             }
         }
 
+        // Lineage
+        
+        private bool AssertLineageIndex(int index)
+        {
+            // ensure that index is a real item in the list.
+            if (index >= 0 && index < _dictLineage.Count)
+            {
+                // conditions are safe. return true so you can do your code.
+                return true;
+            }
+            else
+            {
+                // not safe! disable the buttons and return false.
+                //_twitchChatBot.LogLine("ListDead index out of bounds. Did not complete action.", ChatBot.LOG_LEVEL.LOG_WARNING);
+                
+                button_LineageRemove.Enabled = false;
+                button_LineageIncrement.Enabled = false;
+                button_LineageDecrement.Enabled = false;
+                return false;
+            }
+        }
+        
+        private void listBox_CurrentLineage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //store index in a variable to prevent a race condition when comparing against it multiple times
+            int index = listBox_CurrentLineage.SelectedIndex;
+            
+            // check if index in within array size
+            // if so, activate the mutable buttons
+            if (AssertLineageIndex(index))
+            {
+                button_LineageRemove.Enabled = true;
+                button_LineageIncrement.Enabled = true;
+                button_LineageDecrement.Enabled = true;
+            }
+        }
+        
+        private void button_LineageAdd_Click(object sender, EventArgs e)
+        {
+            //pop up a new input dialog
+            AddToListDialog dialog = new AddToListDialog();
+            string input = dialog.Show();
+            
+            //if not empty, try to add to list
+            if (!String.IsNullOrWhiteSpace(input))
+            {
+                //update lineage
+                if (_dictLineage.ContainsKey(input))
+                {
+                    _dictLineage.TryGetValue(input, out int val);
+                    _dictLineage[input] = ++val;
+                    _twitchChatBot.LogLine($"Element <{input}> already exists in Lineage, incrementing its value.", ChatBot.LOG_LEVEL.LOG_WARNING);
+                }
+                else
+                {
+                    _dictLineage.Add(input, 1);
+                    _twitchChatBot.LogLine($"Element <{input}> was added to Lineage with a generation of 1.", ChatBot.LOG_LEVEL.LOG_INFO);
+                }
+            }
+            else
+            {
+                //log that input was invalid
+                _twitchChatBot.LogLine("User input field was empty or invalid. No action taken.", ChatBot.LOG_LEVEL.LOG_WARNING);
+            }
+            
+            // refresh list contents
+            DoAllUpdates();
+        }
+        
+        private void button_LineageRemove_Click(object sender, EventArgs e)
+        {
+            int index = listBox_CurrentLineage.SelectedIndex;
+            
+            // assert & only then do code
+            if (AssertLineageIndex(index))
+            {
+                string s = _dictLineage.Keys.ElementAt(index);
+                
+                // remove item
+                _dictLineage.Remove(s);
+                
+                // disable buttons
+                button_ListDead_Remove.Enabled = false;
+                button_ListDead_MoveToActive.Enabled = false;
+                button_ListDead_MoveToWaiting.Enabled = false;
+                
+                _twitchChatBot.LogLine($"Element <{s}> removed from Lineage.", ChatBot.LOG_LEVEL.LOG_INFO);
+                
+                // refresh list contents
+                DoAllUpdates();
+            }
+        }
+
+        private void button_LineageIncrement_Click(object sender, EventArgs e)
+        {
+            int index = listBox_CurrentLineage.SelectedIndex;
+            
+            // assert & only then do code
+            if (AssertLineageIndex(index))
+            {
+                string s = _dictLineage.Keys.ElementAt(index);
+                
+                // increase the value
+                _dictLineage.TryGetValue(s, out int val);
+                _dictLineage[s] = ++val;
+                
+                // disable buttons
+                button_LineageRemove.Enabled = false;
+                button_LineageIncrement.Enabled = false;
+                button_LineageDecrement.Enabled = false;
+                
+                _twitchChatBot.LogLine($"Element <{s}> in Lineage was incremented.", ChatBot.LOG_LEVEL.LOG_INFO);
+                
+                // refresh list contents
+                DoAllUpdates();
+            }
+        }
+        
+        private void button_LineageDecrement_Click(object sender, EventArgs e)
+        {
+            int index = listBox_CurrentLineage.SelectedIndex;
+            
+            // assert & only then do code
+            if (AssertLineageIndex(index))
+            {
+                string s = _dictLineage.Keys.ElementAt(index);
+                
+                // decrease the value to a minimum of 1
+                _dictLineage.TryGetValue(s, out int val);
+                _dictLineage[s] = (--val < 1) ? 1 : val;
+                
+                // disable buttons
+                button_LineageRemove.Enabled = false;
+                button_LineageIncrement.Enabled = false;
+                button_LineageDecrement.Enabled = false;
+                
+                _twitchChatBot.LogLine($"Element <{s}> in Lineage was decremented.", ChatBot.LOG_LEVEL.LOG_INFO);
+                
+                // refresh list contents
+                DoAllUpdates();
+            }
+        }
+        
         #endregion
 
         // the application is closing: update variables to tell any external threads to stop
@@ -811,6 +964,24 @@ namespace PagTool
             
             _isApplicationClosing = true;
             UnregisterAllHotkeys();
+        }
+        
+        // pop a file dialog and store the dataset to it
+        private void button_SaveData_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog() {InitialDirectory = AppContext.BaseDirectory})
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    WriteAllDataToFiles(saveFileDialog.FileName); //so clean lmao i love it
+        }
+        
+        // pop a file dialog and try to load it as the current dataset (but save the current one first Just In Case)
+        private void button_LoadData_Click(object sender, EventArgs e)
+        {
+            WriteAllDataToFiles();
+            using (OpenFileDialog openFileDialog = new OpenFileDialog() {InitialDirectory = AppContext.BaseDirectory})
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    TryParseDataSet(openFileDialog.FileName);
+            DoAllUpdates();
         }
 
         // Debug Menu 'do verbose logging' checkbox updated, begin showing/hiding verbose logging
@@ -876,5 +1047,7 @@ namespace PagTool
         }
 
         #endregion
+
+        
     }
 }

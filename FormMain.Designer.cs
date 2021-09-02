@@ -31,13 +31,14 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage_ModifyData = new System.Windows.Forms.TabPage();
+            this.button_LoadData = new System.Windows.Forms.Button();
+            this.button_LineageAdd = new System.Windows.Forms.Button();
+            this.button_LineageRemove = new System.Windows.Forms.Button();
+            this.button_LineageIncrement = new System.Windows.Forms.Button();
             this.richTextBox_SelectedUserDisplay = new System.Windows.Forms.RichTextBox();
             this.listBox_CurrentLineage = new System.Windows.Forms.ListBox();
             this.verticalDivider2 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_LineageDecrement = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.button_ListDead_Remove = new System.Windows.Forms.Button();
             this.button_ListDead_Add = new System.Windows.Forms.Button();
@@ -56,7 +57,7 @@
             this.listBox_ListWaiting = new System.Windows.Forms.ListBox();
             this.button_ConfigListLogic = new System.Windows.Forms.Button();
             this.button_EditMainLists = new System.Windows.Forms.Button();
-            this.button_EditLineage = new System.Windows.Forms.Button();
+            this.button_SaveData = new System.Windows.Forms.Button();
             this.tabPage_ConfigureCommands = new System.Windows.Forms.TabPage();
             this.button_ConfigCommandBehavior = new System.Windows.Forms.Button();
             this.button_ConfigCommandAliases = new System.Windows.Forms.Button();
@@ -95,13 +96,14 @@
             // 
             // tabPage_ModifyData
             // 
+            this.tabPage_ModifyData.Controls.Add(this.button_LoadData);
+            this.tabPage_ModifyData.Controls.Add(this.button_LineageAdd);
+            this.tabPage_ModifyData.Controls.Add(this.button_LineageRemove);
+            this.tabPage_ModifyData.Controls.Add(this.button_LineageIncrement);
             this.tabPage_ModifyData.Controls.Add(this.richTextBox_SelectedUserDisplay);
             this.tabPage_ModifyData.Controls.Add(this.listBox_CurrentLineage);
             this.tabPage_ModifyData.Controls.Add(this.verticalDivider2);
-            this.tabPage_ModifyData.Controls.Add(this.button4);
-            this.tabPage_ModifyData.Controls.Add(this.button3);
-            this.tabPage_ModifyData.Controls.Add(this.button2);
-            this.tabPage_ModifyData.Controls.Add(this.button1);
+            this.tabPage_ModifyData.Controls.Add(this.button_LineageDecrement);
             this.tabPage_ModifyData.Controls.Add(this.label2);
             this.tabPage_ModifyData.Controls.Add(this.button_ListDead_Remove);
             this.tabPage_ModifyData.Controls.Add(this.button_ListDead_Add);
@@ -120,7 +122,7 @@
             this.tabPage_ModifyData.Controls.Add(this.listBox_ListWaiting);
             this.tabPage_ModifyData.Controls.Add(this.button_ConfigListLogic);
             this.tabPage_ModifyData.Controls.Add(this.button_EditMainLists);
-            this.tabPage_ModifyData.Controls.Add(this.button_EditLineage);
+            this.tabPage_ModifyData.Controls.Add(this.button_SaveData);
             this.tabPage_ModifyData.Location = new System.Drawing.Point(4, 22);
             this.tabPage_ModifyData.Name = "tabPage_ModifyData";
             this.tabPage_ModifyData.Padding = new System.Windows.Forms.Padding(3);
@@ -128,6 +130,51 @@
             this.tabPage_ModifyData.TabIndex = 0;
             this.tabPage_ModifyData.Text = "Modify Data";
             this.tabPage_ModifyData.UseVisualStyleBackColor = true;
+            // 
+            // button_LoadData
+            // 
+            this.button_LoadData.Location = new System.Drawing.Point(134, 6);
+            this.button_LoadData.Name = "button_LoadData";
+            this.button_LoadData.Size = new System.Drawing.Size(122, 30);
+            this.button_LoadData.TabIndex = 32;
+            this.button_LoadData.Text = "Load Data";
+            this.button_LoadData.UseVisualStyleBackColor = true;
+            this.button_LoadData.Click += new System.EventHandler(this.button_LoadData_Click);
+            // 
+            // button_LineageAdd
+            // 
+            this.button_LineageAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.button_LineageAdd.Location = new System.Drawing.Point(270, 393);
+            this.button_LineageAdd.Name = "button_LineageAdd";
+            this.button_LineageAdd.Size = new System.Drawing.Size(50, 26);
+            this.button_LineageAdd.TabIndex = 31;
+            this.button_LineageAdd.Text = "Add";
+            this.button_LineageAdd.UseVisualStyleBackColor = true;
+            this.button_LineageAdd.Click += new System.EventHandler(this.button_LineageAdd_Click);
+            // 
+            // button_LineageRemove
+            // 
+            this.button_LineageRemove.Enabled = false;
+            this.button_LineageRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.button_LineageRemove.Location = new System.Drawing.Point(326, 393);
+            this.button_LineageRemove.Name = "button_LineageRemove";
+            this.button_LineageRemove.Size = new System.Drawing.Size(50, 26);
+            this.button_LineageRemove.TabIndex = 30;
+            this.button_LineageRemove.Text = "Del";
+            this.button_LineageRemove.UseVisualStyleBackColor = true;
+            this.button_LineageRemove.Click += new System.EventHandler(this.button_LineageRemove_Click);
+            // 
+            // button_LineageIncrement
+            // 
+            this.button_LineageIncrement.Enabled = false;
+            this.button_LineageIncrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.button_LineageIncrement.Location = new System.Drawing.Point(384, 393);
+            this.button_LineageIncrement.Name = "button_LineageIncrement";
+            this.button_LineageIncrement.Size = new System.Drawing.Size(50, 26);
+            this.button_LineageIncrement.TabIndex = 29;
+            this.button_LineageIncrement.Text = "Inc +";
+            this.button_LineageIncrement.UseVisualStyleBackColor = true;
+            this.button_LineageIncrement.Click += new System.EventHandler(this.button_LineageIncrement_Click);
             // 
             // richTextBox_SelectedUserDisplay
             // 
@@ -144,6 +191,7 @@
             this.listBox_CurrentLineage.Name = "listBox_CurrentLineage";
             this.listBox_CurrentLineage.Size = new System.Drawing.Size(220, 381);
             this.listBox_CurrentLineage.TabIndex = 27;
+            this.listBox_CurrentLineage.SelectedIndexChanged += new System.EventHandler(this.listBox_CurrentLineage_SelectedIndexChanged);
             // 
             // verticalDivider2
             // 
@@ -154,49 +202,17 @@
             this.verticalDivider2.Size = new System.Drawing.Size(2, 424);
             this.verticalDivider2.TabIndex = 26;
             // 
-            // button4
+            // button_LineageDecrement
             // 
-            this.button4.Enabled = false;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.button4.Location = new System.Drawing.Point(368, 393);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(26, 26);
-            this.button4.TabIndex = 25;
-            this.button4.Text = "+";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Enabled = false;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.button3.Location = new System.Drawing.Point(400, 393);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(26, 26);
-            this.button3.TabIndex = 24;
-            this.button3.Text = "+";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Enabled = false;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.button2.Location = new System.Drawing.Point(432, 393);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(26, 26);
-            this.button2.TabIndex = 23;
-            this.button2.Text = "+";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Enabled = false;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.button1.Location = new System.Drawing.Point(464, 393);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(26, 26);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "+";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button_LineageDecrement.Enabled = false;
+            this.button_LineageDecrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.button_LineageDecrement.Location = new System.Drawing.Point(440, 393);
+            this.button_LineageDecrement.Name = "button_LineageDecrement";
+            this.button_LineageDecrement.Size = new System.Drawing.Size(50, 26);
+            this.button_LineageDecrement.TabIndex = 25;
+            this.button_LineageDecrement.Text = "Dec -";
+            this.button_LineageDecrement.UseVisualStyleBackColor = true;
+            this.button_LineageDecrement.Click += new System.EventHandler(this.button_LineageDecrement_Click);
             // 
             // label2
             // 
@@ -402,14 +418,15 @@
             this.button_EditMainLists.Text = "Edit Main Lists";
             this.button_EditMainLists.UseVisualStyleBackColor = true;
             // 
-            // button_EditLineage
+            // button_SaveData
             // 
-            this.button_EditLineage.Location = new System.Drawing.Point(6, 6);
-            this.button_EditLineage.Name = "button_EditLineage";
-            this.button_EditLineage.Size = new System.Drawing.Size(250, 30);
-            this.button_EditLineage.TabIndex = 1;
-            this.button_EditLineage.Text = "Edit Lineage";
-            this.button_EditLineage.UseVisualStyleBackColor = true;
+            this.button_SaveData.Location = new System.Drawing.Point(6, 6);
+            this.button_SaveData.Name = "button_SaveData";
+            this.button_SaveData.Size = new System.Drawing.Size(122, 30);
+            this.button_SaveData.TabIndex = 1;
+            this.button_SaveData.Text = "Save Data";
+            this.button_SaveData.UseVisualStyleBackColor = true;
+            this.button_SaveData.Click += new System.EventHandler(this.button_SaveData_Click);
             // 
             // tabPage_ConfigureCommands
             // 
@@ -607,11 +624,14 @@
         private System.Windows.Forms.Button button_ConfigCredentials;
         private System.Windows.Forms.Button button_ConfigHotkeys;
         private System.Windows.Forms.Button button_ConfigListLogic;
-        private System.Windows.Forms.Button button_EditLineage;
         private System.Windows.Forms.Button button_EditMainLists;
         private System.Windows.Forms.Button button_ForceReconnect;
         private System.Windows.Forms.Button button_ForceUpdate;
         private System.Windows.Forms.Button button_ImportExportData;
+        private System.Windows.Forms.Button button_LineageAdd;
+        private System.Windows.Forms.Button button_LineageDecrement;
+        private System.Windows.Forms.Button button_LineageIncrement;
+        private System.Windows.Forms.Button button_LineageRemove;
         private System.Windows.Forms.Button button_ListActive_Add;
         private System.Windows.Forms.Button button_ListActive_MoveToDead;
         private System.Windows.Forms.Button button_ListActive_MoveToWaiting;
@@ -624,11 +644,9 @@
         private System.Windows.Forms.Button button_ListWaiting_MoveToActive;
         private System.Windows.Forms.Button button_ListWaiting_MoveToDead;
         private System.Windows.Forms.Button button_ListWaiting_Remove;
+        private System.Windows.Forms.Button button_LoadData;
+        private System.Windows.Forms.Button button_SaveData;
         private System.Windows.Forms.Button button_SaveDebugLog;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.CheckBox checkBox_ConnectOnStartup;
         private System.Windows.Forms.CheckBox checkBox_doVerboseLogging;
         private System.Windows.Forms.Label label_VersionInfo;
