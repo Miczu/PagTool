@@ -15,8 +15,6 @@ namespace PagTool
     {
         public string LogOutput = ""; // public variable that will be accessed to update debug log in FormMain
 
-        public bool DoVerboseLogging = false;
-        
         // TODO: safely load and store credentials in some secure way
         private ConnectionCredentials _credentials;
 
@@ -174,7 +172,7 @@ namespace PagTool
         
         private void _OnLog(object sender, OnLogArgs e)
         {
-            if(DoVerboseLogging)
+            if(_parent.GeneralSettings.DoVerboseLog)
                 LogOutput += $"{ParseLogLevel(LOG_LEVEL.LOG_VERBOSE)}{e.Data.ToString()}\n";
         }
         

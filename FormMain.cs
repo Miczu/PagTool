@@ -10,6 +10,23 @@ using Newtonsoft.Json;
 // considering renaming to PogTool LUL
 namespace PagTool
 {
+    //catch-all for general application settings
+    public class GeneralSettings
+    {
+        public bool DoVerboseLog = false;
+        public bool DoConnectOnStartup = true;
+
+        //defaults only
+        public GeneralSettings() { }
+
+        //overridable
+        public GeneralSettings(bool doVerboseLog, bool doConnectOnStartup)
+        {
+            DoVerboseLog = doVerboseLog;
+            DoConnectOnStartup = doConnectOnStartup;
+        }
+    }
+
     public partial class FormMain : Form
     {
         #region Field Variables
@@ -19,6 +36,9 @@ namespace PagTool
 
         //config file data variables
         string[] _twitchBotCredentials;
+                
+        //general settings file
+        public GeneralSettings GeneralSettings;
 
         // dialog results: store all the information for each configurable aspect to the program
         public ConfigCommandAliasResult ConfigCommandAlias; //command aliases
@@ -53,6 +73,7 @@ namespace PagTool
             TryParseConfigCommandAlias();
             TryParseConfigCommandBehavior();
             TryParseConfigHotkey();
+            TryParseGeneralSettings();
             //etc etc
 
             //first, update all elements manually
@@ -129,6 +150,12 @@ namespace PagTool
             listBox_ListWaiting.Items.Clear(); listBox_ListWaiting.Items.AddRange(_listWaiting.ToArray());
             listBox_ListActive.Items.Clear();  listBox_ListActive.Items.AddRange( _listActive.ToArray());
             listBox_ListDead.Items.Clear();    listBox_ListDead.Items.AddRange(   _listDead.ToArray());
+
+            //update the Lineage listbox
+            
+            //set the state of all General Settings
+            checkBox_doVerboseLogging.Checked = GeneralSettings.DoVerboseLog;
+            checkBox_ConnectOnStartup.Checked = GeneralSettings.DoConnectOnStartup;
         }
 
         // https://www.codeproject.com/articles/269787/accessing-windows-forms-controls-across-threads
@@ -194,6 +221,18 @@ namespace PagTool
                 File.WriteAllText("Hotkey.config", JsonConvert.SerializeObject(ConfigHotkey));
             }
         }
+        
+        public void TryParseGeneralSettings()
+        {
+            if (File.Exists("GeneralSettings.config"))
+                GeneralSettings =
+                    JsonConvert.DeserializeObject<GeneralSettings>(File.ReadAllText("GeneralSettings.config"));
+            else
+            {
+                GeneralSettings = new GeneralSettings();
+                File.WriteAllText("GeneralSettings.config", JsonConvert.SerializeObject(GeneralSettings));
+            }
+        }
 
         // save all Config to files
         public void WriteAllConfigToFiles()
@@ -201,6 +240,7 @@ namespace PagTool
             File.WriteAllText("CommandAlias.config", JsonConvert.SerializeObject(ConfigCommandAlias));
             File.WriteAllText("CommandBehavior.config", JsonConvert.SerializeObject(ConfigCommandBehavior));
             File.WriteAllText("Hotkey.config", JsonConvert.SerializeObject(ConfigHotkey));
+            File.WriteAllText("GeneralSettings.config", JsonConvert.SerializeObject(GeneralSettings));
             // etc...
         }
 
@@ -685,8 +725,14 @@ namespace PagTool
         // Debug Menu 'do verbose logging' checkbox updated, begin showing/hiding verbose logging
         private void checkBox_doVerboseLogging_CheckedChanged(object sender, EventArgs e)
         {
-            _twitchChatBot.DoVerboseLogging = checkBox_doVerboseLogging.Checked;
-            // TODO save this setting to configs.
+            GeneralSettings.DoVerboseLog = checkBox_doVerboseLogging.Checked; //reference this instead of its own variable
+            WriteAllConfigToFiles();
+        }
+        
+        private void checkBox_ConnectOnStartup_CheckedChanged(object sender, EventArgs e)
+        {
+            GeneralSettings.DoConnectOnStartup = checkBox_ConnectOnStartup.Checked;
+            WriteAllConfigToFiles();
         }
 
         // reconnect button on the Debug page clicked. manually disconnect from IRC, wait, then reconnect.
@@ -739,6 +785,5 @@ namespace PagTool
         }
 
         #endregion
-
     }
 }
