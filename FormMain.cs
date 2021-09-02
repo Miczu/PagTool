@@ -1032,6 +1032,11 @@ namespace PagTool
             RegisterAllHotkeys();
         }
         
+        private void button_ConfigCredentials_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+        
         private void button_ForceUpdate_Click(object sender, EventArgs e)
         {
             DoAllUpdates();

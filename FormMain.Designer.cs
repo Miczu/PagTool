@@ -56,16 +56,12 @@
             this.listBox_ListActive = new System.Windows.Forms.ListBox();
             this.listBox_ListWaiting = new System.Windows.Forms.ListBox();
             this.button_ConfigListLogic = new System.Windows.Forms.Button();
-            this.button_EditMainLists = new System.Windows.Forms.Button();
             this.button_SaveData = new System.Windows.Forms.Button();
-            this.tabPage_ConfigureCommands = new System.Windows.Forms.TabPage();
-            this.button_ConfigCommandBehavior = new System.Windows.Forms.Button();
-            this.button_ConfigCommandAliases = new System.Windows.Forms.Button();
-            this.tabPage_LocalSettings = new System.Windows.Forms.TabPage();
-            this.button_ImportExportData = new System.Windows.Forms.Button();
+            this.tabPage_Configure = new System.Windows.Forms.TabPage();
             this.button_ConfigCredentials = new System.Windows.Forms.Button();
             this.button_ConfigHotkeys = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.button_ConfigCommandBehavior = new System.Windows.Forms.Button();
+            this.button_ConfigCommandAliases = new System.Windows.Forms.Button();
             this.tabPage_Debug = new System.Windows.Forms.TabPage();
             this.button_SaveDebugLog = new System.Windows.Forms.Button();
             this.checkBox_ConnectOnStartup = new System.Windows.Forms.CheckBox();
@@ -76,16 +72,14 @@
             this.richTextBox_ConsoleDebugLog = new System.Windows.Forms.RichTextBox();
             this.tabControl.SuspendLayout();
             this.tabPage_ModifyData.SuspendLayout();
-            this.tabPage_ConfigureCommands.SuspendLayout();
-            this.tabPage_LocalSettings.SuspendLayout();
+            this.tabPage_Configure.SuspendLayout();
             this.tabPage_Debug.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
             // 
             this.tabControl.Controls.Add(this.tabPage_ModifyData);
-            this.tabControl.Controls.Add(this.tabPage_ConfigureCommands);
-            this.tabControl.Controls.Add(this.tabPage_LocalSettings);
+            this.tabControl.Controls.Add(this.tabPage_Configure);
             this.tabControl.Controls.Add(this.tabPage_Debug);
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Margin = new System.Windows.Forms.Padding(0);
@@ -121,7 +115,6 @@
             this.tabPage_ModifyData.Controls.Add(this.listBox_ListActive);
             this.tabPage_ModifyData.Controls.Add(this.listBox_ListWaiting);
             this.tabPage_ModifyData.Controls.Add(this.button_ConfigListLogic);
-            this.tabPage_ModifyData.Controls.Add(this.button_EditMainLists);
             this.tabPage_ModifyData.Controls.Add(this.button_SaveData);
             this.tabPage_ModifyData.Location = new System.Drawing.Point(4, 22);
             this.tabPage_ModifyData.Name = "tabPage_ModifyData";
@@ -402,21 +395,12 @@
             // 
             // button_ConfigListLogic
             // 
-            this.button_ConfigListLogic.Location = new System.Drawing.Point(6, 78);
+            this.button_ConfigListLogic.Location = new System.Drawing.Point(6, 42);
             this.button_ConfigListLogic.Name = "button_ConfigListLogic";
             this.button_ConfigListLogic.Size = new System.Drawing.Size(250, 30);
             this.button_ConfigListLogic.TabIndex = 3;
             this.button_ConfigListLogic.Text = "Configure List Logic";
             this.button_ConfigListLogic.UseVisualStyleBackColor = true;
-            // 
-            // button_EditMainLists
-            // 
-            this.button_EditMainLists.Location = new System.Drawing.Point(6, 42);
-            this.button_EditMainLists.Name = "button_EditMainLists";
-            this.button_EditMainLists.Size = new System.Drawing.Size(250, 30);
-            this.button_EditMainLists.TabIndex = 2;
-            this.button_EditMainLists.Text = "Edit Main Lists";
-            this.button_EditMainLists.UseVisualStyleBackColor = true;
             // 
             // button_SaveData
             // 
@@ -428,17 +412,39 @@
             this.button_SaveData.UseVisualStyleBackColor = true;
             this.button_SaveData.Click += new System.EventHandler(this.button_SaveData_Click);
             // 
-            // tabPage_ConfigureCommands
+            // tabPage_Configure
             // 
-            this.tabPage_ConfigureCommands.Controls.Add(this.button_ConfigCommandBehavior);
-            this.tabPage_ConfigureCommands.Controls.Add(this.button_ConfigCommandAliases);
-            this.tabPage_ConfigureCommands.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_ConfigureCommands.Name = "tabPage_ConfigureCommands";
-            this.tabPage_ConfigureCommands.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_ConfigureCommands.Size = new System.Drawing.Size(792, 424);
-            this.tabPage_ConfigureCommands.TabIndex = 1;
-            this.tabPage_ConfigureCommands.Text = "Configure Commands";
-            this.tabPage_ConfigureCommands.UseVisualStyleBackColor = true;
+            this.tabPage_Configure.Controls.Add(this.button_ConfigCredentials);
+            this.tabPage_Configure.Controls.Add(this.button_ConfigHotkeys);
+            this.tabPage_Configure.Controls.Add(this.button_ConfigCommandBehavior);
+            this.tabPage_Configure.Controls.Add(this.button_ConfigCommandAliases);
+            this.tabPage_Configure.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_Configure.Name = "tabPage_Configure";
+            this.tabPage_Configure.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_Configure.Size = new System.Drawing.Size(792, 424);
+            this.tabPage_Configure.TabIndex = 1;
+            this.tabPage_Configure.Text = "Configure";
+            this.tabPage_Configure.UseVisualStyleBackColor = true;
+            // 
+            // button_ConfigCredentials
+            // 
+            this.button_ConfigCredentials.Location = new System.Drawing.Point(6, 144);
+            this.button_ConfigCredentials.Name = "button_ConfigCredentials";
+            this.button_ConfigCredentials.Size = new System.Drawing.Size(200, 40);
+            this.button_ConfigCredentials.TabIndex = 4;
+            this.button_ConfigCredentials.Text = "Configure Twitch Credentials";
+            this.button_ConfigCredentials.UseVisualStyleBackColor = true;
+            this.button_ConfigCredentials.Click += new System.EventHandler(this.button_ConfigCredentials_Click);
+            // 
+            // button_ConfigHotkeys
+            // 
+            this.button_ConfigHotkeys.Location = new System.Drawing.Point(6, 98);
+            this.button_ConfigHotkeys.Name = "button_ConfigHotkeys";
+            this.button_ConfigHotkeys.Size = new System.Drawing.Size(200, 40);
+            this.button_ConfigHotkeys.TabIndex = 3;
+            this.button_ConfigHotkeys.Text = "Configure Hotkeys";
+            this.button_ConfigHotkeys.UseVisualStyleBackColor = true;
+            this.button_ConfigHotkeys.Click += new System.EventHandler(this.button_ConfigHotkeys_Click);
             // 
             // button_ConfigCommandBehavior
             // 
@@ -459,55 +465,6 @@
             this.button_ConfigCommandAliases.Text = "Configure Command Aliases";
             this.button_ConfigCommandAliases.UseVisualStyleBackColor = true;
             this.button_ConfigCommandAliases.Click += new System.EventHandler(this.button_ConfigCommandAliases_Click);
-            // 
-            // tabPage_LocalSettings
-            // 
-            this.tabPage_LocalSettings.Controls.Add(this.button_ImportExportData);
-            this.tabPage_LocalSettings.Controls.Add(this.button_ConfigCredentials);
-            this.tabPage_LocalSettings.Controls.Add(this.button_ConfigHotkeys);
-            this.tabPage_LocalSettings.Controls.Add(this.label1);
-            this.tabPage_LocalSettings.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_LocalSettings.Name = "tabPage_LocalSettings";
-            this.tabPage_LocalSettings.Size = new System.Drawing.Size(792, 424);
-            this.tabPage_LocalSettings.TabIndex = 2;
-            this.tabPage_LocalSettings.Text = "Local Settings";
-            this.tabPage_LocalSettings.UseVisualStyleBackColor = true;
-            // 
-            // button_ImportExportData
-            // 
-            this.button_ImportExportData.Location = new System.Drawing.Point(6, 98);
-            this.button_ImportExportData.Name = "button_ImportExportData";
-            this.button_ImportExportData.Size = new System.Drawing.Size(200, 40);
-            this.button_ImportExportData.TabIndex = 3;
-            this.button_ImportExportData.Text = "Import / Export Data";
-            this.button_ImportExportData.UseVisualStyleBackColor = true;
-            // 
-            // button_ConfigCredentials
-            // 
-            this.button_ConfigCredentials.Location = new System.Drawing.Point(6, 52);
-            this.button_ConfigCredentials.Name = "button_ConfigCredentials";
-            this.button_ConfigCredentials.Size = new System.Drawing.Size(200, 40);
-            this.button_ConfigCredentials.TabIndex = 2;
-            this.button_ConfigCredentials.Text = "Configure Twitch Credentials";
-            this.button_ConfigCredentials.UseVisualStyleBackColor = true;
-            // 
-            // button_ConfigHotkeys
-            // 
-            this.button_ConfigHotkeys.Location = new System.Drawing.Point(6, 6);
-            this.button_ConfigHotkeys.Name = "button_ConfigHotkeys";
-            this.button_ConfigHotkeys.Size = new System.Drawing.Size(200, 40);
-            this.button_ConfigHotkeys.TabIndex = 1;
-            this.button_ConfigHotkeys.Text = "Configure Hotkeys";
-            this.button_ConfigHotkeys.UseVisualStyleBackColor = true;
-            this.button_ConfigHotkeys.Click += new System.EventHandler(this.button_ConfigHotkeys_Click);
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(297, 204);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(301, 27);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "hotkeys, import/export config files, change credentials, etc";
             // 
             // tabPage_Debug
             // 
@@ -613,8 +570,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.tabControl.ResumeLayout(false);
             this.tabPage_ModifyData.ResumeLayout(false);
-            this.tabPage_ConfigureCommands.ResumeLayout(false);
-            this.tabPage_LocalSettings.ResumeLayout(false);
+            this.tabPage_Configure.ResumeLayout(false);
             this.tabPage_Debug.ResumeLayout(false);
             this.ResumeLayout(false);
         }
@@ -624,10 +580,8 @@
         private System.Windows.Forms.Button button_ConfigCredentials;
         private System.Windows.Forms.Button button_ConfigHotkeys;
         private System.Windows.Forms.Button button_ConfigListLogic;
-        private System.Windows.Forms.Button button_EditMainLists;
         private System.Windows.Forms.Button button_ForceReconnect;
         private System.Windows.Forms.Button button_ForceUpdate;
-        private System.Windows.Forms.Button button_ImportExportData;
         private System.Windows.Forms.Button button_LineageAdd;
         private System.Windows.Forms.Button button_LineageDecrement;
         private System.Windows.Forms.Button button_LineageIncrement;
@@ -650,7 +604,6 @@
         private System.Windows.Forms.CheckBox checkBox_ConnectOnStartup;
         private System.Windows.Forms.CheckBox checkBox_doVerboseLogging;
         private System.Windows.Forms.Label label_VersionInfo;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox listBox_CurrentLineage;
         private System.Windows.Forms.ListBox listBox_ListActive;
@@ -659,9 +612,8 @@
         private System.Windows.Forms.RichTextBox richTextBox_ConsoleDebugLog;
         private System.Windows.Forms.RichTextBox richTextBox_SelectedUserDisplay;
         private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage tabPage_ConfigureCommands;
+        private System.Windows.Forms.TabPage tabPage_Configure;
         private System.Windows.Forms.TabPage tabPage_Debug;
-        private System.Windows.Forms.TabPage tabPage_LocalSettings;
         private System.Windows.Forms.TabPage tabPage_ModifyData;
         private System.Windows.Forms.Label verticalDivider2;
 
