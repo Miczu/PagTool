@@ -227,7 +227,8 @@ namespace PagTool
             {
                 list.Add(name);
                 _twitchChatBot.LogLine($"Added to list: <{name}>.", ChatBot.LOG_LEVEL.LOG_INFO);
-                //CMD : NAME ADD
+                //CMD : NAME ADD\
+                
             }
         }
 
@@ -267,78 +268,9 @@ namespace PagTool
         #endregion
 
         #region Event Handlers
-
-        // the application is closing: update variables to tell any external threads to stop
-        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            _isApplicationClosing = true;
-            UnregisterAllHotkeys();
-        }
-
-        // Debug Menu 'do verbose logging' checkbox updated, begin showing/hiding verbose logging
-        private void checkBox_doVerboseLogging_CheckedChanged(object sender, EventArgs e)
-        {
-            _twitchChatBot.DoVerboseLogging = checkBox_doVerboseLogging.Checked;
-            // TODO save this setting to configs.
-        }
-
-        // reconnect button on the Debug page clicked. manually disconnect from IRC, wait, then reconnect.
-        private void button_ForceReconnect_Click(object sender, EventArgs e)
-        {
-            // TODO: use _twitchChatBot.Chat(""); to post a message to chat -- should use the "chat message config" page for specific message
-            _twitchChatBot.DisconnectWaitReconnect(_twitchBotCredentials[0], _twitchBotCredentials[1]);
-        }
-
-        // 'configure command aliases'. show the custom dialog, then get its settings if OK, and save them to the config.
-        private void button_ConfigCommandAliases_Click(object sender, EventArgs e)
-        {
-            ConfigCommandAliasDialog configCommandAliasDialog = new ConfigCommandAliasDialog();
-            ConfigCommandAliasResult result = configCommandAliasDialog.Show(ConfigCommandAlias); //get updated settings (if any)
-            ConfigCommandAlias = result; //store new settings into memory
-            WriteAllConfigToFiles(); //save new settings to files
-            //todo refresh, potentially reconnect
-        }
         
-        private void button_ConfigCommandBehavior_Click(object sender, EventArgs e)
-        {
-            ConfigCommandBehaviorDialog configCommandBehaviorDialog = new ConfigCommandBehaviorDialog();
-            ConfigCommandBehaviorResult result = configCommandBehaviorDialog.Show(ConfigCommandBehavior); //get updated settings if any
-            ConfigCommandBehavior = result; //store new settings into memory
-            WriteAllConfigToFiles(); //save settings
-            //todo refresh
-        }
-        
-        private void button_ConfigHotkeys_Click(object sender, EventArgs e)
-        {
-            ConfigHotkeyDialog configHotkeyDialog = new ConfigHotkeyDialog();
-            ConfigHotkeyResult result = configHotkeyDialog.Show(ConfigHotkey);
-            ConfigHotkey = result;
-            WriteAllConfigToFiles();
-            RegisterAllHotkeys();
-        }
-        
-        private void button_ForceUpdate_Click(object sender, EventArgs e)
-        {
-            DoAllUpdates();
-        }
-
-        #endregion
-
-        #region ChatBot Getters (Temp?)
-
-        public string FormatStringDemo(string username)
-        {
-            return $"Hello {username}, this format string works!";
-        }
-
-        #endregion
-
         #region ListBox Elements
 
-        // todo these multiple accesses of the index create a race condition. index should be stored to a local variable and referenced with that instead
-        // i'm too lazy to implement this right now i just want working code ugh
-        // ok fine i'm doing it LOL
-        
         private bool AssertListWaitingIndex(int index)
         {
             // ensure that index is a real item in the list.
@@ -355,6 +287,44 @@ namespace PagTool
                 button_ListWaiting_Remove.Enabled = false;
                 button_ListWaiting_MoveToActive.Enabled = false;
                 button_ListWaiting_MoveToDead.Enabled = false;
+                return false;
+            }
+        }
+        private bool AssertListActiveIndex(int index)
+        {
+            // ensure that index is a real item in the list.
+            if (index >= 0 && index < _listActive.Count)
+            {
+                // conditions are safe. return true so you can do your code.
+                return true;
+            }
+            else
+            {
+                // not safe! disable the buttons and return false.
+                _twitchChatBot.LogLine("ListActive index out of bounds. Did not complete action.", ChatBot.LOG_LEVEL.LOG_WARNING);
+                
+                button_ListActive_Remove.Enabled = false;
+                button_ListActive_MoveToWaiting.Enabled = false;
+                button_ListActive_MoveToDead.Enabled = false;
+                return false;
+            }
+        }
+        private bool AssertListDeadIndex(int index)
+        {
+            // ensure that index is a real item in the list.
+            if (index >= 0 && index < _listDead.Count)
+            {
+                // conditions are safe. return true so you can do your code.
+                return true;
+            }
+            else
+            {
+                // not safe! disable the buttons and return false.
+                _twitchChatBot.LogLine("ListDead index out of bounds. Did not complete action.", ChatBot.LOG_LEVEL.LOG_WARNING);
+                
+                button_ListDead_Remove.Enabled = false;
+                button_ListDead_MoveToActive.Enabled = false;
+                button_ListDead_MoveToWaiting.Enabled = false;
                 return false;
             }
         }
@@ -378,7 +348,6 @@ namespace PagTool
         
         private void button_ListWaiting_Add_Click(object sender, EventArgs e)
         {
-            // this is the only button that doesn't need to asset that its index is real. 
             //pop up a new input dialog
             AddToListDialog dialog = new AddToListDialog();
             string input = dialog.Show();
@@ -477,46 +446,296 @@ namespace PagTool
 
         // ListActive
         
+        private void listBox_ListActive_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //store index in a variable to prevent a race condition when comparing against it multiple times
+            int index = listBox_ListActive.SelectedIndex;
+            
+            // check if index in within array size
+            // if so, activate the mutable buttons
+            if (AssertListActiveIndex(index))
+            {
+                button_ListActive_Remove.Enabled = true;
+                button_ListActive_MoveToWaiting.Enabled = true;
+                button_ListActive_MoveToDead.Enabled = true;
+            }
+        }
+        
         private void button_ListActive_MoveToWaiting_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            int index = listBox_ListActive.SelectedIndex;
+            
+            // assert & only then do code
+            if (AssertListActiveIndex(index))
+            {
+                string s = _listActive.ElementAt(index);
+                
+                // add item to dead list 
+                _listWaiting.Add(s);
+                // remove item from waiting
+                _listActive.Remove(s);
+                
+                // disable buttons
+                button_ListActive_Remove.Enabled = false;
+                button_ListActive_MoveToWaiting.Enabled = false;
+                button_ListActive_MoveToDead.Enabled = false;
+                
+                _twitchChatBot.LogLine($"Element <{s}> moved from ListActive to ListWaiting.", ChatBot.LOG_LEVEL.LOG_INFO);
+                
+                // refresh list contents
+                DoAllUpdates();
+            }
         }
 
         private void button_ListActive_Add_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            //pop up a new input dialog
+            AddToListDialog dialog = new AddToListDialog();
+            string input = dialog.Show();
+            
+            //if not empty, try to add to list
+            if (!String.IsNullOrWhiteSpace(input))
+            {
+                //try add to list
+                TryAddNameToList(_listActive, input);
+            }
+            else
+            {
+                //log that input was invalid
+                _twitchChatBot.LogLine("User input field was empty or invalid. No action taken.", ChatBot.LOG_LEVEL.LOG_WARNING);
+            }
+            
+            // refresh list contents
+            DoAllUpdates();
         }
 
         private void button_ListActive_Remove_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            int index = listBox_ListActive.SelectedIndex;
+            
+            // assert & only then do code
+            if (AssertListActiveIndex(index))
+            {
+                string s = _listActive.ElementAt(index);
+                
+                // remove item
+                _listActive.Remove(s);
+                // disable buttons
+                button_ListActive_Remove.Enabled = false;
+                button_ListActive_MoveToWaiting.Enabled = false;
+                button_ListActive_MoveToDead.Enabled = false;
+                
+                _twitchChatBot.LogLine($"Element <{s}> removed from ListActive.", ChatBot.LOG_LEVEL.LOG_INFO);
+                
+                // refresh list contents
+                DoAllUpdates();
+            }
         }
 
         private void button_ListActive_MoveToDead_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            int index = listBox_ListActive.SelectedIndex;
+            
+            // assert & only then do code
+            if (AssertListActiveIndex(index))
+            {
+                string s = _listActive.ElementAt(index);
+                
+                // add item to dead list 
+                _listDead.Add(s);
+                // remove item from waiting
+                _listActive.Remove(s);
+                
+                // disable buttons
+                button_ListActive_Remove.Enabled = false;
+                button_ListActive_MoveToWaiting.Enabled = false;
+                button_ListActive_MoveToDead.Enabled = false;
+                
+                _twitchChatBot.LogLine($"Element <{s}> moved from ListActive to ListDead.", ChatBot.LOG_LEVEL.LOG_INFO);
+                
+                // refresh list contents
+                DoAllUpdates();
+            }
         }
         
         // ListDead
         
+        private void listBox_ListDead_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //store index in a variable to prevent a race condition when comparing against it multiple times
+            int index = listBox_ListDead.SelectedIndex;
+            
+            // check if index in within array size
+            // if so, activate the mutable buttons
+            if (AssertListDeadIndex(index))
+            {
+                button_ListDead_Remove.Enabled = true;
+                button_ListDead_MoveToActive.Enabled = true;
+                button_ListDead_MoveToWaiting.Enabled = true;
+            }
+        }
+        
         private void button_ListDead_MoveToWaiting_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            int index = listBox_ListDead.SelectedIndex;
+            
+            // assert & only then do code
+            if (AssertListDeadIndex(index))
+            {
+                string s = _listDead.ElementAt(index);
+                
+                // add item to dead list 
+                _listWaiting.Add(s);
+                // remove item from waiting
+                _listDead.Remove(s);
+                
+                // disable buttons
+                button_ListDead_Remove.Enabled = false;
+                button_ListDead_MoveToWaiting.Enabled = false;
+                button_ListDead_MoveToActive.Enabled = false;
+                
+                _twitchChatBot.LogLine($"Element <{s}> moved from ListDead to ListWaiting.", ChatBot.LOG_LEVEL.LOG_INFO);
+                
+                // refresh list contents
+                DoAllUpdates();
+            }
         }
 
         private void button_ListDead_MoveToActive_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            int index = listBox_ListDead.SelectedIndex;
+            
+            // assert & only then do code
+            if (AssertListDeadIndex(index))
+            {
+                //another store to prevent a race condition
+                string s = _listDead.ElementAt(index);
+                
+                // add item to active list 
+                _listActive.Add(s);
+                // remove item from waiting
+                _listDead.Remove(s);
+                
+                //disable buttons
+                button_ListDead_Remove.Enabled = false;
+                button_ListDead_MoveToActive.Enabled = false;
+                button_ListDead_MoveToWaiting.Enabled = false;
+                
+                _twitchChatBot.LogLine($"Element <{s}> moved from ListDead to ListActive.", ChatBot.LOG_LEVEL.LOG_INFO);
+                
+                // refresh list contents
+                DoAllUpdates();
+            }
         }
 
         private void button_ListDead_Add_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            //pop up a new input dialog
+            AddToListDialog dialog = new AddToListDialog();
+            string input = dialog.Show();
+            
+            //if not empty, try to add to list
+            if (!String.IsNullOrWhiteSpace(input))
+            {
+                //try add to list
+                TryAddNameToList(_listDead, input);
+            }
+            else
+            {
+                //log that input was invalid
+                _twitchChatBot.LogLine("User input field was empty or invalid. No action taken.", ChatBot.LOG_LEVEL.LOG_WARNING);
+            }
+            
+            // refresh list contents
+            DoAllUpdates();
         }
 
         private void button_ListDead_Remove_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            int index = listBox_ListDead.SelectedIndex;
+            
+            // assert & only then do code
+            if (AssertListDeadIndex(index))
+            {
+                string s = _listDead.ElementAt(index);
+                
+                // remove item
+                _listDead.Remove(s);
+                // disable buttons
+                button_ListDead_Remove.Enabled = false;
+                button_ListDead_MoveToActive.Enabled = false;
+                button_ListDead_MoveToWaiting.Enabled = false;
+                
+                _twitchChatBot.LogLine($"Element <{s}> removed from ListDead.", ChatBot.LOG_LEVEL.LOG_INFO);
+                
+                // refresh list contents
+                DoAllUpdates();
+            }
+        }
+
+        #endregion
+
+        // the application is closing: update variables to tell any external threads to stop
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _isApplicationClosing = true;
+            UnregisterAllHotkeys();
+        }
+
+        // Debug Menu 'do verbose logging' checkbox updated, begin showing/hiding verbose logging
+        private void checkBox_doVerboseLogging_CheckedChanged(object sender, EventArgs e)
+        {
+            _twitchChatBot.DoVerboseLogging = checkBox_doVerboseLogging.Checked;
+            // TODO save this setting to configs.
+        }
+
+        // reconnect button on the Debug page clicked. manually disconnect from IRC, wait, then reconnect.
+        private void button_ForceReconnect_Click(object sender, EventArgs e)
+        {
+            // TODO: use _twitchChatBot.Chat(""); to post a message to chat -- should use the "chat message config" page for specific message
+            _twitchChatBot.DisconnectWaitReconnect(_twitchBotCredentials[0], _twitchBotCredentials[1]);
+        }
+
+        // 'configure command aliases'. show the custom dialog, then get its settings if OK, and save them to the config.
+        private void button_ConfigCommandAliases_Click(object sender, EventArgs e)
+        {
+            ConfigCommandAliasDialog configCommandAliasDialog = new ConfigCommandAliasDialog();
+            ConfigCommandAliasResult result = configCommandAliasDialog.Show(ConfigCommandAlias); //get updated settings (if any)
+            ConfigCommandAlias = result; //store new settings into memory
+            WriteAllConfigToFiles(); //save new settings to files
+            //todo refresh, potentially reconnect
+        }
+        
+        private void button_ConfigCommandBehavior_Click(object sender, EventArgs e)
+        {
+            ConfigCommandBehaviorDialog configCommandBehaviorDialog = new ConfigCommandBehaviorDialog();
+            ConfigCommandBehaviorResult result = configCommandBehaviorDialog.Show(ConfigCommandBehavior); //get updated settings if any
+            ConfigCommandBehavior = result; //store new settings into memory
+            WriteAllConfigToFiles(); //save settings
+            //todo refresh
+        }
+        
+        private void button_ConfigHotkeys_Click(object sender, EventArgs e)
+        {
+            ConfigHotkeyDialog configHotkeyDialog = new ConfigHotkeyDialog();
+            ConfigHotkeyResult result = configHotkeyDialog.Show(ConfigHotkey);
+            ConfigHotkey = result;
+            WriteAllConfigToFiles();
+            RegisterAllHotkeys();
+        }
+        
+        private void button_ForceUpdate_Click(object sender, EventArgs e)
+        {
+            DoAllUpdates();
+        }
+
+        #endregion
+
+        #region ChatBot Getters (Temp?)
+
+        public string FormatStringDemo(string username)
+        {
+            return $"Hello {username}, this format string works!";
         }
 
         #endregion

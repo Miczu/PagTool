@@ -66,11 +66,11 @@
             this.button_ConfigHotkeys = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage_Debug = new System.Windows.Forms.TabPage();
+            this.button_ForceUpdate = new System.Windows.Forms.Button();
             this.button_ForceReconnect = new System.Windows.Forms.Button();
             this.checkBox_doVerboseLogging = new System.Windows.Forms.CheckBox();
             this.label_VersionInfo = new System.Windows.Forms.Label();
             this.richTextBox_ConsoleDebugLog = new System.Windows.Forms.RichTextBox();
-            this.button_ForceUpdate = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPage_ModifyData.SuspendLayout();
             this.tabPage_ConfigureCommands.SuspendLayout();
@@ -360,6 +360,7 @@
             this.listBox_ListDead.Name = "listBox_ListDead";
             this.listBox_ListDead.Size = new System.Drawing.Size(250, 121);
             this.listBox_ListDead.TabIndex = 7;
+            this.listBox_ListDead.SelectedIndexChanged += new System.EventHandler(this.listBox_ListDead_SelectedIndexChanged);
             // 
             // listBox_ListActive
             // 
@@ -369,6 +370,7 @@
             this.listBox_ListActive.Name = "listBox_ListActive";
             this.listBox_ListActive.Size = new System.Drawing.Size(250, 121);
             this.listBox_ListActive.TabIndex = 6;
+            this.listBox_ListActive.SelectedIndexChanged += new System.EventHandler(this.listBox_ListActive_SelectedIndexChanged);
             // 
             // listBox_ListWaiting
             // 
@@ -502,6 +504,18 @@
             this.tabPage_Debug.Text = "Debug";
             this.tabPage_Debug.UseVisualStyleBackColor = true;
             // 
+            // button_ForceUpdate
+            // 
+            this.button_ForceUpdate.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_ForceUpdate.Location = new System.Drawing.Point(577, 29);
+            this.button_ForceUpdate.Margin = new System.Windows.Forms.Padding(3, 3, 6, 3);
+            this.button_ForceUpdate.Name = "button_ForceUpdate";
+            this.button_ForceUpdate.Size = new System.Drawing.Size(100, 20);
+            this.button_ForceUpdate.TabIndex = 6;
+            this.button_ForceUpdate.Text = "Refresh Visuals";
+            this.button_ForceUpdate.UseVisualStyleBackColor = true;
+            this.button_ForceUpdate.Click += new System.EventHandler(this.button_ForceUpdate_Click);
+            // 
             // button_ForceReconnect
             // 
             this.button_ForceReconnect.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -543,18 +557,6 @@
             this.richTextBox_ConsoleDebugLog.Size = new System.Drawing.Size(780, 363);
             this.richTextBox_ConsoleDebugLog.TabIndex = 2;
             this.richTextBox_ConsoleDebugLog.Text = "";
-            // 
-            // button_ForceUpdate
-            // 
-            this.button_ForceUpdate.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ForceUpdate.Location = new System.Drawing.Point(577, 29);
-            this.button_ForceUpdate.Margin = new System.Windows.Forms.Padding(3, 3, 6, 3);
-            this.button_ForceUpdate.Name = "button_ForceUpdate";
-            this.button_ForceUpdate.Size = new System.Drawing.Size(100, 20);
-            this.button_ForceUpdate.TabIndex = 6;
-            this.button_ForceUpdate.Text = "Refresh Visuals";
-            this.button_ForceUpdate.UseVisualStyleBackColor = true;
-            this.button_ForceUpdate.Click += new System.EventHandler(this.button_ForceUpdate_Click);
             // 
             // FormMain
             // 
