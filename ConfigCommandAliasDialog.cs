@@ -33,7 +33,7 @@ namespace PagTool
     // can also define multiple aliases for each command.
     // ChatBot will iterate through all AliasCmd[] during OnChatCommandReceived to check for a match
     public partial class ConfigCommandAliasDialog : Form
-    {
+    { 
         public ConfigCommandAliasDialog()
         {
             InitializeComponent();

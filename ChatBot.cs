@@ -127,7 +127,7 @@ namespace PagTool
                 {
                     if (e.Command.CommandText.Equals(s))
                     {
-                        _parent.TryAddNameToWaitingList(e.Command.ChatMessage.Username); //TryAddName
+                        _parent.TryAddNameToList(_parent._listWaiting, e.Command.ChatMessage.Username); //TryAddName
                         
                         // get response from Behavior
                         // pass response to TryReplaceFormatStrings to String.Replace (or whatever) $STRINGS with values, passing reference to e for context

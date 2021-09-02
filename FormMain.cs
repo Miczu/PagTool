@@ -27,9 +27,9 @@ namespace PagTool
         //todo make a Result for each config dialog and use them to save/load config files
 
         //three lists.
-        List<string> _listWaiting = new List<string>();
-        List<string> _listActive = new List<string>();
-        List<string> _listDead = new List<string>();
+        public List<string> _listWaiting = new List<string>();
+        public List<string> _listActive = new List<string>();
+        public List<string> _listDead = new List<string>();
 
         //used to let threads know if the application is terminating
         private bool _isApplicationClosing = false;
@@ -208,18 +208,26 @@ namespace PagTool
 
         #region Data Structure Interactions
 
-        public void TryAddNameToWaitingList(string name) //add user in chat to waitlist
+        public void TryAddNameToList(List<string> list, string name)
         {
-            //todo this and the other lists for good measure
-            //todo blacklist
-            if (_listWaiting.Contains(name)) //if name already exists in list
+            //check all three lists for redundancy
+            //check blacklist
+            //if all good, add <name> to <list>
+
+            // first, check the blacklist. TODO BLACKLLIST
+            
+            // is the name anywhere in the lists? 
+            if (_listWaiting.Contains(name) || _listActive.Contains(name) || _listDead.Contains(name))
             {
-                _twitchChatBot.LogLine($"Name already exists in Waiting List: <{name}>. Skipped.", ChatBot.LOG_LEVEL.LOG_WARNING); //CMD: NameAlreadyExists
+                //reject attempt and log. name already exists in list.
+                _twitchChatBot.LogLine($"Name already exists: <{name}>. Skipped.", ChatBot.LOG_LEVEL.LOG_WARNING);
+                // CMD: NAME ALREADY EXISTS
             }
-            else
+            else //name doesn't exist in list. go ahead!
             {
-                _listWaiting.Add(name); //CMD: NameAdd
-                _twitchChatBot.LogLine($"Added to Waiting List: <{name}>.", ChatBot.LOG_LEVEL.LOG_INFO);
+                list.Add(name);
+                _twitchChatBot.LogLine($"Added to list: <{name}>.", ChatBot.LOG_LEVEL.LOG_INFO);
+                //CMD : NAME ADD
             }
         }
 
@@ -308,6 +316,11 @@ namespace PagTool
             WriteAllConfigToFiles();
             RegisterAllHotkeys();
         }
+        
+        private void button_ForceUpdate_Click(object sender, EventArgs e)
+        {
+            DoAllUpdates();
+        }
 
         #endregion
 
@@ -320,6 +333,193 @@ namespace PagTool
 
         #endregion
 
+        #region ListBox Elements
+
+        // todo these multiple accesses of the index create a race condition. index should be stored to a local variable and referenced with that instead
+        // i'm too lazy to implement this right now i just want working code ugh
+        // ok fine i'm doing it LOL
         
+        private bool AssertListWaitingIndex(int index)
+        {
+            // ensure that index is a real item in the list.
+            if (index >= 0 && index < _listWaiting.Count)
+            {
+                // conditions are safe. return true so you can do your code.
+                return true;
+            }
+            else
+            {
+                // not safe! disable the buttons and return false.
+                _twitchChatBot.LogLine("ListWaiting index out of bounds. Did not complete action.", ChatBot.LOG_LEVEL.LOG_WARNING);
+                
+                button_ListWaiting_Remove.Enabled = false;
+                button_ListWaiting_MoveToActive.Enabled = false;
+                button_ListWaiting_MoveToDead.Enabled = false;
+                return false;
+            }
+        }
+        
+        // ListWaiting
+        
+        private void listBox_ListWaiting_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //store index in a variable to prevent a race condition when comparing against it multiple times
+            int index = listBox_ListWaiting.SelectedIndex;
+            
+            // check if index in within array size
+            // if so, activate the mutable buttons
+            if (AssertListWaitingIndex(index))
+            {
+                button_ListWaiting_Remove.Enabled = true;
+                button_ListWaiting_MoveToActive.Enabled = true;
+                button_ListWaiting_MoveToDead.Enabled = true;
+            }
+        }
+        
+        private void button_ListWaiting_Add_Click(object sender, EventArgs e)
+        {
+            // this is the only button that doesn't need to asset that its index is real. 
+            //pop up a new input dialog
+            AddToListDialog dialog = new AddToListDialog();
+            string input = dialog.Show();
+            
+            //if not empty, try to add to list
+            if (!String.IsNullOrWhiteSpace(input))
+            {
+                //try add to list
+                TryAddNameToList(_listWaiting, input);
+            }
+            else
+            {
+                //log that input was invalid
+                _twitchChatBot.LogLine("User input field was empty or invalid. No action taken.", ChatBot.LOG_LEVEL.LOG_WARNING);
+            }
+            
+            // refresh list contents
+            DoAllUpdates();
+        }
+
+        private void button_ListWaiting_Remove_Click(object sender, EventArgs e)
+        {
+            int index = listBox_ListWaiting.SelectedIndex;
+            
+            // assert & only then do code
+            if (AssertListWaitingIndex(index))
+            {
+                string s = _listWaiting.ElementAt(index);
+                
+                // remove item
+                _listWaiting.Remove(s);
+                // disable buttons
+                button_ListWaiting_Remove.Enabled = false;
+                button_ListWaiting_MoveToActive.Enabled = false;
+                button_ListWaiting_MoveToDead.Enabled = false;
+                
+                _twitchChatBot.LogLine($"Element <{s}> removed from ListWaiting.", ChatBot.LOG_LEVEL.LOG_INFO);
+                
+                // refresh list contents
+                DoAllUpdates();
+            }
+        }
+
+        private void button_ListWaiting_MoveToActive_Click(object sender, EventArgs e)
+        {
+            int index = listBox_ListWaiting.SelectedIndex;
+            
+            // assert & only then do code
+            if (AssertListWaitingIndex(index))
+            {
+                //another store to prevent a race condition
+                string s = _listWaiting.ElementAt(index);
+                
+                // add item to active list 
+                _listActive.Add(s);
+                // remove item from waiting
+                _listWaiting.Remove(s);
+                
+                //disable buttons
+                button_ListWaiting_Remove.Enabled = false;
+                button_ListWaiting_MoveToActive.Enabled = false;
+                button_ListWaiting_MoveToDead.Enabled = false;
+                
+                _twitchChatBot.LogLine($"Element <{s}> moved from ListWaiting to ListActive.", ChatBot.LOG_LEVEL.LOG_INFO);
+                
+                // refresh list contents
+                DoAllUpdates();
+            }
+        }
+        
+        private void button_ListWaiting_MoveToDead_Click(object sender, EventArgs e)
+        {
+            int index = listBox_ListWaiting.SelectedIndex;
+            
+            // assert & only then do code
+            if (AssertListWaitingIndex(index))
+            {
+                string s = _listWaiting.ElementAt(index);
+                
+                // add item to dead list 
+                _listDead.Add(s);
+                // remove item from waiting
+                _listWaiting.Remove(s);
+                
+                // disable buttons
+                button_ListWaiting_Remove.Enabled = false;
+                button_ListWaiting_MoveToActive.Enabled = false;
+                button_ListWaiting_MoveToDead.Enabled = false;
+                
+                _twitchChatBot.LogLine($"Element <{s}> moved from ListWaiting to ListDead.", ChatBot.LOG_LEVEL.LOG_INFO);
+                
+                // refresh list contents
+                DoAllUpdates();
+            }
+        }
+
+        // ListActive
+        
+        private void button_ListActive_MoveToWaiting_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void button_ListActive_Add_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void button_ListActive_Remove_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void button_ListActive_MoveToDead_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        // ListDead
+        
+        private void button_ListDead_MoveToWaiting_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void button_ListDead_MoveToActive_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void button_ListDead_Add_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void button_ListDead_Remove_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        #endregion
+
     }
 }

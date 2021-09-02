@@ -31,6 +31,14 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage_ModifyData = new System.Windows.Forms.TabPage();
+            this.richTextBox_SelectedUserDisplay = new System.Windows.Forms.RichTextBox();
+            this.listBox_CurrentLineage = new System.Windows.Forms.ListBox();
+            this.verticalDivider2 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.button_ListDead_Remove = new System.Windows.Forms.Button();
             this.button_ListDead_Add = new System.Windows.Forms.Button();
             this.button_ListDead_MoveToActive = new System.Windows.Forms.Button();
@@ -62,6 +70,7 @@
             this.checkBox_doVerboseLogging = new System.Windows.Forms.CheckBox();
             this.label_VersionInfo = new System.Windows.Forms.Label();
             this.richTextBox_ConsoleDebugLog = new System.Windows.Forms.RichTextBox();
+            this.button_ForceUpdate = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPage_ModifyData.SuspendLayout();
             this.tabPage_ConfigureCommands.SuspendLayout();
@@ -84,6 +93,14 @@
             // 
             // tabPage_ModifyData
             // 
+            this.tabPage_ModifyData.Controls.Add(this.richTextBox_SelectedUserDisplay);
+            this.tabPage_ModifyData.Controls.Add(this.listBox_CurrentLineage);
+            this.tabPage_ModifyData.Controls.Add(this.verticalDivider2);
+            this.tabPage_ModifyData.Controls.Add(this.button4);
+            this.tabPage_ModifyData.Controls.Add(this.button3);
+            this.tabPage_ModifyData.Controls.Add(this.button2);
+            this.tabPage_ModifyData.Controls.Add(this.button1);
+            this.tabPage_ModifyData.Controls.Add(this.label2);
             this.tabPage_ModifyData.Controls.Add(this.button_ListDead_Remove);
             this.tabPage_ModifyData.Controls.Add(this.button_ListDead_Add);
             this.tabPage_ModifyData.Controls.Add(this.button_ListDead_MoveToActive);
@@ -110,6 +127,84 @@
             this.tabPage_ModifyData.Text = "Modify Data";
             this.tabPage_ModifyData.UseVisualStyleBackColor = true;
             // 
+            // richTextBox_SelectedUserDisplay
+            // 
+            this.richTextBox_SelectedUserDisplay.Location = new System.Drawing.Point(6, 388);
+            this.richTextBox_SelectedUserDisplay.Name = "richTextBox_SelectedUserDisplay";
+            this.richTextBox_SelectedUserDisplay.Size = new System.Drawing.Size(250, 30);
+            this.richTextBox_SelectedUserDisplay.TabIndex = 28;
+            this.richTextBox_SelectedUserDisplay.Text = "";
+            // 
+            // listBox_CurrentLineage
+            // 
+            this.listBox_CurrentLineage.FormattingEnabled = true;
+            this.listBox_CurrentLineage.Location = new System.Drawing.Point(270, 6);
+            this.listBox_CurrentLineage.Name = "listBox_CurrentLineage";
+            this.listBox_CurrentLineage.Size = new System.Drawing.Size(220, 381);
+            this.listBox_CurrentLineage.TabIndex = 27;
+            // 
+            // verticalDivider2
+            // 
+            this.verticalDivider2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.verticalDivider2.Location = new System.Drawing.Point(262, 0);
+            this.verticalDivider2.Margin = new System.Windows.Forms.Padding(3);
+            this.verticalDivider2.Name = "verticalDivider2";
+            this.verticalDivider2.Size = new System.Drawing.Size(2, 424);
+            this.verticalDivider2.TabIndex = 26;
+            // 
+            // button4
+            // 
+            this.button4.Enabled = false;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.button4.Location = new System.Drawing.Point(368, 393);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(26, 26);
+            this.button4.TabIndex = 25;
+            this.button4.Text = "+";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Enabled = false;
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.button3.Location = new System.Drawing.Point(400, 393);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(26, 26);
+            this.button3.TabIndex = 24;
+            this.button3.Text = "+";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Enabled = false;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.button2.Location = new System.Drawing.Point(432, 393);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(26, 26);
+            this.button2.TabIndex = 23;
+            this.button2.Text = "+";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Enabled = false;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.button1.Location = new System.Drawing.Point(464, 393);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(26, 26);
+            this.button1.TabIndex = 22;
+            this.button1.Text = "+";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label2.Location = new System.Drawing.Point(496, 0);
+            this.label2.Margin = new System.Windows.Forms.Padding(3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(2, 424);
+            this.label2.TabIndex = 21;
+            // 
             // button_ListDead_Remove
             // 
             this.button_ListDead_Remove.Enabled = false;
@@ -120,10 +215,10 @@
             this.button_ListDead_Remove.TabIndex = 20;
             this.button_ListDead_Remove.Text = "x";
             this.button_ListDead_Remove.UseVisualStyleBackColor = true;
+            this.button_ListDead_Remove.Click += new System.EventHandler(this.button_ListDead_Remove_Click);
             // 
             // button_ListDead_Add
             // 
-            this.button_ListDead_Add.Enabled = false;
             this.button_ListDead_Add.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListDead_Add.Location = new System.Drawing.Point(504, 361);
             this.button_ListDead_Add.Name = "button_ListDead_Add";
@@ -131,6 +226,7 @@
             this.button_ListDead_Add.TabIndex = 19;
             this.button_ListDead_Add.Text = "+";
             this.button_ListDead_Add.UseVisualStyleBackColor = true;
+            this.button_ListDead_Add.Click += new System.EventHandler(this.button_ListDead_Add_Click);
             // 
             // button_ListDead_MoveToActive
             // 
@@ -142,6 +238,7 @@
             this.button_ListDead_MoveToActive.TabIndex = 18;
             this.button_ListDead_MoveToActive.Text = "↑";
             this.button_ListDead_MoveToActive.UseVisualStyleBackColor = true;
+            this.button_ListDead_MoveToActive.Click += new System.EventHandler(this.button_ListDead_MoveToActive_Click);
             // 
             // button_ListDead_MoveToWaiting
             // 
@@ -153,6 +250,7 @@
             this.button_ListDead_MoveToWaiting.TabIndex = 17;
             this.button_ListDead_MoveToWaiting.Text = "⇈";
             this.button_ListDead_MoveToWaiting.UseVisualStyleBackColor = true;
+            this.button_ListDead_MoveToWaiting.Click += new System.EventHandler(this.button_ListDead_MoveToWaiting_Click);
             // 
             // button_ListActive_MoveToDead
             // 
@@ -164,6 +262,7 @@
             this.button_ListActive_MoveToDead.TabIndex = 16;
             this.button_ListActive_MoveToDead.Text = "↓";
             this.button_ListActive_MoveToDead.UseVisualStyleBackColor = true;
+            this.button_ListActive_MoveToDead.Click += new System.EventHandler(this.button_ListActive_MoveToDead_Click);
             // 
             // button_ListActive_Remove
             // 
@@ -175,10 +274,11 @@
             this.button_ListActive_Remove.TabIndex = 15;
             this.button_ListActive_Remove.Text = "x";
             this.button_ListActive_Remove.UseVisualStyleBackColor = true;
+            this.button_ListActive_Remove.Click += new System.EventHandler(this.button_ListActive_Remove_Click);
             // 
             // button_ListActive_Add
             // 
-            this.button_ListActive_Add.Enabled = false;
+            this.button_ListActive_Add.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ListActive_Add.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListActive_Add.Location = new System.Drawing.Point(504, 183);
             this.button_ListActive_Add.Name = "button_ListActive_Add";
@@ -186,9 +286,11 @@
             this.button_ListActive_Add.TabIndex = 14;
             this.button_ListActive_Add.Text = "+";
             this.button_ListActive_Add.UseVisualStyleBackColor = true;
+            this.button_ListActive_Add.Click += new System.EventHandler(this.button_ListActive_Add_Click);
             // 
             // button_ListActive_MoveToWaiting
             // 
+            this.button_ListActive_MoveToWaiting.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ListActive_MoveToWaiting.Enabled = false;
             this.button_ListActive_MoveToWaiting.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListActive_MoveToWaiting.Location = new System.Drawing.Point(504, 151);
@@ -197,9 +299,11 @@
             this.button_ListActive_MoveToWaiting.TabIndex = 13;
             this.button_ListActive_MoveToWaiting.Text = "↑";
             this.button_ListActive_MoveToWaiting.UseVisualStyleBackColor = true;
+            this.button_ListActive_MoveToWaiting.Click += new System.EventHandler(this.button_ListActive_MoveToWaiting_Click);
             // 
             // button_ListWaiting_MoveToDead
             // 
+            this.button_ListWaiting_MoveToDead.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ListWaiting_MoveToDead.Enabled = false;
             this.button_ListWaiting_MoveToDead.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListWaiting_MoveToDead.Location = new System.Drawing.Point(504, 102);
@@ -208,9 +312,11 @@
             this.button_ListWaiting_MoveToDead.TabIndex = 12;
             this.button_ListWaiting_MoveToDead.Text = "⇊";
             this.button_ListWaiting_MoveToDead.UseVisualStyleBackColor = true;
+            this.button_ListWaiting_MoveToDead.Click += new System.EventHandler(this.button_ListWaiting_MoveToDead_Click);
             // 
             // button_ListWaiting_MoveToActive
             // 
+            this.button_ListWaiting_MoveToActive.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ListWaiting_MoveToActive.Enabled = false;
             this.button_ListWaiting_MoveToActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListWaiting_MoveToActive.Location = new System.Drawing.Point(504, 70);
@@ -219,9 +325,11 @@
             this.button_ListWaiting_MoveToActive.TabIndex = 11;
             this.button_ListWaiting_MoveToActive.Text = "↓";
             this.button_ListWaiting_MoveToActive.UseVisualStyleBackColor = true;
+            this.button_ListWaiting_MoveToActive.Click += new System.EventHandler(this.button_ListWaiting_MoveToActive_Click);
             // 
             // button_ListWaiting_Remove
             // 
+            this.button_ListWaiting_Remove.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ListWaiting_Remove.Enabled = false;
             this.button_ListWaiting_Remove.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListWaiting_Remove.Location = new System.Drawing.Point(504, 37);
@@ -230,10 +338,11 @@
             this.button_ListWaiting_Remove.TabIndex = 10;
             this.button_ListWaiting_Remove.Text = "x";
             this.button_ListWaiting_Remove.UseVisualStyleBackColor = true;
+            this.button_ListWaiting_Remove.Click += new System.EventHandler(this.button_ListWaiting_Remove_Click);
             // 
             // button_ListWaiting_Add
             // 
-            this.button_ListWaiting_Add.Enabled = false;
+            this.button_ListWaiting_Add.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ListWaiting_Add.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListWaiting_Add.Location = new System.Drawing.Point(504, 5);
             this.button_ListWaiting_Add.Name = "button_ListWaiting_Add";
@@ -241,6 +350,7 @@
             this.button_ListWaiting_Add.TabIndex = 9;
             this.button_ListWaiting_Add.Text = "+";
             this.button_ListWaiting_Add.UseVisualStyleBackColor = true;
+            this.button_ListWaiting_Add.Click += new System.EventHandler(this.button_ListWaiting_Add_Click);
             // 
             // listBox_ListDead
             // 
@@ -268,21 +378,22 @@
             this.listBox_ListWaiting.Name = "listBox_ListWaiting";
             this.listBox_ListWaiting.Size = new System.Drawing.Size(250, 121);
             this.listBox_ListWaiting.TabIndex = 5;
+            this.listBox_ListWaiting.SelectedIndexChanged += new System.EventHandler(this.listBox_ListWaiting_SelectedIndexChanged);
             // 
             // button_ConfigListLogic
             // 
-            this.button_ConfigListLogic.Location = new System.Drawing.Point(6, 98);
+            this.button_ConfigListLogic.Location = new System.Drawing.Point(6, 78);
             this.button_ConfigListLogic.Name = "button_ConfigListLogic";
-            this.button_ConfigListLogic.Size = new System.Drawing.Size(200, 40);
+            this.button_ConfigListLogic.Size = new System.Drawing.Size(250, 30);
             this.button_ConfigListLogic.TabIndex = 3;
             this.button_ConfigListLogic.Text = "Configure List Logic";
             this.button_ConfigListLogic.UseVisualStyleBackColor = true;
             // 
             // button_EditMainLists
             // 
-            this.button_EditMainLists.Location = new System.Drawing.Point(6, 52);
+            this.button_EditMainLists.Location = new System.Drawing.Point(6, 42);
             this.button_EditMainLists.Name = "button_EditMainLists";
-            this.button_EditMainLists.Size = new System.Drawing.Size(200, 40);
+            this.button_EditMainLists.Size = new System.Drawing.Size(250, 30);
             this.button_EditMainLists.TabIndex = 2;
             this.button_EditMainLists.Text = "Edit Main Lists";
             this.button_EditMainLists.UseVisualStyleBackColor = true;
@@ -291,7 +402,7 @@
             // 
             this.button_EditLineage.Location = new System.Drawing.Point(6, 6);
             this.button_EditLineage.Name = "button_EditLineage";
-            this.button_EditLineage.Size = new System.Drawing.Size(200, 40);
+            this.button_EditLineage.Size = new System.Drawing.Size(250, 30);
             this.button_EditLineage.TabIndex = 1;
             this.button_EditLineage.Text = "Edit Lineage";
             this.button_EditLineage.UseVisualStyleBackColor = true;
@@ -379,6 +490,7 @@
             // 
             // tabPage_Debug
             // 
+            this.tabPage_Debug.Controls.Add(this.button_ForceUpdate);
             this.tabPage_Debug.Controls.Add(this.button_ForceReconnect);
             this.tabPage_Debug.Controls.Add(this.checkBox_doVerboseLogging);
             this.tabPage_Debug.Controls.Add(this.label_VersionInfo);
@@ -420,7 +532,7 @@
             this.label_VersionInfo.Name = "label_VersionInfo";
             this.label_VersionInfo.Size = new System.Drawing.Size(786, 20);
             this.label_VersionInfo.TabIndex = 3;
-            this.label_VersionInfo.Text = "Version 2.x Beta || https://github.com/corptact/PagTool || Do Not Distribute || C" + "orporate Tactics 2021";
+            this.label_VersionInfo.Text = "Version 2.16 Beta || https://github.com/corptact/PagTool || Do Not Distribute || " + "Corporate Tactics 2021";
             this.label_VersionInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // richTextBox_ConsoleDebugLog
@@ -431,6 +543,18 @@
             this.richTextBox_ConsoleDebugLog.Size = new System.Drawing.Size(780, 363);
             this.richTextBox_ConsoleDebugLog.TabIndex = 2;
             this.richTextBox_ConsoleDebugLog.Text = "";
+            // 
+            // button_ForceUpdate
+            // 
+            this.button_ForceUpdate.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_ForceUpdate.Location = new System.Drawing.Point(577, 29);
+            this.button_ForceUpdate.Margin = new System.Windows.Forms.Padding(3, 3, 6, 3);
+            this.button_ForceUpdate.Name = "button_ForceUpdate";
+            this.button_ForceUpdate.Size = new System.Drawing.Size(100, 20);
+            this.button_ForceUpdate.TabIndex = 6;
+            this.button_ForceUpdate.Text = "Refresh Visuals";
+            this.button_ForceUpdate.UseVisualStyleBackColor = true;
+            this.button_ForceUpdate.Click += new System.EventHandler(this.button_ForceUpdate_Click);
             // 
             // FormMain
             // 
@@ -457,6 +581,7 @@
         private System.Windows.Forms.Button button_EditLineage;
         private System.Windows.Forms.Button button_EditMainLists;
         private System.Windows.Forms.Button button_ForceReconnect;
+        private System.Windows.Forms.Button button_ForceUpdate;
         private System.Windows.Forms.Button button_ImportExportData;
         private System.Windows.Forms.Button button_ListActive_Add;
         private System.Windows.Forms.Button button_ListActive_MoveToDead;
@@ -470,18 +595,26 @@
         private System.Windows.Forms.Button button_ListWaiting_MoveToActive;
         private System.Windows.Forms.Button button_ListWaiting_MoveToDead;
         private System.Windows.Forms.Button button_ListWaiting_Remove;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.CheckBox checkBox_doVerboseLogging;
         private System.Windows.Forms.Label label_VersionInfo;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox listBox_CurrentLineage;
         private System.Windows.Forms.ListBox listBox_ListActive;
         private System.Windows.Forms.ListBox listBox_ListDead;
         private System.Windows.Forms.ListBox listBox_ListWaiting;
         private System.Windows.Forms.RichTextBox richTextBox_ConsoleDebugLog;
+        private System.Windows.Forms.RichTextBox richTextBox_SelectedUserDisplay;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPage_ConfigureCommands;
         private System.Windows.Forms.TabPage tabPage_Debug;
         private System.Windows.Forms.TabPage tabPage_LocalSettings;
         private System.Windows.Forms.TabPage tabPage_ModifyData;
+        private System.Windows.Forms.Label verticalDivider2;
 
         #endregion
     }
