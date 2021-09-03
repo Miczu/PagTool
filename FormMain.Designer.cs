@@ -31,13 +31,13 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage_ModifyData = new System.Windows.Forms.TabPage();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.button_ClearDead = new System.Windows.Forms.Button();
+            this.button_ClearActive = new System.Windows.Forms.Button();
+            this.button_ClearWaiting = new System.Windows.Forms.Button();
+            this.button_ClearAll = new System.Windows.Forms.Button();
+            this.button_ClearLineage = new System.Windows.Forms.Button();
+            this.button_ShuffleBothIntoWaiting = new System.Windows.Forms.Button();
+            this.button_ShuffleDeadIntoWaiting = new System.Windows.Forms.Button();
             this.button_SelectRandom = new System.Windows.Forms.Button();
             this.button_LoadData = new System.Windows.Forms.Button();
             this.button_LineageAdd = new System.Windows.Forms.Button();
@@ -101,13 +101,13 @@
             // 
             // tabPage_ModifyData
             // 
-            this.tabPage_ModifyData.Controls.Add(this.button3);
-            this.tabPage_ModifyData.Controls.Add(this.button2);
-            this.tabPage_ModifyData.Controls.Add(this.button1);
-            this.tabPage_ModifyData.Controls.Add(this.button7);
-            this.tabPage_ModifyData.Controls.Add(this.button5);
-            this.tabPage_ModifyData.Controls.Add(this.button6);
-            this.tabPage_ModifyData.Controls.Add(this.button4);
+            this.tabPage_ModifyData.Controls.Add(this.button_ClearDead);
+            this.tabPage_ModifyData.Controls.Add(this.button_ClearActive);
+            this.tabPage_ModifyData.Controls.Add(this.button_ClearWaiting);
+            this.tabPage_ModifyData.Controls.Add(this.button_ClearAll);
+            this.tabPage_ModifyData.Controls.Add(this.button_ClearLineage);
+            this.tabPage_ModifyData.Controls.Add(this.button_ShuffleBothIntoWaiting);
+            this.tabPage_ModifyData.Controls.Add(this.button_ShuffleDeadIntoWaiting);
             this.tabPage_ModifyData.Controls.Add(this.button_SelectRandom);
             this.tabPage_ModifyData.Controls.Add(this.button_LoadData);
             this.tabPage_ModifyData.Controls.Add(this.button_LineageAdd);
@@ -143,71 +143,76 @@
             this.tabPage_ModifyData.Text = "Modify Data";
             this.tabPage_ModifyData.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // button_ClearDead
             // 
-            this.button3.Location = new System.Drawing.Point(176, 316);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(80, 30);
-            this.button3.TabIndex = 34;
-            this.button3.Text = "Clear Waiting";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button_ClearDead.Location = new System.Drawing.Point(176, 316);
+            this.button_ClearDead.Name = "button_ClearDead";
+            this.button_ClearDead.Size = new System.Drawing.Size(80, 30);
+            this.button_ClearDead.TabIndex = 34;
+            this.button_ClearDead.Text = "Clear Dead";
+            this.button_ClearDead.UseVisualStyleBackColor = true;
+            this.button_ClearDead.Click += new System.EventHandler(this.button_ClearDead_Click);
             // 
-            // button2
+            // button_ClearActive
             // 
-            this.button2.Location = new System.Drawing.Point(91, 316);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(80, 30);
-            this.button2.TabIndex = 34;
-            this.button2.Text = "Clear Active";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button_ClearActive.Location = new System.Drawing.Point(91, 316);
+            this.button_ClearActive.Name = "button_ClearActive";
+            this.button_ClearActive.Size = new System.Drawing.Size(80, 30);
+            this.button_ClearActive.TabIndex = 34;
+            this.button_ClearActive.Text = "Clear Active";
+            this.button_ClearActive.UseVisualStyleBackColor = true;
+            this.button_ClearActive.Click += new System.EventHandler(this.button_ClearActive_Click);
             // 
-            // button1
+            // button_ClearWaiting
             // 
-            this.button1.Location = new System.Drawing.Point(6, 316);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(80, 30);
-            this.button1.TabIndex = 34;
-            this.button1.Text = "Clear Waiting";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button_ClearWaiting.Location = new System.Drawing.Point(6, 316);
+            this.button_ClearWaiting.Name = "button_ClearWaiting";
+            this.button_ClearWaiting.Size = new System.Drawing.Size(80, 30);
+            this.button_ClearWaiting.TabIndex = 34;
+            this.button_ClearWaiting.Text = "Clear Waiting";
+            this.button_ClearWaiting.UseVisualStyleBackColor = true;
+            this.button_ClearWaiting.Click += new System.EventHandler(this.button_ClearWaiting_Click);
             // 
-            // button7
+            // button_ClearAll
             // 
-            this.button7.BackColor = System.Drawing.Color.Red;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.button7.Location = new System.Drawing.Point(7, 208);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(248, 30);
-            this.button7.TabIndex = 33;
-            this.button7.Text = "Clear All";
-            this.button7.UseVisualStyleBackColor = false;
+            this.button_ClearAll.BackColor = System.Drawing.Color.Red;
+            this.button_ClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_ClearAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.button_ClearAll.Location = new System.Drawing.Point(7, 208);
+            this.button_ClearAll.Name = "button_ClearAll";
+            this.button_ClearAll.Size = new System.Drawing.Size(248, 30);
+            this.button_ClearAll.TabIndex = 33;
+            this.button_ClearAll.Text = "Clear All";
+            this.button_ClearAll.UseVisualStyleBackColor = false;
+            this.button_ClearAll.Click += new System.EventHandler(this.button_ClearAll_Click);
             // 
-            // button5
+            // button_ClearLineage
             // 
-            this.button5.Location = new System.Drawing.Point(6, 244);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(250, 30);
-            this.button5.TabIndex = 33;
-            this.button5.Text = "Clear Lineage";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button_ClearLineage.Location = new System.Drawing.Point(6, 244);
+            this.button_ClearLineage.Name = "button_ClearLineage";
+            this.button_ClearLineage.Size = new System.Drawing.Size(250, 30);
+            this.button_ClearLineage.TabIndex = 33;
+            this.button_ClearLineage.Text = "Clear Lineage";
+            this.button_ClearLineage.UseVisualStyleBackColor = true;
+            this.button_ClearLineage.Click += new System.EventHandler(this.button_ClearLineage_Click);
             // 
-            // button6
+            // button_ShuffleBothIntoWaiting
             // 
-            this.button6.Location = new System.Drawing.Point(134, 280);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(122, 30);
-            this.button6.TabIndex = 33;
-            this.button6.Text = "Both >> Waiting";
-            this.button6.UseVisualStyleBackColor = true;
+            this.button_ShuffleBothIntoWaiting.Location = new System.Drawing.Point(134, 280);
+            this.button_ShuffleBothIntoWaiting.Name = "button_ShuffleBothIntoWaiting";
+            this.button_ShuffleBothIntoWaiting.Size = new System.Drawing.Size(122, 30);
+            this.button_ShuffleBothIntoWaiting.TabIndex = 33;
+            this.button_ShuffleBothIntoWaiting.Text = "Both >> Waiting";
+            this.button_ShuffleBothIntoWaiting.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // button_ShuffleDeadIntoWaiting
             // 
-            this.button4.Location = new System.Drawing.Point(6, 280);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(122, 30);
-            this.button4.TabIndex = 33;
-            this.button4.Text = "Only Dead >> Waiting";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button_ShuffleDeadIntoWaiting.Location = new System.Drawing.Point(6, 280);
+            this.button_ShuffleDeadIntoWaiting.Name = "button_ShuffleDeadIntoWaiting";
+            this.button_ShuffleDeadIntoWaiting.Size = new System.Drawing.Size(122, 30);
+            this.button_ShuffleDeadIntoWaiting.TabIndex = 33;
+            this.button_ShuffleDeadIntoWaiting.Text = "Only Dead >> Waiting";
+            this.button_ShuffleDeadIntoWaiting.UseVisualStyleBackColor = true;
             // 
             // button_SelectRandom
             // 
@@ -219,6 +224,7 @@
             this.button_SelectRandom.TabIndex = 33;
             this.button_SelectRandom.Text = "Select Random Name";
             this.button_SelectRandom.UseVisualStyleBackColor = false;
+            this.button_SelectRandom.Click += new System.EventHandler(this.button_SelectRandom_Click);
             // 
             // button_LoadData
             // 
@@ -700,6 +706,11 @@
             this.ResumeLayout(false);
         }
 
+        private System.Windows.Forms.Button button_ClearActive;
+        private System.Windows.Forms.Button button_ClearAll;
+        private System.Windows.Forms.Button button_ClearDead;
+        private System.Windows.Forms.Button button_ClearLineage;
+        private System.Windows.Forms.Button button_ClearWaiting;
         private System.Windows.Forms.Button button_ConfigCommandAliases;
         private System.Windows.Forms.Button button_ConfigCommandBehavior;
         private System.Windows.Forms.Button button_ConfigCredentials;
@@ -727,13 +738,8 @@
         private System.Windows.Forms.Button button_SaveData;
         private System.Windows.Forms.Button button_SaveDebugLog;
         private System.Windows.Forms.Button button_SelectRandom;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button_ShuffleBothIntoWaiting;
+        private System.Windows.Forms.Button button_ShuffleDeadIntoWaiting;
         private System.Windows.Forms.CheckBox checkBox_ConnectOnStartup;
         private System.Windows.Forms.CheckBox checkBox_doVerboseLogging;
         private System.Windows.Forms.Label label_RefreshTime;

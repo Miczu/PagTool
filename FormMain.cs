@@ -9,8 +9,6 @@ using Newtonsoft.Json;
 
 // todo lineage modes: I,II,III / 1,2,3 / #1, #2, #3 / One, Two, Three / The First, The Second / etc
 // todo esc key closes addtolist dialog and enter selects ok
-// todo select random user button, clear list button & hotkey, shuffle lists buttons
-// todo add update interval input
 
 // considering renaming to PogTool LUL
 namespace PagTool
@@ -35,19 +33,26 @@ namespace PagTool
     //catch-all for general application settings
     public class GeneralSettings
     {
-        public bool DoVerboseLog = false;
-        public bool DoConnectOnStartup = true;
-        public int AutoRefreshSeconds = 10;
+        public bool DoVerboseLog = false; //enable extra verbose logging in the debug log. for reasons?
+        public bool DoConnectOnStartup = true; //connect automaticall when the app launches using stored creds. todo implement this tho
+        public int AutoRefreshSeconds = 10; // seconds it takes for the ui to update all its information visually
+
+        public bool DoAskConfirmClearButtons = true; // should i pop up a confirm dialog when pressing the 'clear <list>' buttons in the UI?
+                                        // the red "clear all" button will ALWAYS get an 'are you sure' dialog. 
+        public bool DoAskConfirmClearHotkey = false; // should i pop up a confirm dialog when using the 'clear list' hotkey?
 
         //defaults only
         public GeneralSettings() { }
 
         //overridable
-        public GeneralSettings(bool doVerboseLog, bool doConnectOnStartup, int autoRefreshSeconds)
+        public GeneralSettings(bool doVerboseLog, bool doConnectOnStartup, int autoRefreshSeconds,
+                        bool doAskConfirmClearButtons, bool doAskConfirmClearHotkey)
         {
             DoVerboseLog = doVerboseLog;
             DoConnectOnStartup = doConnectOnStartup;
             AutoRefreshSeconds = autoRefreshSeconds;
+            DoAskConfirmClearButtons = doAskConfirmClearButtons;
+            DoAskConfirmClearHotkey = doAskConfirmClearHotkey;
         }
     }
 
@@ -391,9 +396,138 @@ namespace PagTool
             }
         }
 
+        // no confirm dialog
+        public void ClearWaitingList()
+        {
+            //delete all elements and update
+            _listWaiting.Clear();
+            _twitchChatBot.LogLine($"Cleared all elements in ListWaiting.", ChatBot.LOG_LEVEL.LOG_INFO);
+            DoAllUpdates();
+        }
+        public void ClearActiveList()
+        {
+            //delete all elements and update
+            _listActive.Clear();
+            _twitchChatBot.LogLine($"Cleared all elements in ListActive.", ChatBot.LOG_LEVEL.LOG_INFO);
+            DoAllUpdates();
+        }
+        public void ClearDeadList()
+        {
+            //delete all elements and update
+            _listDead.Clear();
+            _twitchChatBot.LogLine($"Cleared all elements in ListDead.", ChatBot.LOG_LEVEL.LOG_INFO);
+            DoAllUpdates();
+        }
+        public void ClearLineage()
+        {
+            //delete all elements and update
+            _dictLineage.Clear();
+            _twitchChatBot.LogLine($"Cleared all elements in Lineage.", ChatBot.LOG_LEVEL.LOG_INFO);
+            DoAllUpdates();
+        }
+
+        // confirm dialog, then delete
+        public void AskAndClearWaitingList()
+        {
+            if(MessageBox.Show("Are you sure?", "Confirm Delete", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                //delete all elements and update
+                _listWaiting.Clear();
+                _twitchChatBot.LogLine($"Cleared all elements in ListWaiting.", ChatBot.LOG_LEVEL.LOG_INFO);
+                DoAllUpdates();       
+            }
+        }
+        public void AskAndClearActiveList()
+        {
+            if(MessageBox.Show("Are you sure?", "Confirm Delete", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                //delete all elements and update
+                _listActive.Clear();
+                _twitchChatBot.LogLine($"Cleared all elements in ListActive.", ChatBot.LOG_LEVEL.LOG_INFO);
+                DoAllUpdates();           
+            }
+        }
+        public void AskAndClearDeadList()
+        {
+            if(MessageBox.Show("Are you sure?", "Confirm Delete", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                //delete all elements and update
+                _listDead.Clear();
+                _twitchChatBot.LogLine($"Cleared all elements in ListDead.", ChatBot.LOG_LEVEL.LOG_INFO);
+                DoAllUpdates();
+            }
+        }
+        public void AskAndClearLineage()
+        {
+            if(MessageBox.Show("Are you sure?", "Confirm Delete", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                //delete all elements and update
+                _dictLineage.Clear();
+                _twitchChatBot.LogLine($"Cleared all elements in Lineage.", ChatBot.LOG_LEVEL.LOG_INFO);
+                DoAllUpdates();                        
+            }
+        }
+        
         #endregion
 
         #region Event Handlers
+
+        //main buttons
+        private void button_SelectRandom_Click(object sender, EventArgs e)
+        {
+            TrySelectRandomUser();
+        }
+        
+        private void button_ClearWaiting_Click(object sender, EventArgs e)
+        {
+            //pop up a confirmation dialog and then clear (todo hotkey can ask for confirmation or not?)
+            if (GeneralSettings.DoAskConfirmClearButtons)
+                AskAndClearWaitingList();
+            else
+                ClearWaitingList();
+        }
+        private void button_ClearActive_Click(object sender, EventArgs e)
+        {
+            if (GeneralSettings.DoAskConfirmClearButtons)
+                AskAndClearActiveList();
+            else
+                ClearActiveList();
+        }
+        private void button_ClearDead_Click(object sender, EventArgs e)
+        {
+            if (GeneralSettings.DoAskConfirmClearButtons)
+                AskAndClearDeadList();
+            else
+                ClearDeadList();
+        }
+        private void button_ClearLineage_Click(object sender, EventArgs e)
+        {
+            if (GeneralSettings.DoAskConfirmClearButtons)
+                AskAndClearLineage();
+            else
+                ClearLineage();
+        }
+        
+        private void button_ClearAll_Click(object sender, EventArgs e)
+        {
+            //ALWAYS prompt for this one.
+            if(MessageBox.Show("Are you REALLY sure?\n" +
+                               "This will delete ALL currently loaded data!\n", 
+                "Confirm Delete", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                //i don't fucking trust my users LMAO
+                WriteAllDataToFiles("MostRecent-ClearAll-Data.Backup"); //sorry buster i'm not allowing any accidents here
+                
+                //delete everything and update
+                _listWaiting.Clear();
+                _listActive.Clear();
+                _listDead.Clear();
+                _dictLineage.Clear();
+                
+                _twitchChatBot.LogLine($"Cleared all data... a backup was made, just in case.", ChatBot.LOG_LEVEL.LOG_INFO);
+                DoAllUpdates();                        
+            }
+        }
         
         #region ListBox Elements
 
@@ -1064,6 +1198,7 @@ namespace PagTool
         }
 
         #endregion
+
 
         
     }
