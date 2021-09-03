@@ -31,6 +31,14 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage_ModifyData = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button_SelectRandom = new System.Windows.Forms.Button();
             this.button_LoadData = new System.Windows.Forms.Button();
             this.button_LineageAdd = new System.Windows.Forms.Button();
             this.button_LineageRemove = new System.Windows.Forms.Button();
@@ -63,6 +71,8 @@
             this.button_ConfigCommandBehavior = new System.Windows.Forms.Button();
             this.button_ConfigCommandAliases = new System.Windows.Forms.Button();
             this.tabPage_Debug = new System.Windows.Forms.TabPage();
+            this.label_RefreshTime = new System.Windows.Forms.Label();
+            this.numericUpDown_AutoRefreshSeconds = new System.Windows.Forms.NumericUpDown();
             this.button_SaveDebugLog = new System.Windows.Forms.Button();
             this.checkBox_ConnectOnStartup = new System.Windows.Forms.CheckBox();
             this.button_ForceUpdate = new System.Windows.Forms.Button();
@@ -70,11 +80,11 @@
             this.checkBox_doVerboseLogging = new System.Windows.Forms.CheckBox();
             this.label_VersionInfo = new System.Windows.Forms.Label();
             this.richTextBox_ConsoleDebugLog = new System.Windows.Forms.RichTextBox();
-            this.button_SelectRandom = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPage_ModifyData.SuspendLayout();
             this.tabPage_Configure.SuspendLayout();
             this.tabPage_Debug.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize) (this.numericUpDown_AutoRefreshSeconds)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -91,6 +101,13 @@
             // 
             // tabPage_ModifyData
             // 
+            this.tabPage_ModifyData.Controls.Add(this.button3);
+            this.tabPage_ModifyData.Controls.Add(this.button2);
+            this.tabPage_ModifyData.Controls.Add(this.button1);
+            this.tabPage_ModifyData.Controls.Add(this.button7);
+            this.tabPage_ModifyData.Controls.Add(this.button5);
+            this.tabPage_ModifyData.Controls.Add(this.button6);
+            this.tabPage_ModifyData.Controls.Add(this.button4);
             this.tabPage_ModifyData.Controls.Add(this.button_SelectRandom);
             this.tabPage_ModifyData.Controls.Add(this.button_LoadData);
             this.tabPage_ModifyData.Controls.Add(this.button_LineageAdd);
@@ -125,6 +142,83 @@
             this.tabPage_ModifyData.TabIndex = 0;
             this.tabPage_ModifyData.Text = "Modify Data";
             this.tabPage_ModifyData.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(176, 316);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(80, 30);
+            this.button3.TabIndex = 34;
+            this.button3.Text = "Clear Waiting";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(91, 316);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(80, 30);
+            this.button2.TabIndex = 34;
+            this.button2.Text = "Clear Active";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(6, 316);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(80, 30);
+            this.button1.TabIndex = 34;
+            this.button1.Text = "Clear Waiting";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.Color.Red;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.button7.Location = new System.Drawing.Point(7, 208);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(248, 30);
+            this.button7.TabIndex = 33;
+            this.button7.Text = "Clear All";
+            this.button7.UseVisualStyleBackColor = false;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(6, 244);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(250, 30);
+            this.button5.TabIndex = 33;
+            this.button5.Text = "Clear Lineage";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(134, 280);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(122, 30);
+            this.button6.TabIndex = 33;
+            this.button6.Text = "Both >> Waiting";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(6, 280);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(122, 30);
+            this.button4.TabIndex = 33;
+            this.button4.Text = "Only Dead >> Waiting";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button_SelectRandom
+            // 
+            this.button_SelectRandom.BackColor = System.Drawing.Color.Lime;
+            this.button_SelectRandom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_SelectRandom.Location = new System.Drawing.Point(7, 352);
+            this.button_SelectRandom.Name = "button_SelectRandom";
+            this.button_SelectRandom.Size = new System.Drawing.Size(248, 30);
+            this.button_SelectRandom.TabIndex = 33;
+            this.button_SelectRandom.Text = "Select Random Name";
+            this.button_SelectRandom.UseVisualStyleBackColor = false;
             // 
             // button_LoadData
             // 
@@ -477,6 +571,8 @@
             // 
             // tabPage_Debug
             // 
+            this.tabPage_Debug.Controls.Add(this.label_RefreshTime);
+            this.tabPage_Debug.Controls.Add(this.numericUpDown_AutoRefreshSeconds);
             this.tabPage_Debug.Controls.Add(this.button_SaveDebugLog);
             this.tabPage_Debug.Controls.Add(this.checkBox_ConnectOnStartup);
             this.tabPage_Debug.Controls.Add(this.button_ForceUpdate);
@@ -490,6 +586,25 @@
             this.tabPage_Debug.TabIndex = 3;
             this.tabPage_Debug.Text = "Debug";
             this.tabPage_Debug.UseVisualStyleBackColor = true;
+            // 
+            // label_RefreshTime
+            // 
+            this.label_RefreshTime.Location = new System.Drawing.Point(255, 28);
+            this.label_RefreshTime.Name = "label_RefreshTime";
+            this.label_RefreshTime.Size = new System.Drawing.Size(121, 20);
+            this.label_RefreshTime.TabIndex = 10;
+            this.label_RefreshTime.Text = "Auto-Refresh Time (sec)";
+            this.label_RefreshTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numericUpDown_AutoRefreshSeconds
+            // 
+            this.numericUpDown_AutoRefreshSeconds.Location = new System.Drawing.Point(382, 29);
+            this.numericUpDown_AutoRefreshSeconds.Minimum = new decimal(new int[] {5, 0, 0, 0});
+            this.numericUpDown_AutoRefreshSeconds.Name = "numericUpDown_AutoRefreshSeconds";
+            this.numericUpDown_AutoRefreshSeconds.Size = new System.Drawing.Size(40, 20);
+            this.numericUpDown_AutoRefreshSeconds.TabIndex = 9;
+            this.numericUpDown_AutoRefreshSeconds.Value = new decimal(new int[] {10, 0, 0, 0});
+            this.numericUpDown_AutoRefreshSeconds.ValueChanged += new System.EventHandler(this.numericUpDown_AutoRefreshSeconds_ValueChanged);
             // 
             // button_SaveDebugLog
             // 
@@ -568,15 +683,6 @@
             this.richTextBox_ConsoleDebugLog.TabIndex = 2;
             this.richTextBox_ConsoleDebugLog.Text = "";
             // 
-            // button_SelectRandom
-            // 
-            this.button_SelectRandom.Location = new System.Drawing.Point(6, 352);
-            this.button_SelectRandom.Name = "button_SelectRandom";
-            this.button_SelectRandom.Size = new System.Drawing.Size(250, 30);
-            this.button_SelectRandom.TabIndex = 33;
-            this.button_SelectRandom.Text = "Select Random Name";
-            this.button_SelectRandom.UseVisualStyleBackColor = true;
-            // 
             // FormMain
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -590,6 +696,7 @@
             this.tabPage_ModifyData.ResumeLayout(false);
             this.tabPage_Configure.ResumeLayout(false);
             this.tabPage_Debug.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize) (this.numericUpDown_AutoRefreshSeconds)).EndInit();
             this.ResumeLayout(false);
         }
 
@@ -620,14 +727,23 @@
         private System.Windows.Forms.Button button_SaveData;
         private System.Windows.Forms.Button button_SaveDebugLog;
         private System.Windows.Forms.Button button_SelectRandom;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.CheckBox checkBox_ConnectOnStartup;
         private System.Windows.Forms.CheckBox checkBox_doVerboseLogging;
+        private System.Windows.Forms.Label label_RefreshTime;
         private System.Windows.Forms.Label label_VersionInfo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox listBox_CurrentLineage;
         private System.Windows.Forms.ListBox listBox_ListActive;
         private System.Windows.Forms.ListBox listBox_ListDead;
         private System.Windows.Forms.ListBox listBox_ListWaiting;
+        private System.Windows.Forms.NumericUpDown numericUpDown_AutoRefreshSeconds;
         private System.Windows.Forms.RichTextBox richTextBox_ConsoleDebugLog;
         private System.Windows.Forms.RichTextBox richTextBox_SelectedUserDisplay;
         private System.Windows.Forms.TabControl tabControl;

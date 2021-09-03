@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 // todo lineage modes: I,II,III / 1,2,3 / #1, #2, #3 / One, Two, Three / The First, The Second / etc
 // todo esc key closes addtolist dialog and enter selects ok
 // todo select random user button, clear list button & hotkey, shuffle lists buttons
+// todo add update interval input
 
 // considering renaming to PogTool LUL
 namespace PagTool
@@ -36,15 +37,17 @@ namespace PagTool
     {
         public bool DoVerboseLog = false;
         public bool DoConnectOnStartup = true;
+        public int AutoRefreshSeconds = 10;
 
         //defaults only
         public GeneralSettings() { }
 
         //overridable
-        public GeneralSettings(bool doVerboseLog, bool doConnectOnStartup)
+        public GeneralSettings(bool doVerboseLog, bool doConnectOnStartup, int autoRefreshSeconds)
         {
             DoVerboseLog = doVerboseLog;
             DoConnectOnStartup = doConnectOnStartup;
+            AutoRefreshSeconds = autoRefreshSeconds;
         }
     }
 
@@ -164,7 +167,7 @@ namespace PagTool
         {
             while (!_isApplicationClosing)
             {
-                Thread.Sleep(1000 * 5); // every five seconds
+                Thread.Sleep(1000 * GeneralSettings.AutoRefreshSeconds); // every five seconds
                 
                 //visual only
                 DoAllUpdates();
@@ -205,6 +208,7 @@ namespace PagTool
             //set the state of all General Settings
             checkBox_doVerboseLogging.Checked = GeneralSettings.DoVerboseLog;
             checkBox_ConnectOnStartup.Checked = GeneralSettings.DoConnectOnStartup;
+            numericUpDown_AutoRefreshSeconds.Value = GeneralSettings.AutoRefreshSeconds;
         }
 
         // https://www.codeproject.com/articles/269787/accessing-windows-forms-controls-across-threads
@@ -995,6 +999,13 @@ namespace PagTool
         private void checkBox_ConnectOnStartup_CheckedChanged(object sender, EventArgs e)
         {
             GeneralSettings.DoConnectOnStartup = checkBox_ConnectOnStartup.Checked;
+            WriteAllConfigToFiles();
+        }
+        
+        // set the new auto-refresh interval
+        private void numericUpDown_AutoRefreshSeconds_ValueChanged(object sender, EventArgs e)
+        {
+            GeneralSettings.AutoRefreshSeconds = Convert.ToInt32(numericUpDown_AutoRefreshSeconds.Value);
             WriteAllConfigToFiles();
         }
 
