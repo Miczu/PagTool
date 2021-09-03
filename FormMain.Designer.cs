@@ -204,6 +204,7 @@
             this.button_ShuffleBothIntoWaiting.TabIndex = 33;
             this.button_ShuffleBothIntoWaiting.Text = "Both >> Waiting";
             this.button_ShuffleBothIntoWaiting.UseVisualStyleBackColor = true;
+            this.button_ShuffleBothIntoWaiting.Click += new System.EventHandler(this.button_ShuffleBothIntoWaiting_Click);
             // 
             // button_ShuffleDeadIntoWaiting
             // 
@@ -213,6 +214,7 @@
             this.button_ShuffleDeadIntoWaiting.TabIndex = 33;
             this.button_ShuffleDeadIntoWaiting.Text = "Only Dead >> Waiting";
             this.button_ShuffleDeadIntoWaiting.UseVisualStyleBackColor = true;
+            this.button_ShuffleDeadIntoWaiting.Click += new System.EventHandler(this.button_ShuffleDeadIntoWaiting_Click);
             // 
             // button_SelectRandom
             // 

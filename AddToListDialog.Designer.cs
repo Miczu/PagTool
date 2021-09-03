@@ -78,6 +78,7 @@ namespace PagTool// a v// an e//'
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AddToListDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add to List...";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -58,15 +58,15 @@ namespace PagTool
 
     public partial class FormMain : Form
     {
-        #region Field Variables
-
-        // TODO: field variables
+        #region Field Variable
+        
+        //she do everything with irc chat
         private ChatBot _twitchChatBot;
 
-        //config file data variables
+        //plaintext credentials :^) #NoZeroDays #OCSPCertified #GirlbossingIt TODO: disclose this to the users in the readme lmao
         string[] _twitchBotCredentials;
                 
-        //general settings file
+        //general settings file, anything that doesn't have its own dialog form to tweak falls in here
         public GeneralSettings GeneralSettings;
 
         // dialog results: store all the information for each configurable aspect to the program
@@ -527,6 +527,27 @@ namespace PagTool
                 _twitchChatBot.LogLine($"Cleared all data... a backup was made, just in case.", ChatBot.LOG_LEVEL.LOG_INFO);
                 DoAllUpdates();                        
             }
+        }
+        
+        private void button_ShuffleDeadIntoWaiting_Click(object sender, EventArgs e)
+        {
+            //predicated on the fact that no duplicates should exist in any of the three lists, we can safely just move every element without worrying about it generating errors
+            _listWaiting.AddRange(_listDead.ToArray());
+            _listDead.Clear();
+            
+            _twitchChatBot.LogLine("Shuffled contents of ListDead into ListWaiting.", ChatBot.LOG_LEVEL.LOG_INFO);
+            DoAllUpdates();
+        }
+        private void button_ShuffleBothIntoWaiting_Click(object sender, EventArgs e)
+        {
+            _listWaiting.AddRange(_listDead.ToArray());
+            _listDead.Clear();
+            
+            _listWaiting.AddRange(_listActive.ToArray());
+            _listActive.Clear();
+            
+            _twitchChatBot.LogLine("Shuffled contents of both ListDead and ListActive into ListWaiting.", ChatBot.LOG_LEVEL.LOG_INFO);
+            DoAllUpdates();
         }
         
         #region ListBox Elements
