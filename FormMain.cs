@@ -135,6 +135,8 @@ namespace PagTool
         
         //variables to store hotkey hook IDs, const here for static context (IDs don't need to change ever, just be re-registered)
         public const int HKIDSelectRandomUser = 1; 
+        public const int HKIDClearAllLists = 2; 
+        public const int HKIDShuffleIntoWaitlist = 3; 
 
         //import hotkey register functions
         [DllImport("user32.dll")]
@@ -146,13 +148,17 @@ namespace PagTool
         {
             //register all keys
             RegisterHotKey(this.Handle, HKIDSelectRandomUser, ConfigHotkey.HKModSelectRandomUser, ConfigHotkey.HKKeySelectRandomUser);
-            
+            RegisterHotKey(this.Handle, HKIDClearAllLists, ConfigHotkey.HKModClearAllLists, ConfigHotkey.HKKeyClearAllLists);
+            RegisterHotKey(this.Handle, HKIDShuffleIntoWaitlist, ConfigHotkey.HKModShuffleIntoWaitlist, ConfigHotkey.HKKeyShuffleIntoWaitlist);
+                        
         }
 
         public void UnregisterAllHotkeys()
         {
             //unregister all hotkeys
             UnregisterHotKey(this.Handle, HKIDSelectRandomUser);
+            UnregisterHotKey(this.Handle, HKIDClearAllLists);
+            UnregisterHotKey(this.Handle, HKIDShuffleIntoWaitlist);
         }
 
         //what to do when a global hotkey is triggered
@@ -163,6 +169,40 @@ namespace PagTool
                 //select random user
                 //MessageBox.Show("select random user hotkey triggered");
                 TrySelectRandomUser();
+            }
+            
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == HKIDClearAllLists)
+            {
+                //ALWAYS prompt for this one.
+                if(MessageBox.Show("Are you REALLY sure?\n" +
+                                   "This will delete ALL currently loaded data!\n", 
+                    "Confirm Delete", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    //i don't fucking trust my users LMAO
+                    WriteAllDataToFiles("MostRecent-ClearAll-Data.Backup"); //sorry buster i'm not allowing any accidents here
+                
+                    //delete everything and update
+                    _listWaiting.Clear();
+                    _listActive.Clear();
+                    _listDead.Clear();
+                    _dictLineage.Clear();
+                
+                    _twitchChatBot.LogLine($"Cleared all data... a backup was made, just in case.", ChatBot.LOG_LEVEL.LOG_INFO);
+                    DoAllUpdates();                        
+                }
+            }
+                        
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == HKIDShuffleIntoWaitlist)
+            {
+                //todo move this and the above into helper functions for sanity
+                _listWaiting.AddRange(_listDead.ToArray());
+                _listDead.Clear();
+            
+                _listWaiting.AddRange(_listActive.ToArray());
+                _listActive.Clear();
+            
+                _twitchChatBot.LogLine("Shuffled contents of both ListDead and ListActive into ListWaiting.", ChatBot.LOG_LEVEL.LOG_INFO);
+                DoAllUpdates();
             }
 
             base.WndProc(ref m);
@@ -420,10 +460,9 @@ namespace PagTool
             }
             else
             { // list is empty
-                
                 //log that and return
                 _twitchChatBot.LogLine($"Waiting list is empty! Cannot select random user.", ChatBot.LOG_LEVEL.LOG_WARNING);
-                //CMD: WaitingListEmpty
+                _twitchChatBot.Chat(ConfigCommandBehavior.ResponseCmdWaitlistEmpty);
             }
         }
 
@@ -1446,8 +1485,6 @@ namespace PagTool
         }
 
         #endregion
-
-
         
     }
 }

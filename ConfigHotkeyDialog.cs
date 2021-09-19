@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -8,14 +9,20 @@ namespace PagTool
     {
         //variables to store hotkey MODIFIER and KEYS
         public int HKModSelectRandomUser = 0; public int HKKeySelectRandomUser = 0; //select random user
+        public int HKModClearAllLists = 0; public int HKKeyClearAllLists = 0; //clear all lists
+        public int HKModShuffleIntoWaitlist = 0; public int HKKeyShuffleIntoWaitlist = 0; //shuffle BOTH into waitlist
             
         //default values
         public ConfigHotkeyResult() { }
 
         //override values
-        public ConfigHotkeyResult(int hkModSelectRandomUser, int hkKeySelectRandomUser)
+        public ConfigHotkeyResult(int hkModSelectRandomUser, int hkKeySelectRandomUser,
+            int hkModClearAllLists, int hkKeyClearAllLists,
+            int hkModShuffleIntoWaitlist, int hkKeyShuffleIntoWaitlist)
         {
             HKModSelectRandomUser = hkModSelectRandomUser; HKKeySelectRandomUser = hkKeySelectRandomUser;
+            HKModClearAllLists = hkModClearAllLists; HKKeyClearAllLists = hkKeyClearAllLists;
+            HKModShuffleIntoWaitlist = hkModShuffleIntoWaitlist; HKKeyShuffleIntoWaitlist = hkKeyShuffleIntoWaitlist;
         }
     }
 
@@ -51,6 +58,50 @@ namespace PagTool
                 updatedSettings.HKKeySelectRandomUser = e.KeyValue;
             }
         }
+        
+        private void textBox_ClearAllLists_KeyDown(object sender, KeyEventArgs e)
+        {
+            //set updatedSettings anytime a change is made
+
+            bool isKeyPressedModKey = ModKeys.Contains(e.KeyCode);
+
+            string isAltHeld = e.Alt ? "ALT + " : "";
+            string isCtrlHeld = e.Control ? "CTRL + " : "";
+            string isShiftHeld = e.Shift ? "SHIFT + " : "";
+            string key = isKeyPressedModKey ? "..." : e.KeyCode.ToString();
+
+            textBox_ClearAllLists.Text = $"{isCtrlHeld}{isAltHeld}{isShiftHeld}{key}";
+            
+            //assign mod bitmask and key value, only if key isn't a mod key
+            if (!isKeyPressedModKey)
+            {
+                int mod = 0; mod += e.Alt ? 1 : 0; mod += e.Control ? 2 : 0; mod += e.Shift ? 4 : 0;
+                updatedSettings.HKModClearAllLists = mod;
+                updatedSettings.HKKeyClearAllLists = e.KeyValue;
+            }
+        }
+        
+        private void textBox_ShuffleIntoWaitlist_KeyDown(object sender, KeyEventArgs e)
+        {
+            //set updatedSettings anytime a change is made
+
+            bool isKeyPressedModKey = ModKeys.Contains(e.KeyCode);
+
+            string isAltHeld = e.Alt ? "ALT + " : "";
+            string isCtrlHeld = e.Control ? "CTRL + " : "";
+            string isShiftHeld = e.Shift ? "SHIFT + " : "";
+            string key = isKeyPressedModKey ? "..." : e.KeyCode.ToString();
+
+            textBox_ShuffleIntoWaitlist.Text = $"{isCtrlHeld}{isAltHeld}{isShiftHeld}{key}";
+            
+            //assign mod bitmask and key value, only if key isn't a mod key
+            if (!isKeyPressedModKey)
+            {
+                int mod = 0; mod += e.Alt ? 1 : 0; mod += e.Control ? 2 : 0; mod += e.Shift ? 4 : 0;
+                updatedSettings.HKModShuffleIntoWaitlist = mod;
+                updatedSettings.HKKeyShuffleIntoWaitlist = e.KeyValue;
+            }
+        }
 
         public ConfigHotkeyResult Show(ConfigHotkeyResult currentSettings)
         {
@@ -60,6 +111,12 @@ namespace PagTool
             if (Keys.TryParse<Keys>(currentSettings.HKKeySelectRandomUser.ToString(), out var selectRandomUser)) //parse Key by int value
                 textBox_SelectRandomUser.Text = interpretBitmask(currentSettings.HKModSelectRandomUser) + selectRandomUser.ToString();
 
+            if (Keys.TryParse<Keys>(currentSettings.HKKeyClearAllLists.ToString(), out var clearAllLists)) 
+                textBox_ClearAllLists.Text = interpretBitmask(currentSettings.HKModClearAllLists) + clearAllLists.ToString();
+            
+            if (Keys.TryParse<Keys>(currentSettings.HKKeyShuffleIntoWaitlist.ToString(), out var shuffleIntoWaitlist)) //parse Key by int value
+                textBox_ShuffleIntoWaitlist.Text = interpretBitmask(currentSettings.HKModShuffleIntoWaitlist) + shuffleIntoWaitlist.ToString();
+            
             //show the dialog
             var result = ShowDialog();
 
@@ -99,5 +156,7 @@ namespace PagTool
                     return "CTRL + ALT + SHIFT + ";
             }
         }
+
+        
     }
 }

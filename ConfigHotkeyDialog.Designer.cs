@@ -35,6 +35,10 @@ namespace PagTool
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label_SelectRandom = new System.Windows.Forms.Label();
             this.textBox_SelectRandomUser = new System.Windows.Forms.TextBox();
+            this.label_ClearAllLists = new System.Windows.Forms.Label();
+            this.textBox_ClearAllLists = new System.Windows.Forms.TextBox();
+            this.label_ShuffleIntoWaitlist = new System.Windows.Forms.Label();
+            this.textBox_ShuffleIntoWaitlist = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -79,6 +83,46 @@ namespace PagTool
             this.textBox_SelectRandomUser.TabIndex = 4;
             this.textBox_SelectRandomUser.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_SelectRandomUser_KeyDown);
             // 
+            // label_ClearAllLists
+            // 
+            this.label_ClearAllLists.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label_ClearAllLists.Location = new System.Drawing.Point(12, 154);
+            this.label_ClearAllLists.Name = "label_ClearAllLists";
+            this.label_ClearAllLists.Size = new System.Drawing.Size(107, 20);
+            this.label_ClearAllLists.TabIndex = 3;
+            this.label_ClearAllLists.Text = "Clear All Lists";
+            this.label_ClearAllLists.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textBox_ClearAllLists
+            // 
+            this.textBox_ClearAllLists.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_ClearAllLists.Location = new System.Drawing.Point(125, 154);
+            this.textBox_ClearAllLists.Name = "textBox_ClearAllLists";
+            this.textBox_ClearAllLists.ReadOnly = true;
+            this.textBox_ClearAllLists.Size = new System.Drawing.Size(198, 20);
+            this.textBox_ClearAllLists.TabIndex = 4;
+            this.textBox_ClearAllLists.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_ClearAllLists_KeyDown);
+            // 
+            // label_ShuffleIntoWaitlist
+            // 
+            this.label_ShuffleIntoWaitlist.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label_ShuffleIntoWaitlist.Location = new System.Drawing.Point(12, 130);
+            this.label_ShuffleIntoWaitlist.Name = "label_ShuffleIntoWaitlist";
+            this.label_ShuffleIntoWaitlist.Size = new System.Drawing.Size(107, 20);
+            this.label_ShuffleIntoWaitlist.TabIndex = 3;
+            this.label_ShuffleIntoWaitlist.Text = "Shuffle Into Waitlist";
+            this.label_ShuffleIntoWaitlist.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textBox_ShuffleIntoWaitlist
+            // 
+            this.textBox_ShuffleIntoWaitlist.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_ShuffleIntoWaitlist.Location = new System.Drawing.Point(125, 130);
+            this.textBox_ShuffleIntoWaitlist.Name = "textBox_ShuffleIntoWaitlist";
+            this.textBox_ShuffleIntoWaitlist.ReadOnly = true;
+            this.textBox_ShuffleIntoWaitlist.Size = new System.Drawing.Size(198, 20);
+            this.textBox_ShuffleIntoWaitlist.TabIndex = 4;
+            this.textBox_ShuffleIntoWaitlist.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_ShuffleIntoWaitlist_KeyDown);
+            // 
             // ConfigHotkeyDialog
             // 
             this.AcceptButton = this.buttonOK;
@@ -86,7 +130,11 @@ namespace PagTool
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(335, 256);
+            this.Controls.Add(this.textBox_ShuffleIntoWaitlist);
+            this.Controls.Add(this.textBox_ClearAllLists);
             this.Controls.Add(this.textBox_SelectRandomUser);
+            this.Controls.Add(this.label_ShuffleIntoWaitlist);
+            this.Controls.Add(this.label_ClearAllLists);
             this.Controls.Add(this.label_SelectRandom);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
@@ -100,8 +148,12 @@ namespace PagTool
 
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOK;
+        private System.Windows.Forms.Label label_ClearAllLists;
         private System.Windows.Forms.Label label_SelectRandom;
+        private System.Windows.Forms.Label label_ShuffleIntoWaitlist;
+        private System.Windows.Forms.TextBox textBox_ClearAllLists;
         private System.Windows.Forms.TextBox textBox_SelectRandomUser;
+        private System.Windows.Forms.TextBox textBox_ShuffleIntoWaitlist;
 
         #endregion
     }
