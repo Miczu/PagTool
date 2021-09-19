@@ -92,6 +92,7 @@ namespace PagTool
             this.Controls.Add(this.buttonOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ConfigHotkeyDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ConfigHotkeyDialog";
             this.ResumeLayout(false);
             this.PerformLayout();

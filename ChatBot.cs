@@ -131,24 +131,22 @@ namespace PagTool
                 {
                     if (e.Command.CommandText.Equals(s))
                     {
-                        _parent.TryAddNameToList(_parent._listWaiting, e.Command.ChatMessage.Username); //TryAddName
-                        
-                        // get response from Behavior
-                        // pass response to TryReplaceFormatStrings to String.Replace (or whatever) $STRINGS with values, passing reference to e for context
-                        
-                        // e can be used to further reflectively access _parent for getting info like lineage by asking it through username references
-                        // e.g.: <AddName> Response: Added name! Lineage is $LINEAGE
-                        // ->    <in ReplaceFormatStrings> hey _parent what is e.Command.ChatMessage.Username's current Lineage?
-                        // in this way we can avoid passing a bunch of references around and maintain the correct context... hopefully no race conditions this way :)
-                        
-                        // chat response after replacing strings
-                        Chat(TryReplaceFormatStrings(_parent.ConfigCommandBehavior.ResponseCmdNameAdd, e));
-                        // TODO all of the above 
+                        _parent.TryAddNameToList(_parent._listWaiting, e.Command.ChatMessage.Username, e); //TryAddName
+                    }
+                }
+            
+            if(_parent.ConfigCommandAlias.DoCmdCheckStatus) // NameAdd
+                foreach (string s in _parent.ConfigCommandAlias.AliasCmdCheckStatus)
+                {
+                    if (e.Command.CommandText.Equals(s))
+                    {
+                        //check where the user is in the lists, and their lineage.
+                        Chat(TryReplaceFormatStrings(_parent.ConfigCommandBehavior.ResponseCmdCheckStatus, e));
                     }
                 }
         }
 
-        private string TryReplaceFormatStrings(string response, OnChatCommandReceivedArgs e)
+        public string TryReplaceFormatStrings(string response, OnChatCommandReceivedArgs e)
         {
             //todo
             
@@ -160,9 +158,26 @@ namespace PagTool
             response = response.Replace("$TEST",         _parent.FormatStringDemo(username));
             response = response.Replace("$LINEAGE",      _parent.FormatStringGetLineage(username));
             response = response.Replace("$WAITCOUNT",    _parent._listWaiting.Count.ToString());
-            //response = response.Replace("$LINEAGE",      _parent.FormatStringGetLineage(username));
-            //response = response.Replace("$LINEAGE",      _parent.FormatStringGetLineage(username));
+            response = response.Replace("$FULLSTATUS",   _parent.FormatStringFullStatus(username));
+            response = response.Replace("$QUICKSTATUS",  _parent.FormatStringQuickStatus(username));
+
+            return response;
+        }
+        
+        public string TryReplaceFormatStrings(string response, string username)
+        {
+            //todo
             
+            //what information is already available via e
+            response = response.Replace("$USERNAME", username);
+
+            //what information is available from _parent
+            response = response.Replace("$TEST",         _parent.FormatStringDemo(username));
+            response = response.Replace("$LINEAGE",      _parent.FormatStringGetLineage(username));
+            response = response.Replace("$WAITCOUNT",    _parent._listWaiting.Count.ToString());
+            response = response.Replace("$FULLSTATUS",   _parent.FormatStringFullStatus(username));
+            response = response.Replace("$QUICKSTATUS",  _parent.FormatStringQuickStatus(username));
+
             return response;
         }
 

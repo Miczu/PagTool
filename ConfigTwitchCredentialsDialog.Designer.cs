@@ -126,6 +126,7 @@ namespace PagTool
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfigTwitchCredentialsDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ConfigTwitchCredentialsDialog";
             this.ResumeLayout(false);
             this.PerformLayout();

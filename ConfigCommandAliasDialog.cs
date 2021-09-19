@@ -16,15 +16,18 @@ namespace PagTool
     {
         // list all switches / settings in order here
         // for this dialog: command descriptor (e.g., Add Name (!name)) + command aliases (with one minimum default value)
-        public bool DoCmdNameAdd = true; public string[] AliasCmdNameAdd = new []{"name"};
+        public bool DoCmdNameAdd = true; public string[] AliasCmdNameAdd = new []{"name"}; //add me to the list.
+        public bool DoCmdCheckStatus = true; public string[] AliasCmdCheckStatus = new []{"status"}; //where am i in the list?
 
         //use defaults only
         public ConfigCommandAliasResult() { }
 
         // define all default values in the constructor
-        public ConfigCommandAliasResult(bool doCmdNameAdd, string[] aliasCmdNameAdd)
+        public ConfigCommandAliasResult(bool doCmdNameAdd, string[] aliasCmdNameAdd,
+                                        bool doCmdCheckStatus, string[] aliasCmdCheckStatus)
         {
             DoCmdNameAdd = doCmdNameAdd; AliasCmdNameAdd = aliasCmdNameAdd;
+            DoCmdCheckStatus = doCmdNameAdd; AliasCmdCheckStatus = aliasCmdCheckStatus;
         }
     }
     
@@ -47,6 +50,10 @@ namespace PagTool
             checkBox_DoCmdNameAdd.Checked = currentSettings.DoCmdNameAdd;
             textBox_AliasDoCmdNameAdd.Text = (currentSettings.AliasCmdNameAdd == null) ? 
                 "name" : (String.Join(" ", currentSettings.AliasCmdNameAdd));
+                
+            checkBox_DoCmdCheckStatus.Checked = currentSettings.DoCmdCheckStatus;
+            textBox_AliasDoCmdCheckStatus.Text = (currentSettings.AliasCmdCheckStatus == null) ? 
+                "status" : (String.Join(" ", currentSettings.AliasCmdCheckStatus));
             
             //show the dialog
             var result = ShowDialog();
@@ -58,6 +65,10 @@ namespace PagTool
                 updatedSettings.DoCmdNameAdd = checkBox_DoCmdNameAdd.Checked;
                 updatedSettings.AliasCmdNameAdd = (String.IsNullOrWhiteSpace(textBox_AliasDoCmdNameAdd.Text)) ? //if the text field is empty, make sure we set the default
                     new[] {"name"} : textBox_AliasDoCmdNameAdd.Text.Split(' ');
+                    
+                updatedSettings.DoCmdCheckStatus = checkBox_DoCmdCheckStatus.Checked;
+                updatedSettings.AliasCmdCheckStatus = (String.IsNullOrWhiteSpace(textBox_AliasDoCmdCheckStatus.Text)) ? 
+                    new[] {"status"} : textBox_AliasDoCmdCheckStatus.Text.Split(' ');
                 
                 return updatedSettings;
             } else

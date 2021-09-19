@@ -7,6 +7,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.Net.Http;
+using TwitchLib.Client.Events;
 
 // todo lineage modes: I,II,III / 1,2,3 / #1, #2, #3 / One, Two, Three / The First, The Second / etc
 // todo esc key closes addtolist dialog and enter selects ok
@@ -360,7 +361,7 @@ namespace PagTool
 
         #region Data Structure Interactions
 
-        public void TryAddNameToList(List<string> list, string name)
+        public void TryAddNameToList(List<string> list, string name, OnChatCommandReceivedArgs e = null)
         {
             //check all three lists for redundancy
             //check blacklist
@@ -373,14 +374,15 @@ namespace PagTool
             {
                 //reject attempt and log. name already exists in list.
                 _twitchChatBot.LogLine($"Name already exists: <{name}>. Skipped.", ChatBot.LOG_LEVEL.LOG_WARNING);
-                // CMD: NAME ALREADY EXISTS
+                if(e != null) //if e was passed to this function, it's from chat, and we should reply in turn
+                    _twitchChatBot.Chat(_twitchChatBot.TryReplaceFormatStrings(ConfigCommandBehavior.ResponseCmdNameAlreadyExists, e));
             }
             else //name doesn't exist in list. go ahead!
             {
                 list.Add(name);
                 _twitchChatBot.LogLine($"Added to list: <{name}>.", ChatBot.LOG_LEVEL.LOG_INFO);
-                //CMD : NAME ADD\
-                
+                if(e != null) //if e was passed to this function, it's from chat, and we should reply in turn
+                    _twitchChatBot.Chat(_twitchChatBot.TryReplaceFormatStrings(ConfigCommandBehavior.ResponseCmdNameAdd, e));
             }
         }
 
@@ -412,7 +414,7 @@ namespace PagTool
                 _twitchChatBot.LogLine($"Selected random user from Waiting list: <{selected}>. Added to Active list.", ChatBot.LOG_LEVEL.LOG_INFO);
                 
                 // send response message to chat
-                // CMD: SelectRandom
+                _twitchChatBot.Chat(_twitchChatBot.TryReplaceFormatStrings(ConfigCommandBehavior.ResponseCmdUserDrawn, selected));
                 // update display lists
                 DoAllUpdates();
             }
@@ -780,7 +782,6 @@ namespace PagTool
 
         private void button_ListWaiting_MoveToActive_Click(object sender, EventArgs e)
         {
-            // todo ALSO trigger the normal Select Random User CMD
             int index = listBox_ListWaiting.SelectedIndex;
             
             // assert & only then do code
@@ -806,7 +807,7 @@ namespace PagTool
                 }
                 
                 PutSelectedToClipboard(s);
-                //todo cmd
+                _twitchChatBot.Chat(_twitchChatBot.TryReplaceFormatStrings(ConfigCommandBehavior.ResponseCmdUserDrawn, s));
                 
                 //disable buttons
                 button_ListWaiting_Remove.Enabled = false;
@@ -1272,7 +1273,7 @@ namespace PagTool
         // reconnect button on the Debug page clicked. manually disconnect from IRC, wait, then reconnect.
         private void button_ForceReconnect_Click(object sender, EventArgs e)
         {
-            // TODO: use _twitchChatBot.Chat(""); to post a message to chat -- should use the "chat message config" page for specific message
+            _twitchChatBot.Chat(ConfigCommandBehavior.ResponseCmdChatReconnect);
             
             _twitchChatBot.Disconnect();
             _twitchChatBot = new ChatBot(this);
@@ -1333,11 +1334,11 @@ namespace PagTool
 
         #endregion
 
-        #region ChatBot Getters (Temp?)
+        #region ChatBot Getters
 
         public string FormatStringDemo(string username)
         {
-            return $"Hello {username}, this format string works!";
+            return $"Hello, {username}!";
         }
 
         public string FormatStringGetLineage(string username)
@@ -1346,9 +1347,102 @@ namespace PagTool
             return value.ToString();
         }
         
-        public string FormatStringCountWaiting()
+        public string FormatStringFullStatus(string username)
         {
-            return _listWaiting.Count.ToString();
+            //get the full status and pass it back to the user.
+
+            int userState = 0; //0 = not in list. 1 = in waiting. 2 = in active. 4 = in dead. any other = weird shit happened
+            if (_listWaiting.Contains(username)) userState += 1;
+            if (_listActive.Contains(username)) userState += 2;
+            if (_listDead.Contains(username)) userState += 4;
+
+            string response = "";
+            
+            switch (userState)
+            {
+                case 0: // not in any list
+                    _dictLineage.TryGetValue(username, out int value); // check if they have lineage data
+                    
+                    if(value != 0) //if so...
+                        response = $"{username}, you are not in any list. Your current lineage is {value}.";
+                    else
+                        response = $"{username}, you are not in any list."; //don't mention if not
+                    break;
+                    
+                case 1: // in waiting list
+                    _dictLineage.TryGetValue(username, out value);
+                    string format = $"There are {_listWaiting.Count - 1} others waiting with you.";
+                    if (_listWaiting.Count <= 2)
+                        format = _listWaiting.Count == 2 ? "There is one other waiting with you." : "You are the only one waiting.";
+                    
+                    if(value != 0) 
+                        response = $"{username}, you are waiting to be drawn. {format} Your current lineage is {value}.";
+                    else
+                        response = $"{username}, you are waiting to be drawn. {format}"; 
+                    break;
+                    
+                case 2: // in active list
+                    _dictLineage.TryGetValue(username, out value);
+                    
+                    if(value != 0)
+                        response = $"{username}, you are active in-game. Your current lineage is {value}.";
+                    else
+                        response = $"{username}, you are active in-game."; 
+                    break;
+                                        
+                case 4: // in dead list
+                    _dictLineage.TryGetValue(username, out value);
+                    
+                    if(value != 0)
+                        response = $"{username}, you have fallen and are waiting to be returned to the waitlist. Your current lineage is {value}.";
+                    else
+                        response = $"{username}, you have fallen and are waiting to be returned to the waitlist."; 
+                    break;
+                
+                default: //something weird happened!
+                    response = $"Uh oh! {username}, something weird has happened to your state in the program. " +
+                               $"You seem to exist in multiple places at once! Please alert the streamer so they can correct this.";
+                    break;
+            }
+            
+            return response;
+        }
+
+        public string FormatStringQuickStatus(string username)
+        {
+            //quick status. for after attempting to add.
+
+            int userState = 0; //0 = not in list. 1 = in waiting. 2 = in active. 4 = in dead. any other = weird shit happened
+            if (_listWaiting.Contains(username)) userState += 1;
+            if (_listActive.Contains(username)) userState += 2;
+            if (_listDead.Contains(username)) userState += 4;
+
+            string response = "";
+            
+            switch (userState)
+            {
+                case 0: // not in any list
+                    response = $"You are not in any list."; 
+                    break;
+                    
+                case 1: // in waiting list
+                    response = $"You are in the waitlist."; 
+                    break;
+                    
+                case 2: // in active list
+                    response = $"You are already active."; 
+                    break;
+                                        
+                case 4: // in dead list
+                    response = $"You must wait to be reset."; 
+                    break;
+                
+                default: //something weird happened!
+                    response = $"An error occurred.";
+                    break;
+            }
+
+            return response;
         }
 
         #endregion

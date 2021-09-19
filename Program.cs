@@ -14,8 +14,6 @@ namespace PagTool
         [STAThread]
         static void Main()
         {
-            // TODO: everything
-            
             //Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
