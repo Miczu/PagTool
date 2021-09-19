@@ -8,7 +8,10 @@ namespace PagTool
     {
         //defaults:
         public string ResponseCmdNameAdd = "";
-        
+        public string ResponseCmdWaitlistEmpty = "";
+        public string ResponseCmdChatReconnect = "";
+        public string ResponseCmdSelectRandomUser = "";
+
         //constructor using only default values
         public ConfigCommandBehaviorResult() { }
 

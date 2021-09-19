@@ -76,7 +76,7 @@ namespace PagTool
         private string interpretBitmask(int mask)
         {
             //i seriously ought to be using bitwise operations or modulo or literally anything clever here but my brain is frying trying to figure 
-            //out the right way to implement it so for now i'm just going to hardcode it and mark this as TODO optionally
+            //out the right way to implement it so for now i'm just going to hardcode it
 
             switch (mask)
             {

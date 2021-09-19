@@ -35,7 +35,7 @@ namespace PagTool
     public class GeneralSettings
     {
         public bool DoVerboseLog = false; //enable extra verbose logging in the debug log. for reasons?
-        public bool DoConnectOnStartup = true; //connect automaticall when the app launches using stored creds. todo implement this tho
+        public bool DoConnectOnStartup = true; //connect automaticall when the app launches using stored creds.
         public int AutoRefreshSeconds = 10; // seconds it takes for the ui to update all its information visually
 
         public bool DoAskConfirmClearButtons = true; // should i pop up a confirm dialog when pressing the 'clear <list>' buttons in the UI?
@@ -78,7 +78,6 @@ namespace PagTool
         public ConfigCommandAliasResult ConfigCommandAlias; //command aliases
         public ConfigCommandBehaviorResult ConfigCommandBehavior; //chat responses and switches to define behaviors
         public ConfigHotkeyResult ConfigHotkey; //hotkey information
-        //todo make a Result for each config dialog and use them to save/load config files
 
         //three lists.
         public List<string> _listWaiting = new List<string>();
@@ -95,15 +94,14 @@ namespace PagTool
         
         public FormMain()
         {
+            //load twitch credentials and create 
+            _twitchBotCredentials = CheckFileAndLoadTwitchCredentials("_secret.safe");
+            
             // quickly instantiate this
             _twitchChatBot = new ChatBot(this);
 
             // Load the form's components, then launch async tasks
             InitializeComponent();
-
-            // TODO: load configs, initialize variables, etc...
-            //load twitch credentials and create 
-            _twitchBotCredentials = CheckFileAndLoadTwitchCredentials("_secret.safe");
 
             //TODO load config.ini data
             //if these files don't exist, create a new default config Result for each respectively and then store it. otherwise, parse the file
@@ -129,7 +127,7 @@ namespace PagTool
             // connect twitch bot to IRC chat
             if(GeneralSettings.DoConnectOnStartup)
                 _twitchChatBot.Connect(_twitchBotCredentials[0],
-                _twitchBotCredentials[1]); //todo again this needs to be much more secure but this will do for now
+                _twitchBotCredentials[1]); 
         }
 
         #region Hotkey Management
@@ -246,12 +244,35 @@ namespace PagTool
                 if (data.Length == 2) // quick sanity check
                     return data;
                 
-                // bad input? just return DNE for now. todo pop open the credential dialog to get them on startup
+                //bad data? pop open the credential config dialog
+                ConfigTwitchCredentialsDialog configTwitchCredentialsDialog = new ConfigTwitchCredentialsDialog();
+                data = configTwitchCredentialsDialog.Show(data); //show dialog 
+
+                //try again 
+                if (data.Length == 2) // quick sanity check
+                {
+                    File.WriteAllLines(filepath, data); //save these new changes
+                    return data;
+                }
+                    
+
+                //otherwise, fuck it! start anyways
                 return new[] {"DoesNotExist", "DoesNotExist"};
             }
             else
             {
-                File.WriteAllText(filepath, "Store your twitch credentials in this file.");
+                //bad data? pop open the credential config dialog
+                ConfigTwitchCredentialsDialog configTwitchCredentialsDialog = new ConfigTwitchCredentialsDialog();
+                string[] data = configTwitchCredentialsDialog.Show(new[] {"",""}); //show dialog 
+
+                //see if it's ok?
+                if (data.Length == 2) // quick sanity check
+                {
+                    File.WriteAllLines(filepath, data); //save these new changes
+                    return data;
+                }
+                
+                //otherwise, fuck it! start anyways
                 return new[] {"DoesNotExist", "DoesNotExist"};
             }
         }
@@ -382,12 +403,9 @@ namespace PagTool
                     _dictLineage.Add(selected, 1);
                 }
                 
-                //todo all this
-                // copy selected to clipboard + lineage if wanted
+                PutSelectedToClipboard(selected);
                 
-                // add selected to active
                 _listActive.Add(selected);
-                // remove selected from waiting
                 _listWaiting.Remove(selected);
                 
                 // log drawn user
@@ -407,6 +425,82 @@ namespace PagTool
             }
         }
 
+        public void PutSelectedToClipboard(string selected)
+        {
+            //todo check flag for whether lineage should be put on the clipboard
+            _dictLineage.TryGetValue(selected, out int value);
+
+            //todo lineage modes
+            string lineageAppendText;
+            switch (value)
+            {
+                case 1:
+                    //switch(lineageMode)
+                    lineageAppendText = " I";
+                    break;
+                
+                case 2:
+                    lineageAppendText = " II";
+                    break;
+                
+                case 3:
+                    lineageAppendText = " III";
+                    break;
+                
+                case 4:
+                    lineageAppendText = " IV";
+                    break;
+                
+                case 5:
+                    lineageAppendText = " V";
+                    break;
+                case 6:
+                    lineageAppendText = " VI";
+                    break;
+                case 7:
+                    lineageAppendText = " VII";
+                    break;
+
+                case 8: 
+                    lineageAppendText = " VIII";
+                    break;
+
+                case 9:
+                    lineageAppendText = " IX";
+                    break;
+                
+                case 10:
+                    lineageAppendText = " X";
+                    break;
+                
+                case 11:
+                    lineageAppendText = " XI";
+                    break;
+                
+                case 12:
+                    lineageAppendText = " XII";
+                    break;
+                
+                case 13:
+                    lineageAppendText = " XIII";
+                    break;
+                    
+                case 14:
+                    lineageAppendText = " XIV";
+                    break;
+                                        
+                case 15:
+                    lineageAppendText = " XV";
+                    break;
+                
+                default:
+                    lineageAppendText = $" {value}";
+                    break;
+            }
+
+            Clipboard.SetText($"{selected}{lineageAppendText}");
+        }
+        
         // no confirm dialog
         public void ClearWaitingList()
         {
@@ -711,7 +805,7 @@ namespace PagTool
                     _dictLineage.Add(s, 1);
                 }
                 
-                //todo copy to clipboard
+                PutSelectedToClipboard(s);
                 //todo cmd
                 
                 //disable buttons
@@ -1182,6 +1276,7 @@ namespace PagTool
             
             _twitchChatBot.Disconnect();
             _twitchChatBot = new ChatBot(this);
+            _twitchChatBot.LogLine("Force reconnect triggered. Chat log cleared, automatically re-connecting...", ChatBot.LOG_LEVEL.LOG_INFO);
             _twitchChatBot.Connect(_twitchBotCredentials[0],
                 _twitchBotCredentials[1]);
         }
@@ -1218,13 +1313,17 @@ namespace PagTool
         {
             ConfigTwitchCredentialsDialog configTwitchCredentialsDialog = new ConfigTwitchCredentialsDialog();
             _twitchBotCredentials = configTwitchCredentialsDialog.Show(_twitchBotCredentials); //show dialog and save the result
-            File.WriteAllLines("_secret.safe", _twitchBotCredentials); //write creds to file (only doing it here, not on the auto-cycle)
             
-            // todo log this 
-            _twitchChatBot.Disconnect();
-            _twitchChatBot = new ChatBot(this);
-            _twitchChatBot.Connect(_twitchBotCredentials[0],
-                _twitchBotCredentials[1]);
+            if (configTwitchCredentialsDialog.DialogResult == DialogResult.OK)
+            {
+                File.WriteAllLines("_secret.safe", _twitchBotCredentials); //write creds to file (only doing it here, not on the auto-cycle)
+                _twitchChatBot.Disconnect();
+                _twitchChatBot = new ChatBot(this);
+                _twitchChatBot.LogLine("Credentials reconfigured. Chat log cleared, automatically re-connecting...", ChatBot.LOG_LEVEL.LOG_INFO);
+                _twitchChatBot.Connect(_twitchBotCredentials[0],
+                    _twitchBotCredentials[1]);
+            }
+            
         }
         
         private void button_ForceUpdate_Click(object sender, EventArgs e)
@@ -1239,6 +1338,17 @@ namespace PagTool
         public string FormatStringDemo(string username)
         {
             return $"Hello {username}, this format string works!";
+        }
+
+        public string FormatStringGetLineage(string username)
+        {
+            _dictLineage.TryGetValue(username, out int value);
+            return value.ToString();
+        }
+        
+        public string FormatStringCountWaiting()
+        {
+            return _listWaiting.Count.ToString();
         }
 
         #endregion

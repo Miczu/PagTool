@@ -42,9 +42,9 @@ namespace PagTool
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(12, 249);
+            this.buttonOK.Location = new System.Drawing.Point(12, 363);
             this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(200, 40);
+            this.buttonOK.Size = new System.Drawing.Size(199, 40);
             this.buttonOK.TabIndex = 0;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
@@ -53,9 +53,9 @@ namespace PagTool
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(324, 249);
+            this.buttonCancel.Location = new System.Drawing.Point(222, 363);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(200, 40);
+            this.buttonCancel.Size = new System.Drawing.Size(199, 40);
             this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -63,26 +63,26 @@ namespace PagTool
             // labelCmdAddName
             // 
             this.labelCmdAddName.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelCmdAddName.Location = new System.Drawing.Point(12, 226);
+            this.labelCmdAddName.Location = new System.Drawing.Point(12, 340);
             this.labelCmdAddName.Name = "labelCmdAddName";
-            this.labelCmdAddName.Size = new System.Drawing.Size(60, 20);
+            this.labelCmdAddName.Size = new System.Drawing.Size(58, 20);
             this.labelCmdAddName.TabIndex = 2;
             this.labelCmdAddName.Text = "Add Name";
             this.labelCmdAddName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBox_ResponseCmdAddName
             // 
-            this.textBox_ResponseCmdAddName.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_ResponseCmdAddName.Location = new System.Drawing.Point(74, 227);
+            this.textBox_ResponseCmdAddName.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_ResponseCmdAddName.Location = new System.Drawing.Point(67, 341);
             this.textBox_ResponseCmdAddName.Name = "textBox_ResponseCmdAddName";
-            this.textBox_ResponseCmdAddName.Size = new System.Drawing.Size(450, 20);
+            this.textBox_ResponseCmdAddName.Size = new System.Drawing.Size(353, 20);
             this.textBox_ResponseCmdAddName.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.label1.Location = new System.Drawing.Point(12, 204);
+            this.label1.Location = new System.Drawing.Point(12, 257);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(125, 20);
             this.label1.TabIndex = 4;
@@ -95,7 +95,7 @@ namespace PagTool
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(536, 301);
+            this.ClientSize = new System.Drawing.Size(433, 415);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox_ResponseCmdAddName);
             this.Controls.Add(this.labelCmdAddName);

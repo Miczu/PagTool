@@ -150,11 +150,19 @@ namespace PagTool
 
         private string TryReplaceFormatStrings(string response, OnChatCommandReceivedArgs e)
         {
+            //todo
+            
+            string username = e.Command.ChatMessage.Username;
             //what information is already available via e
-            response = response.Replace("$USERNAME", e.Command.ChatMessage.Username);
+            response = response.Replace("$USERNAME", username);
 
             //what information is available from _parent
-            response = response.Replace("$TEST", _parent.FormatStringDemo(e.Command.ChatMessage.Username));
+            response = response.Replace("$TEST",         _parent.FormatStringDemo(username));
+            response = response.Replace("$LINEAGE",      _parent.FormatStringGetLineage(username));
+            response = response.Replace("$WAITCOUNT",    _parent._listWaiting.Count.ToString());
+            //response = response.Replace("$LINEAGE",      _parent.FormatStringGetLineage(username));
+            //response = response.Replace("$LINEAGE",      _parent.FormatStringGetLineage(username));
+            
             return response;
         }
 
