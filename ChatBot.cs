@@ -68,6 +68,12 @@ namespace PagTool
             });
         }
 
+        internal void Disconnect()
+        {
+            if(_twitchClient.IsInitialized)
+                _twitchClient.Disconnect();
+        }
+
         #region Manual Logging
 
         //one stop shop for formatting logging tags so i can edit them once here and parse them from anywhere they might be used

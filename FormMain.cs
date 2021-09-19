@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using System.Net.Http;
 
 // todo lineage modes: I,II,III / 1,2,3 / #1, #2, #3 / One, Two, Three / The First, The Second / etc
 // todo esc key closes addtolist dialog and enter selects ok
@@ -62,6 +63,10 @@ namespace PagTool
         
         //she do everything with irc chat
         private ChatBot _twitchChatBot;
+        
+        //HTTP client that will be passed around application-wide to make API calls or other HTTP requests
+        // https://stackoverflow.com/questions/4015324/how-to-make-an-http-post-web-request
+        public static readonly HttpClient HttpClient = new HttpClient();
 
         //plaintext credentials :^) #NoZeroDays #OCSPCertified #GirlbossingIt TODO: disclose this to the users in the readme lmao
         string[] _twitchBotCredentials;
@@ -122,8 +127,8 @@ namespace PagTool
             updateAndRefreshComponentsThread.Start();
 
             // connect twitch bot to IRC chat
-            //todo make this depend on DoConnectOnStartup
-            _twitchChatBot.Connect(_twitchBotCredentials[0],
+            if(GeneralSettings.DoConnectOnStartup)
+                _twitchChatBot.Connect(_twitchBotCredentials[0],
                 _twitchBotCredentials[1]); //todo again this needs to be much more secure but this will do for now
         }
 
@@ -235,11 +240,17 @@ namespace PagTool
 
         string[] CheckFileAndLoadTwitchCredentials(string filepath)
         {
-            if (File.Exists(filepath)) //TODO also check the format and make sure all args exist for this file
-                return File.ReadAllLines(filepath);
+            if (File.Exists(filepath))
+            {
+                string[] data = File.ReadAllLines(filepath);
+                if (data.Length == 2) // quick sanity check
+                    return data;
+                
+                // bad input? just return DNE for now. todo pop open the credential dialog to get them on startup
+                return new[] {"DoesNotExist", "DoesNotExist"};
+            }
             else
             {
-                // TODO: create this file and write default arguments to it
                 File.WriteAllText(filepath, "Store your twitch credentials in this file.");
                 return new[] {"DoesNotExist", "DoesNotExist"};
             }
@@ -1168,7 +1179,11 @@ namespace PagTool
         private void button_ForceReconnect_Click(object sender, EventArgs e)
         {
             // TODO: use _twitchChatBot.Chat(""); to post a message to chat -- should use the "chat message config" page for specific message
-            _twitchChatBot.DisconnectWaitReconnect(_twitchBotCredentials[0], _twitchBotCredentials[1]);
+            
+            _twitchChatBot.Disconnect();
+            _twitchChatBot = new ChatBot(this);
+            _twitchChatBot.Connect(_twitchBotCredentials[0],
+                _twitchBotCredentials[1]);
         }
 
         // 'configure command aliases'. show the custom dialog, then get its settings if OK, and save them to the config.
@@ -1201,7 +1216,15 @@ namespace PagTool
         
         private void button_ConfigCredentials_Click(object sender, EventArgs e)
         {
-            throw new System.NotImplementedException();
+            ConfigTwitchCredentialsDialog configTwitchCredentialsDialog = new ConfigTwitchCredentialsDialog();
+            _twitchBotCredentials = configTwitchCredentialsDialog.Show(_twitchBotCredentials); //show dialog and save the result
+            File.WriteAllLines("_secret.safe", _twitchBotCredentials); //write creds to file (only doing it here, not on the auto-cycle)
+            
+            // todo log this 
+            _twitchChatBot.Disconnect();
+            _twitchChatBot = new ChatBot(this);
+            _twitchChatBot.Connect(_twitchBotCredentials[0],
+                _twitchBotCredentials[1]);
         }
         
         private void button_ForceUpdate_Click(object sender, EventArgs e)

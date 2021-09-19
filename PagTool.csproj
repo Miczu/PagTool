@@ -40,6 +40,12 @@
       <Compile Update="AddToListDialog.Designer.cs">
         <DependentUpon>AddToListDialog.cs</DependentUpon>
       </Compile>
+      <Compile Update="ConfigTwitchCredentialsDialog.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="ConfigTwitchCredentialsDialog.Designer.cs">
+        <DependentUpon>ConfigTwitchCredentialsDialog.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -63,6 +69,15 @@
       </EmbeddedResource>
       <EmbeddedResource Update="AddToListDialog.resx">
         <DependentUpon>AddToListDialog.cs</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Update="ConfigTwitchCredentialsDialog.resx">
+        <DependentUpon>ConfigTwitchCredentialsDialog.cs</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Update="ConfigHotkeyDialog.resx">
+        <DependentUpon>ConfigHotkeyDialog.cs</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Update="FormMain.resx">
+        <DependentUpon>FormMain.cs</DependentUpon>
       </EmbeddedResource>
     </ItemGroup>
 
