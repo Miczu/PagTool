@@ -624,6 +624,7 @@
             this.button_SaveDebugLog.TabIndex = 8;
             this.button_SaveDebugLog.Text = "Save Log...";
             this.button_SaveDebugLog.UseVisualStyleBackColor = true;
+            this.button_SaveDebugLog.Click += new System.EventHandler(this.button_SaveDebugLog_Click);
             // 
             // checkBox_ConnectOnStartup
             // 

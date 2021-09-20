@@ -1314,7 +1314,11 @@ namespace PagTool
             _twitchChatBot.Chat(ConfigCommandBehavior.ResponseCmdChatReconnect);
             
             _twitchChatBot.Disconnect();
+
+            string holdoverText = richTextBox_ConsoleDebugLog.Text;
             _twitchChatBot = new ChatBot(this);
+            _twitchChatBot.LogOutput = holdoverText;
+            
             _twitchChatBot.LogLine("Force reconnect triggered. Chat log cleared, automatically re-connecting...", ChatBot.LOG_LEVEL.LOG_INFO);
             _twitchChatBot.Connect(_twitchBotCredentials[0],
                 _twitchBotCredentials[1]);
@@ -1356,7 +1360,11 @@ namespace PagTool
             if (configTwitchCredentialsDialog.DialogResult == DialogResult.OK)
             {
                 File.WriteAllLines("_secret.safe", _twitchBotCredentials); //write creds to file (only doing it here, not on the auto-cycle)
+                
+                string holdoverText = richTextBox_ConsoleDebugLog.Text;
                 _twitchChatBot.Disconnect();
+                _twitchChatBot.LogOutput = holdoverText;
+                
                 _twitchChatBot = new ChatBot(this);
                 _twitchChatBot.LogLine("Credentials reconfigured. Chat log cleared, automatically re-connecting...", ChatBot.LOG_LEVEL.LOG_INFO);
                 _twitchChatBot.Connect(_twitchBotCredentials[0],
@@ -1368,6 +1376,13 @@ namespace PagTool
         private void button_ForceUpdate_Click(object sender, EventArgs e)
         {
             DoAllUpdates();
+        }
+        
+        private void button_SaveDebugLog_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog() {InitialDirectory = AppContext.BaseDirectory})
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    File.WriteAllText(saveFileDialog.FileName, richTextBox_ConsoleDebugLog.Text);
         }
 
         #endregion
@@ -1484,6 +1499,5 @@ namespace PagTool
         }
 
         #endregion
-        
     }
 }
