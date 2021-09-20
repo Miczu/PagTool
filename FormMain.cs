@@ -282,7 +282,7 @@ namespace PagTool
             if (File.Exists(filepath))
             {
                 string[] data = File.ReadAllLines(filepath);
-                if (data.Length == 2) // quick sanity check
+                if (data.Length == 2 && !String.IsNullOrWhiteSpace(data[0])) // quick sanity check
                     return data;
                 
                 //bad data? pop open the credential config dialog
@@ -290,12 +290,11 @@ namespace PagTool
                 data = configTwitchCredentialsDialog.Show(data); //show dialog 
 
                 //try again 
-                if (data.Length == 2) // quick sanity check
+                if (data.Length == 2 && !String.IsNullOrWhiteSpace(data[0])) // quick sanity check
                 {
                     File.WriteAllLines(filepath, data); //save these new changes
                     return data;
                 }
-                    
 
                 //otherwise, fuck it! start anyways
                 return new[] {"DoesNotExist", "DoesNotExist"};
@@ -307,7 +306,7 @@ namespace PagTool
                 string[] data = configTwitchCredentialsDialog.Show(new[] {"",""}); //show dialog 
 
                 //see if it's ok?
-                if (data.Length == 2) // quick sanity check
+                if (data.Length == 2 && !String.IsNullOrWhiteSpace(data[0])) // quick sanity check
                 {
                     File.WriteAllLines(filepath, data); //save these new changes
                     return data;
