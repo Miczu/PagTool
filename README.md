@@ -23,13 +23,4 @@ The Debug page displays the current log, including chat and any actions occuring
 
 ![image](https://user-images.githubusercontent.com/22552031/133957740-dc4c2abf-8873-42dc-8caa-5e9ebcd65869.png)
 
-## Known Bugs
 
-- The force reconnect button causes the application to freeze until the auto-refresh intveral elapses.
-- The 'Save Log' button is not yet implemented.
-- The application does not currently support an icon.
-- The 'Launch Token Generator' button in the ConfigureTwitchCredentials dialog launches the token generator webpage successfully, but token validation causes its backend to fail, and requires the user to scroll to the bottom of the page and use the 'Generate Token' button again to create a properly validated token.
-- Forcing the application to reconnect, either by updating the credentials, or by use of the 'Force Reconnect' button, clears the entire log and starts it afresh.
-- The log is not checked for length or truncated at any point and may eventually cause a memory leak if left running constantly. It is not known how long this would take in a production setting.
-- There is no minimize-to-taskbar functionality yet.
-- Generally, several other features are also still missing while in pre-release.
