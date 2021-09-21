@@ -23,4 +23,6 @@ The Debug page displays the current log, including chat and any actions occuring
 
 ![image](https://user-images.githubusercontent.com/22552031/133957740-dc4c2abf-8873-42dc-8caa-5e9ebcd65869.png)
 
+## Distribution
 
+This software is distributed without license (currently). I'll probably use the MIT license when it's public release-ready. For now, please just be careful and understand this is a mostly private tool. Share it in this state only if you think it would be a real benefit to the people you send it to, and let them know that it's still in beta and to expect bugs and missing/broken features.
