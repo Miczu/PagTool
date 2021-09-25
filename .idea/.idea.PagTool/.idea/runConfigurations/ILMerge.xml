@@ -1,0 +1,10 @@
+﻿<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ILMerge" type="RunNativeExe" factoryName="Native Executable">
+    <option name="EXE_PATH" value="$USER_HOME$/.nuget/packages/ilmerge/3.0.41/tools/net452/ILMerge.exe" />
+    <option name="PROGRAM_PARAMETERS" value="PagTool.exe Microsoft.Extensions.Logging.Abstractions.dll Newtonsoft.Json.dll TwitchLib.Api.Core.dll TwitchLib.Api.Core.Enums.dll TwitchLib.Api.Core.Interfaces.dll TwitchLib.Api.Core.Models.dll TwitchLib.Api.dll TwitchLib.Api.Helix.dll TwitchLib.Api.Helix.Models.dll TwitchLib.Api.V5.dll TwitchLib.Api.V5.Models.dll TwitchLib.Client.dll TwitchLib.Client.Enums.dll TwitchLib.Client.Models.dll TwitchLib.Communication.dll TwitchLib.PubSub.dll /out:ilmerge\PagTool.exe /target:winexe /ndebug" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pub" />
+    <option name="PASS_PARENT_ENVS" value="1" />
+    <option name="USE_EXTERNAL_CONSOLE" value="0" />
+    <method v="2" />
+  </configuration>
+</component>
