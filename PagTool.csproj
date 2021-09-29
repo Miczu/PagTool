@@ -47,6 +47,12 @@
       <Compile Update="ConfigTwitchCredentialsDialog.Designer.cs">
         <DependentUpon>ConfigTwitchCredentialsDialog.cs</DependentUpon>
       </Compile>
+      <Compile Update="TwitchApiDialog.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="TwitchApiDialog.Designer.cs">
+        <DependentUpon>TwitchApiDialog.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -85,6 +91,12 @@
       </EmbeddedResource>
       <EmbeddedResource Update="ConfigCommandAliasDialog.resx">
         <DependentUpon>ConfigCommandAliasDialog.cs</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Update="TwitchApiDialog.resx">
+        <DependentUpon>TwitchApiDialog.cs</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Update="FormMain.resx">
+        <DependentUpon>FormMain.cs</DependentUpon>
       </EmbeddedResource>
     </ItemGroup>
 

@@ -1373,6 +1373,12 @@ namespace PagTool
             
         }
         
+        private void button_TwitchApiDialog_Click(object sender, EventArgs e)
+        {
+            TwitchApiDialog twitchApiDialog = new TwitchApiDialog();
+            twitchApiDialog.Show(_twitchBotCredentials[0], HttpClient);
+        }
+        
         private void button_ForceUpdate_Click(object sender, EventArgs e)
         {
             DoAllUpdates();
@@ -1499,5 +1505,7 @@ namespace PagTool
         }
 
         #endregion
+
+        
     }
 }

@@ -66,6 +66,7 @@
             this.button_ConfigListLogic = new System.Windows.Forms.Button();
             this.button_SaveData = new System.Windows.Forms.Button();
             this.tabPage_Configure = new System.Windows.Forms.TabPage();
+            this.button_TwitchApiDialog = new System.Windows.Forms.Button();
             this.button_ConfigCredentials = new System.Windows.Forms.Button();
             this.button_ConfigHotkeys = new System.Windows.Forms.Button();
             this.button_ConfigCommandBehavior = new System.Windows.Forms.Button();
@@ -525,6 +526,7 @@
             // 
             // tabPage_Configure
             // 
+            this.tabPage_Configure.Controls.Add(this.button_TwitchApiDialog);
             this.tabPage_Configure.Controls.Add(this.button_ConfigCredentials);
             this.tabPage_Configure.Controls.Add(this.button_ConfigHotkeys);
             this.tabPage_Configure.Controls.Add(this.button_ConfigCommandBehavior);
@@ -536,6 +538,16 @@
             this.tabPage_Configure.TabIndex = 1;
             this.tabPage_Configure.Text = "Configure";
             this.tabPage_Configure.UseVisualStyleBackColor = true;
+            // 
+            // button_TwitchApiDialog
+            // 
+            this.button_TwitchApiDialog.Location = new System.Drawing.Point(6, 190);
+            this.button_TwitchApiDialog.Name = "button_TwitchApiDialog";
+            this.button_TwitchApiDialog.Size = new System.Drawing.Size(200, 40);
+            this.button_TwitchApiDialog.TabIndex = 5;
+            this.button_TwitchApiDialog.Text = "Twitch API Dialog";
+            this.button_TwitchApiDialog.UseVisualStyleBackColor = true;
+            this.button_TwitchApiDialog.Click += new System.EventHandler(this.button_TwitchApiDialog_Click);
             // 
             // button_ConfigCredentials
             // 
@@ -745,6 +757,7 @@
         private System.Windows.Forms.Button button_SelectRandom;
         private System.Windows.Forms.Button button_ShuffleBothIntoWaiting;
         private System.Windows.Forms.Button button_ShuffleDeadIntoWaiting;
+        private System.Windows.Forms.Button button_TwitchApiDialog;
         private System.Windows.Forms.CheckBox checkBox_ConnectOnStartup;
         private System.Windows.Forms.CheckBox checkBox_doVerboseLogging;
         private System.Windows.Forms.Label label_RefreshTime;
