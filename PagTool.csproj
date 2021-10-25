@@ -98,6 +98,9 @@
       <EmbeddedResource Update="FormMain.resx">
         <DependentUpon>FormMain.cs</DependentUpon>
       </EmbeddedResource>
+      <EmbeddedResource Update="ConfigTwitchCredentialsDialog.resx">
+        <DependentUpon>ConfigTwitchCredentialsDialog.cs</DependentUpon>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
