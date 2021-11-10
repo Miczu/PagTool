@@ -629,7 +629,7 @@
             this.textBox_ManualChat.Size = new System.Drawing.Size(674, 20);
             this.textBox_ManualChat.TabIndex = 11;
             this.textBox_ManualChat.TextChanged += new System.EventHandler(this.textBox_ManualChat_TextChanged);
-            this.textBox_ManualChat.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_ManualChat_KeyUp);
+            this.textBox_ManualChat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_ManualChat_KeyDown);
             // 
             // label_RefreshTime
             // 

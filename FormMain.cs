@@ -1530,11 +1530,14 @@ namespace PagTool
             button_ManualChat.Enabled = !String.IsNullOrEmpty(textBox_ManualChat.Text);
         }
 
-        private void textBox_ManualChat_KeyUp(object sender, KeyEventArgs e)
+        private void textBox_ManualChat_KeyDown(object sender, KeyEventArgs e)
         {
             //if the enter key is pressed, do the button's thing
             if (e.KeyCode == Keys.Enter)
             {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            
                 //get the text in the textbox, then purge it
                 string textToSend = textBox_ManualChat.Text.Trim();
                 textBox_ManualChat.Text = "";
@@ -1548,6 +1551,8 @@ namespace PagTool
                     _twitchChatBot.Chat(textToSend);
                     _twitchChatBot.LogLine($">> <{_twitchBotCredentials[2]}>: {textToSend}", ChatBot.LOG_LEVEL.LOG_CHAT);
                 }
+                
+                
             }
         }
     }
