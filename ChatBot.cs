@@ -134,10 +134,12 @@ namespace PagTool
             //iterate through parent's ConfigCommandAlias for every AliasCmd[] object (maybe TODO make a collection?)
             //check for a match and if so do the associated action if DoCmd is set
 
+            string commandText = e.Command.CommandText.ToLower(); //ignore case
+
             if(_parent.ConfigCommandAlias.DoCmdNameAdd) // NameAdd
                 foreach (string s in _parent.ConfigCommandAlias.AliasCmdNameAdd)
                 {
-                    if (e.Command.CommandText.Equals(s))
+                    if (commandText.Equals(s))
                     {
                         _parent.TryAddNameToList(_parent._listWaiting, e.Command.ChatMessage.DisplayName, e); //TryAddName
                     }
@@ -146,7 +148,7 @@ namespace PagTool
             if(_parent.ConfigCommandAlias.DoCmdCheckStatus) // NameAdd
                 foreach (string s in _parent.ConfigCommandAlias.AliasCmdCheckStatus)
                 {
-                    if (e.Command.CommandText.Equals(s))
+                    if (commandText.Equals(s))
                     {
                         //check where the user is in the lists, and their lineage.
                         Chat(TryReplaceFormatStrings(_parent.ConfigCommandBehavior.ResponseCmdCheckStatus, e));
