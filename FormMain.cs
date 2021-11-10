@@ -11,6 +11,7 @@ using TwitchLib.Client.Events;
 
 // todo lineage modes: I,II,III / 1,2,3 / #1, #2, #3 / One, Two, Three / The First, The Second / etc
 // todo esc key closes addtolist dialog and enter selects ok
+// also give an option to not include this at all
 
 // considering renaming to PogTool LUL
 namespace PagTool
