@@ -16,6 +16,10 @@ namespace PagTool
         public string LogOutput = ""; // public variable that will be accessed to update debug log in FormMain
 
         // TODO: safely load and store credentials in some secure way
+        private string _twitchUsername;
+        private string _twitchOAuth;
+        private string _botUsername; 
+        
         private ConnectionCredentials _credentials;
 
         private TwitchClient _twitchClient;
@@ -32,6 +36,10 @@ namespace PagTool
         /// </summary>
         internal void Connect(string twitchUsername, string twitchOAuth, string botUsername)
         {
+            _twitchUsername = twitchUsername;
+            _twitchOAuth = twitchOAuth;
+            _botUsername = botUsername;
+            
             _credentials = new ConnectionCredentials(botUsername, twitchOAuth);
             
             _twitchClient.Initialize(_credentials, twitchUsername);
@@ -117,7 +125,7 @@ namespace PagTool
         {
             //empty messages seem to be handled fine by twitch anyways, but just for safety:
             if(!String.IsNullOrWhiteSpace(message))
-                _twitchClient.SendMessage(_credentials.TwitchUsername, message);
+                _twitchClient.SendMessage(_twitchUsername, message);
         }
         
         //handle all !-prefix messages: parse, check against all command aliases, then execute on a match

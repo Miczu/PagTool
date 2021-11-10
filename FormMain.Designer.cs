@@ -72,6 +72,8 @@
             this.button_ConfigCommandBehavior = new System.Windows.Forms.Button();
             this.button_ConfigCommandAliases = new System.Windows.Forms.Button();
             this.tabPage_Debug = new System.Windows.Forms.TabPage();
+            this.button_ManualChat = new System.Windows.Forms.Button();
+            this.textBox_ManualChat = new System.Windows.Forms.TextBox();
             this.label_RefreshTime = new System.Windows.Forms.Label();
             this.numericUpDown_AutoRefreshSeconds = new System.Windows.Forms.NumericUpDown();
             this.button_SaveDebugLog = new System.Windows.Forms.Button();
@@ -591,6 +593,8 @@
             // 
             // tabPage_Debug
             // 
+            this.tabPage_Debug.Controls.Add(this.button_ManualChat);
+            this.tabPage_Debug.Controls.Add(this.textBox_ManualChat);
             this.tabPage_Debug.Controls.Add(this.label_RefreshTime);
             this.tabPage_Debug.Controls.Add(this.numericUpDown_AutoRefreshSeconds);
             this.tabPage_Debug.Controls.Add(this.button_SaveDebugLog);
@@ -606,6 +610,26 @@
             this.tabPage_Debug.TabIndex = 3;
             this.tabPage_Debug.Text = "Debug";
             this.tabPage_Debug.UseVisualStyleBackColor = true;
+            // 
+            // button_ManualChat
+            // 
+            this.button_ManualChat.Enabled = false;
+            this.button_ManualChat.Location = new System.Drawing.Point(686, 401);
+            this.button_ManualChat.Name = "button_ManualChat";
+            this.button_ManualChat.Size = new System.Drawing.Size(100, 20);
+            this.button_ManualChat.TabIndex = 12;
+            this.button_ManualChat.Text = "Chat...";
+            this.button_ManualChat.UseVisualStyleBackColor = true;
+            this.button_ManualChat.Click += new System.EventHandler(this.button_ManualChat_Click);
+            // 
+            // textBox_ManualChat
+            // 
+            this.textBox_ManualChat.Location = new System.Drawing.Point(6, 401);
+            this.textBox_ManualChat.Name = "textBox_ManualChat";
+            this.textBox_ManualChat.Size = new System.Drawing.Size(674, 20);
+            this.textBox_ManualChat.TabIndex = 11;
+            this.textBox_ManualChat.TextChanged += new System.EventHandler(this.textBox_ManualChat_TextChanged);
+            this.textBox_ManualChat.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_ManualChat_KeyUp);
             // 
             // label_RefreshTime
             // 
@@ -700,7 +724,7 @@
             this.richTextBox_ConsoleDebugLog.Location = new System.Drawing.Point(6, 55);
             this.richTextBox_ConsoleDebugLog.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.richTextBox_ConsoleDebugLog.Name = "richTextBox_ConsoleDebugLog";
-            this.richTextBox_ConsoleDebugLog.Size = new System.Drawing.Size(780, 363);
+            this.richTextBox_ConsoleDebugLog.Size = new System.Drawing.Size(780, 337);
             this.richTextBox_ConsoleDebugLog.TabIndex = 2;
             this.richTextBox_ConsoleDebugLog.Text = "";
             // 
@@ -719,6 +743,7 @@
             this.tabPage_ModifyData.ResumeLayout(false);
             this.tabPage_Configure.ResumeLayout(false);
             this.tabPage_Debug.ResumeLayout(false);
+            this.tabPage_Debug.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) (this.numericUpDown_AutoRefreshSeconds)).EndInit();
             this.ResumeLayout(false);
         }
@@ -752,6 +777,7 @@
         private System.Windows.Forms.Button button_ListWaiting_MoveToDead;
         private System.Windows.Forms.Button button_ListWaiting_Remove;
         private System.Windows.Forms.Button button_LoadData;
+        private System.Windows.Forms.Button button_ManualChat;
         private System.Windows.Forms.Button button_SaveData;
         private System.Windows.Forms.Button button_SaveDebugLog;
         private System.Windows.Forms.Button button_SelectRandom;
@@ -774,6 +800,7 @@
         private System.Windows.Forms.TabPage tabPage_Configure;
         private System.Windows.Forms.TabPage tabPage_Debug;
         private System.Windows.Forms.TabPage tabPage_ModifyData;
+        private System.Windows.Forms.TextBox textBox_ManualChat;
         private System.Windows.Forms.Label verticalDivider2;
 
         #endregion
