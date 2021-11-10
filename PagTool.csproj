@@ -101,6 +101,9 @@
       <EmbeddedResource Update="ConfigTwitchCredentialsDialog.resx">
         <DependentUpon>ConfigTwitchCredentialsDialog.cs</DependentUpon>
       </EmbeddedResource>
+      <EmbeddedResource Update="ConfigHotkeyDialog.resx">
+        <DependentUpon>ConfigHotkeyDialog.cs</DependentUpon>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>

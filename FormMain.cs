@@ -1390,6 +1390,54 @@ namespace PagTool
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     File.WriteAllText(saveFileDialog.FileName, richTextBox_ConsoleDebugLog.Text);
         }
+        
+        private void button_ManualChat_Click(object sender, EventArgs e)
+        {
+            //get the text in the textbox, then purge it
+            string textToSend = textBox_ManualChat.Text.Trim();
+            textBox_ManualChat.Text = "";
+            
+            //disable the button
+            button_ManualChat.Enabled = false;
+
+            //send the text to the chat if it's safe
+            if (!String.IsNullOrWhiteSpace(textToSend))
+            {
+                _twitchChatBot.Chat(textToSend);
+                _twitchChatBot.LogLine($">> <{_twitchBotCredentials[2]}>: {textToSend}", ChatBot.LOG_LEVEL.LOG_CHAT);
+            }
+                
+        }
+
+        private void textBox_ManualChat_TextChanged(object sender, EventArgs e)
+        {
+            //if text is not null, enable the send button
+            button_ManualChat.Enabled = !String.IsNullOrEmpty(textBox_ManualChat.Text);
+        }
+
+        private void textBox_ManualChat_KeyDown(object sender, KeyEventArgs e)
+        {
+            //if the enter key is pressed, do the button's thing
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            
+                //get the text in the textbox, then purge it
+                string textToSend = textBox_ManualChat.Text.Trim();
+                textBox_ManualChat.Text = "";
+            
+                //disable the button
+                button_ManualChat.Enabled = false;
+
+                //send the text to the chat if it's safe
+                if (!String.IsNullOrWhiteSpace(textToSend))
+                {
+                    _twitchChatBot.Chat(textToSend);
+                    _twitchChatBot.LogLine($">> <{_twitchBotCredentials[2]}>: {textToSend}", ChatBot.LOG_LEVEL.LOG_CHAT);
+                }
+            }
+        }
 
         #endregion
 
@@ -1506,54 +1554,6 @@ namespace PagTool
 
         #endregion    
         
-        private void button_ManualChat_Click(object sender, EventArgs e)
-        {
-            //get the text in the textbox, then purge it
-            string textToSend = textBox_ManualChat.Text.Trim();
-            textBox_ManualChat.Text = "";
-            
-            //disable the button
-            button_ManualChat.Enabled = false;
-
-            //send the text to the chat if it's safe
-            if (!String.IsNullOrWhiteSpace(textToSend))
-            {
-                _twitchChatBot.Chat(textToSend);
-                _twitchChatBot.LogLine($">> <{_twitchBotCredentials[2]}>: {textToSend}", ChatBot.LOG_LEVEL.LOG_CHAT);
-            }
-                
-        }
-
-        private void textBox_ManualChat_TextChanged(object sender, EventArgs e)
-        {
-            //if text is not null, enable the send button
-            button_ManualChat.Enabled = !String.IsNullOrEmpty(textBox_ManualChat.Text);
-        }
-
-        private void textBox_ManualChat_KeyDown(object sender, KeyEventArgs e)
-        {
-            //if the enter key is pressed, do the button's thing
-            if (e.KeyCode == Keys.Enter)
-            {
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            
-                //get the text in the textbox, then purge it
-                string textToSend = textBox_ManualChat.Text.Trim();
-                textBox_ManualChat.Text = "";
-            
-                //disable the button
-                button_ManualChat.Enabled = false;
-
-                //send the text to the chat if it's safe
-                if (!String.IsNullOrWhiteSpace(textToSend))
-                {
-                    _twitchChatBot.Chat(textToSend);
-                    _twitchChatBot.LogLine($">> <{_twitchBotCredentials[2]}>: {textToSend}", ChatBot.LOG_LEVEL.LOG_CHAT);
-                }
-                
-                
-            }
-        }
+        
     }
 }

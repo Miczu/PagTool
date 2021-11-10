@@ -40,66 +40,99 @@ namespace PagTool
         private void textBox_SelectRandomUser_KeyDown(object sender, KeyEventArgs e)
         {
             //set updatedSettings anytime a change is made
-
-            bool isKeyPressedModKey = ModKeys.Contains(e.KeyCode);
-
-            string isAltHeld = e.Alt ? "ALT + " : "";
-            string isCtrlHeld = e.Control ? "CTRL + " : "";
-            string isShiftHeld = e.Shift ? "SHIFT + " : "";
-            string key = isKeyPressedModKey ? "..." : e.KeyCode.ToString();
-
-            textBox_SelectRandomUser.Text = $"{isCtrlHeld}{isAltHeld}{isShiftHeld}{key}";
-            
-            //assign mod bitmask and key value, only if key isn't a mod key
-            if (!isKeyPressedModKey)
+            //...or, clear the hotkey if it ESC is pressed
+            if (e.KeyCode == Keys.Escape)
             {
-                int mod = 0; mod += e.Alt ? 1 : 0; mod += e.Control ? 2 : 0; mod += e.Shift ? 4 : 0;
-                updatedSettings.HKModSelectRandomUser = mod;
-                updatedSettings.HKKeySelectRandomUser = e.KeyValue;
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                updatedSettings.HKModSelectRandomUser = 0;
+                updatedSettings.HKKeySelectRandomUser = 0;
+                textBox_SelectRandomUser.Text = $"None";
+            }
+            else
+            {
+                bool isKeyPressedModKey = ModKeys.Contains(e.KeyCode);
+
+                string isAltHeld = e.Alt ? "ALT + " : "";
+                string isCtrlHeld = e.Control ? "CTRL + " : "";
+                string isShiftHeld = e.Shift ? "SHIFT + " : "";
+                string key = isKeyPressedModKey ? "..." : e.KeyCode.ToString();
+
+                textBox_SelectRandomUser.Text = $"{isCtrlHeld}{isAltHeld}{isShiftHeld}{key}";
+            
+                //assign mod bitmask and key value, only if key isn't a mod key
+                if (!isKeyPressedModKey)
+                {
+                    int mod = 0; mod += e.Alt ? 1 : 0; mod += e.Control ? 2 : 0; mod += e.Shift ? 4 : 0;
+                    updatedSettings.HKModSelectRandomUser = mod;
+                    updatedSettings.HKKeySelectRandomUser = e.KeyValue;
+                } 
             }
         }
         
         private void textBox_ClearAllLists_KeyDown(object sender, KeyEventArgs e)
         {
             //set updatedSettings anytime a change is made
-
-            bool isKeyPressedModKey = ModKeys.Contains(e.KeyCode);
-
-            string isAltHeld = e.Alt ? "ALT + " : "";
-            string isCtrlHeld = e.Control ? "CTRL + " : "";
-            string isShiftHeld = e.Shift ? "SHIFT + " : "";
-            string key = isKeyPressedModKey ? "..." : e.KeyCode.ToString();
-
-            textBox_ClearAllLists.Text = $"{isCtrlHeld}{isAltHeld}{isShiftHeld}{key}";
-            
-            //assign mod bitmask and key value, only if key isn't a mod key
-            if (!isKeyPressedModKey)
+            //...or, clear the hotkey if it ESC is pressed
+            if (e.KeyCode == Keys.Escape)
             {
-                int mod = 0; mod += e.Alt ? 1 : 0; mod += e.Control ? 2 : 0; mod += e.Shift ? 4 : 0;
-                updatedSettings.HKModClearAllLists = mod;
-                updatedSettings.HKKeyClearAllLists = e.KeyValue;
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                updatedSettings.HKModClearAllLists = 0;
+                updatedSettings.HKKeyClearAllLists = 0;
+                textBox_ClearAllLists.Text = $"None";
+            }
+            else
+            {
+                bool isKeyPressedModKey = ModKeys.Contains(e.KeyCode);
+
+                string isAltHeld = e.Alt ? "ALT + " : "";
+                string isCtrlHeld = e.Control ? "CTRL + " : "";
+                string isShiftHeld = e.Shift ? "SHIFT + " : "";
+                string key = isKeyPressedModKey ? "..." : e.KeyCode.ToString();
+
+                textBox_ClearAllLists.Text = $"{isCtrlHeld}{isAltHeld}{isShiftHeld}{key}";
+            
+                //assign mod bitmask and key value, only if key isn't a mod key
+                if (!isKeyPressedModKey)
+                {
+                    int mod = 0; mod += e.Alt ? 1 : 0; mod += e.Control ? 2 : 0; mod += e.Shift ? 4 : 0;
+                    updatedSettings.HKModClearAllLists = mod;
+                    updatedSettings.HKKeyClearAllLists = e.KeyValue;
+                }
             }
         }
         
         private void textBox_ShuffleIntoWaitlist_KeyDown(object sender, KeyEventArgs e)
         {
             //set updatedSettings anytime a change is made
-
-            bool isKeyPressedModKey = ModKeys.Contains(e.KeyCode);
-
-            string isAltHeld = e.Alt ? "ALT + " : "";
-            string isCtrlHeld = e.Control ? "CTRL + " : "";
-            string isShiftHeld = e.Shift ? "SHIFT + " : "";
-            string key = isKeyPressedModKey ? "..." : e.KeyCode.ToString();
-
-            textBox_ShuffleIntoWaitlist.Text = $"{isCtrlHeld}{isAltHeld}{isShiftHeld}{key}";
-            
-            //assign mod bitmask and key value, only if key isn't a mod key
-            if (!isKeyPressedModKey)
+            //...or, clear the hotkey if it ESC is pressed
+            if (e.KeyCode == Keys.Escape)
             {
-                int mod = 0; mod += e.Alt ? 1 : 0; mod += e.Control ? 2 : 0; mod += e.Shift ? 4 : 0;
-                updatedSettings.HKModShuffleIntoWaitlist = mod;
-                updatedSettings.HKKeyShuffleIntoWaitlist = e.KeyValue;
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                updatedSettings.HKModShuffleIntoWaitlist = 0;
+                updatedSettings.HKKeyShuffleIntoWaitlist = 0;
+                textBox_ShuffleIntoWaitlist.Text = $"None";
+            }
+            else
+            {
+                bool isKeyPressedModKey = ModKeys.Contains(e.KeyCode);
+
+                string isAltHeld = e.Alt ? "ALT + " : "";
+                string isCtrlHeld = e.Control ? "CTRL + " : "";
+                string isShiftHeld = e.Shift ? "SHIFT + " : "";
+                string key = isKeyPressedModKey ? "..." : e.KeyCode.ToString();
+
+                textBox_ShuffleIntoWaitlist.Text = $"{isCtrlHeld}{isAltHeld}{isShiftHeld}{key}";
+            
+                //assign mod bitmask and key value, only if key isn't a mod key
+                if (!isKeyPressedModKey)
+                {
+                    int mod = 0; mod += e.Alt ? 1 : 0; mod += e.Control ? 2 : 0; mod += e.Shift ? 4 : 0;
+                    updatedSettings.HKModShuffleIntoWaitlist = mod;
+                    updatedSettings.HKKeyShuffleIntoWaitlist = e.KeyValue;
+                }
             }
         }
 
