@@ -139,7 +139,7 @@ namespace PagTool
                 {
                     if (e.Command.CommandText.Equals(s))
                     {
-                        _parent.TryAddNameToList(_parent._listWaiting, e.Command.ChatMessage.Username, e); //TryAddName
+                        _parent.TryAddNameToList(_parent._listWaiting, e.Command.ChatMessage.DisplayName, e); //TryAddName
                     }
                 }
             
@@ -158,7 +158,7 @@ namespace PagTool
         {
             //todo
             
-            string username = e.Command.ChatMessage.Username;
+            string username = e.Command.ChatMessage.DisplayName;
             //what information is already available via e
             response = response.Replace("$USERNAME", username);
 
@@ -199,7 +199,7 @@ namespace PagTool
         // TODO: clean these up + implement
         private void _OnMessageReceived(object sender, OnMessageReceivedArgs e)
         {
-            LogOutput += $"{ParseLogLevel(LOG_LEVEL.LOG_DEFAULT)}<{e.ChatMessage.Username}>: {e.ChatMessage.Message}\n";
+            LogOutput += $"{ParseLogLevel(LOG_LEVEL.LOG_DEFAULT)}<{e.ChatMessage.DisplayName}>: {e.ChatMessage.Message}\n";
         }
         
         private void _OnConnected(object sender, OnConnectedArgs e)
