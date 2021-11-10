@@ -60,8 +60,7 @@ namespace PagTool
                 FileName = "https://id.twitch.tv/oauth2/authorize?response_type=code" +
                            "&client_id=gp762nuuoqcoxypju8c569th9wz7q5" +
                            "&redirect_uri=https://twitchtokengenerator.com" +
-                           "&scope=chat:read+chat:edit+channel:moderate+channel:read:subscriptions+moderation:read" + // may need to add more scopes in the future
-                           "&state=frontend|Wk00YWV2eXNVZmg0cFk1UWJKd3B3Zz09&force_verify=true",
+                           "&scope=chat:read+chat:edit+channel:moderate+channel:read:subscriptions+moderation:read", // may need to add more scopes in the future
                 UseShellExecute = true
             });
         }
