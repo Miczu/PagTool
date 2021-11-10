@@ -128,7 +128,7 @@ namespace PagTool
             // connect twitch bot to IRC chat
             if(GeneralSettings.DoConnectOnStartup)
                 _twitchChatBot.Connect(_twitchBotCredentials[0],
-                _twitchBotCredentials[1]); 
+                _twitchBotCredentials[1], _twitchBotCredentials[2]); 
         }
 
         #region Hotkey Management
@@ -282,7 +282,7 @@ namespace PagTool
             if (File.Exists(filepath))
             {
                 string[] data = File.ReadAllLines(filepath);
-                if (data.Length == 2 && !String.IsNullOrWhiteSpace(data[0])) // quick sanity check
+                if (data.Length == 3 && !String.IsNullOrWhiteSpace(data[0])) // quick sanity check
                     return data;
                 
                 //bad data? pop open the credential config dialog
@@ -290,30 +290,30 @@ namespace PagTool
                 data = configTwitchCredentialsDialog.Show(data); //show dialog 
 
                 //try again 
-                if (data.Length == 2 && !String.IsNullOrWhiteSpace(data[0])) // quick sanity check
+                if (data.Length == 3 && !String.IsNullOrWhiteSpace(data[0])) // quick sanity check
                 {
                     File.WriteAllLines(filepath, data); //save these new changes
                     return data;
                 }
 
                 //otherwise, fuck it! start anyways
-                return new[] {"DoesNotExist", "DoesNotExist"};
+                return new[] {"DoesNotExist", "DoesNotExist", "DoesNotExist"};
             }
             else
             {
                 //bad data? pop open the credential config dialog
                 ConfigTwitchCredentialsDialog configTwitchCredentialsDialog = new ConfigTwitchCredentialsDialog();
-                string[] data = configTwitchCredentialsDialog.Show(new[] {"",""}); //show dialog 
+                string[] data = configTwitchCredentialsDialog.Show(new[] {"","",""}); //show dialog 
 
                 //see if it's ok?
-                if (data.Length == 2 && !String.IsNullOrWhiteSpace(data[0])) // quick sanity check
+                if (data.Length == 3 && !String.IsNullOrWhiteSpace(data[0])) // quick sanity check
                 {
                     File.WriteAllLines(filepath, data); //save these new changes
                     return data;
                 }
                 
                 //otherwise, fuck it! start anyways
-                return new[] {"DoesNotExist", "DoesNotExist"};
+                return new[] {"DoesNotExist", "DoesNotExist", "DoesNotExist"};
             }
         }
         
@@ -1321,7 +1321,7 @@ namespace PagTool
             
             _twitchChatBot.LogLine("Force reconnect triggered. Chat log cleared, automatically re-connecting...", ChatBot.LOG_LEVEL.LOG_INFO);
             _twitchChatBot.Connect(_twitchBotCredentials[0],
-                _twitchBotCredentials[1]);
+                _twitchBotCredentials[1], _twitchBotCredentials[2]);
         }
 
         // 'configure command aliases'. show the custom dialog, then get its settings if OK, and save them to the config.
@@ -1368,7 +1368,7 @@ namespace PagTool
                 _twitchChatBot = new ChatBot(this);
                 _twitchChatBot.LogLine("Credentials reconfigured. Chat log cleared, automatically re-connecting...", ChatBot.LOG_LEVEL.LOG_INFO);
                 _twitchChatBot.Connect(_twitchBotCredentials[0],
-                    _twitchBotCredentials[1]);
+                    _twitchBotCredentials[1], _twitchBotCredentials[2]);
             }
             
         }

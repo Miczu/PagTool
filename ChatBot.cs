@@ -30,9 +30,9 @@ namespace PagTool
         /// <summary>
         /// Connect to the Twitch channel using stored credentials.
         /// </summary>
-        internal void Connect(string twitchUsername, string twitchOAuth)
+        internal void Connect(string twitchUsername, string twitchOAuth, string botUsername)
         {
-            _credentials = new ConnectionCredentials(twitchUsername, twitchOAuth);
+            _credentials = new ConnectionCredentials(botUsername, twitchOAuth);
             
             _twitchClient.Initialize(_credentials, twitchUsername);
             
@@ -54,7 +54,7 @@ namespace PagTool
 
         // for use by the 'force reconnect' button
         internal void DisconnectWaitReconnect(string twitchUsername,
-            string twitchOAuth, int secondsToWaitBeforeReconnecting = 5)
+            string twitchOAuth, string botUsername, int secondsToWaitBeforeReconnecting = 5)
         {
             LogOutput += $"{ParseLogLevel(LOG_LEVEL.LOG_WARNING)}Disconnecting... \n";
             _twitchClient.Disconnect();

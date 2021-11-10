@@ -38,13 +38,15 @@ namespace PagTool
             this.label_AccessToken = new System.Windows.Forms.Label();
             this.label_ChannelName = new System.Windows.Forms.Label();
             this.textBox_ChannelName = new System.Windows.Forms.TextBox();
+            this.labelBotUsername = new System.Windows.Forms.Label();
+            this.textBox_BotUsername = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(12, 110);
+            this.buttonOK.Location = new System.Drawing.Point(12, 136);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(150, 40);
             this.buttonOK.TabIndex = 0;
@@ -65,7 +67,7 @@ namespace PagTool
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(174, 110);
+            this.buttonCancel.Location = new System.Drawing.Point(174, 136);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(150, 40);
             this.buttonCancel.TabIndex = 2;
@@ -75,7 +77,7 @@ namespace PagTool
             // textBox_AccessToken
             // 
             this.textBox_AccessToken.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_AccessToken.Location = new System.Drawing.Point(91, 84);
+            this.textBox_AccessToken.Location = new System.Drawing.Point(91, 110);
             this.textBox_AccessToken.Name = "textBox_AccessToken";
             this.textBox_AccessToken.Size = new System.Drawing.Size(232, 20);
             this.textBox_AccessToken.TabIndex = 3;
@@ -83,7 +85,7 @@ namespace PagTool
             // label_AccessToken
             // 
             this.label_AccessToken.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label_AccessToken.Location = new System.Drawing.Point(11, 83);
+            this.label_AccessToken.Location = new System.Drawing.Point(11, 109);
             this.label_AccessToken.Name = "label_AccessToken";
             this.label_AccessToken.Size = new System.Drawing.Size(79, 20);
             this.label_AccessToken.TabIndex = 4;
@@ -93,7 +95,7 @@ namespace PagTool
             // label_ChannelName
             // 
             this.label_ChannelName.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label_ChannelName.Location = new System.Drawing.Point(11, 58);
+            this.label_ChannelName.Location = new System.Drawing.Point(11, 84);
             this.label_ChannelName.Name = "label_ChannelName";
             this.label_ChannelName.Size = new System.Drawing.Size(80, 20);
             this.label_ChannelName.TabIndex = 6;
@@ -103,10 +105,28 @@ namespace PagTool
             // textBox_ChannelName
             // 
             this.textBox_ChannelName.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_ChannelName.Location = new System.Drawing.Point(91, 58);
+            this.textBox_ChannelName.Location = new System.Drawing.Point(91, 84);
             this.textBox_ChannelName.Name = "textBox_ChannelName";
             this.textBox_ChannelName.Size = new System.Drawing.Size(232, 20);
             this.textBox_ChannelName.TabIndex = 5;
+            // 
+            // labelBotUsername
+            // 
+            this.labelBotUsername.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelBotUsername.Location = new System.Drawing.Point(11, 58);
+            this.labelBotUsername.Name = "labelBotUsername";
+            this.labelBotUsername.Size = new System.Drawing.Size(80, 20);
+            this.labelBotUsername.TabIndex = 8;
+            this.labelBotUsername.Text = "Bot Username:";
+            this.labelBotUsername.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textBox_BotUsername
+            // 
+            this.textBox_BotUsername.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_BotUsername.Location = new System.Drawing.Point(91, 58);
+            this.textBox_BotUsername.Name = "textBox_BotUsername";
+            this.textBox_BotUsername.Size = new System.Drawing.Size(232, 20);
+            this.textBox_BotUsername.TabIndex = 7;
             // 
             // ConfigTwitchCredentialsDialog
             // 
@@ -114,7 +134,9 @@ namespace PagTool
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(336, 162);
+            this.ClientSize = new System.Drawing.Size(336, 188);
+            this.Controls.Add(this.labelBotUsername);
+            this.Controls.Add(this.textBox_BotUsername);
             this.Controls.Add(this.label_ChannelName);
             this.Controls.Add(this.textBox_ChannelName);
             this.Controls.Add(this.label_AccessToken);
@@ -137,7 +159,9 @@ namespace PagTool
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Label label_AccessToken;
         private System.Windows.Forms.Label label_ChannelName;
+        private System.Windows.Forms.Label labelBotUsername;
         private System.Windows.Forms.TextBox textBox_AccessToken;
+        private System.Windows.Forms.TextBox textBox_BotUsername;
         private System.Windows.Forms.TextBox textBox_ChannelName;
 
         #endregion
