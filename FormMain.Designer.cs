@@ -717,7 +717,7 @@
             this.label_VersionInfo.Name = "label_VersionInfo";
             this.label_VersionInfo.Size = new System.Drawing.Size(786, 20);
             this.label_VersionInfo.TabIndex = 3;
-            this.label_VersionInfo.Text = "Version 2.50 Beta || https://github.com/corptact/PagTool || Do Not Distribute || " + "Corporate Tactics 2021";
+            this.label_VersionInfo.Text = "Version 2.53 Beta || https://github.com/corptact/PagTool || Do Not Distribute || " + "Corporate Tactics 2021";
             this.label_VersionInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // richTextBox_ConsoleDebugLog
