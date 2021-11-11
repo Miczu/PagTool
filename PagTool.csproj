@@ -53,6 +53,12 @@
       <Compile Update="TwitchApiDialog.Designer.cs">
         <DependentUpon>TwitchApiDialog.cs</DependentUpon>
       </Compile>
+      <Compile Update="ConfigListBehaviorDialog.cs">
+        <SubType>Form</SubType>
+      </Compile>
+      <Compile Update="ConfigListBehaviorDialog.Designer.cs">
+        <DependentUpon>ConfigListBehaviorDialog.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -103,6 +109,12 @@
       </EmbeddedResource>
       <EmbeddedResource Update="ConfigHotkeyDialog.resx">
         <DependentUpon>ConfigHotkeyDialog.cs</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Update="ConfigListBehaviorDialog.resx">
+        <DependentUpon>ConfigListBehaviorDialog.cs</DependentUpon>
+      </EmbeddedResource>
+      <EmbeddedResource Update="ConfigCommandAliasDialog.resx">
+        <DependentUpon>ConfigCommandAliasDialog.cs</DependentUpon>
       </EmbeddedResource>
     </ItemGroup>
 

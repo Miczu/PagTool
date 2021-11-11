@@ -44,10 +44,21 @@ namespace PagTool
                                         // the red "clear all" button will ALWAYS get an 'are you sure' dialog. 
         public bool DoAskConfirmClearHotkey = false; // should i pop up a confirm dialog when using the 'clear list' hotkey?
 
+        public enum LINEAGE_MODE
+        {
+            LINEAGE_NONE = 0,   //no lineage
+            LINEAGE_NUMERAL,    //1, 2, 3
+            LINEAGE_WORDS,      //the First, the Second
+            LINEAGE_ROMAN       //I, II, III
+        }
+        public LINEAGE_MODE LineageMode = LINEAGE_MODE.LINEAGE_NONE; // which mode should the lineage be printed in
+        public bool DoOmitFirstLineage = true; // whether or not the first lineage should be omitted
+
         //defaults only
         public GeneralSettings() { }
 
         //overridable
+        /* this code is never actually used
         public GeneralSettings(bool doVerboseLog, bool doConnectOnStartup, int autoRefreshSeconds,
                         bool doAskConfirmClearButtons, bool doAskConfirmClearHotkey)
         {
@@ -57,6 +68,7 @@ namespace PagTool
             DoAskConfirmClearButtons = doAskConfirmClearButtons;
             DoAskConfirmClearHotkey = doAskConfirmClearHotkey;
         }
+        */
     }
 
     public partial class FormMain : Form
@@ -468,75 +480,244 @@ namespace PagTool
 
         public void PutSelectedToClipboard(string selected)
         {
-            //todo check flag for whether lineage should be put on the clipboard
             _dictLineage.TryGetValue(selected, out int value);
-
-            //todo lineage modes
-            string lineageAppendText;
-            switch (value)
-            {
-                case 1:
-                    //switch(lineageMode)
-                    lineageAppendText = " I";
-                    break;
-                
-                case 2:
-                    lineageAppendText = " II";
-                    break;
-                
-                case 3:
-                    lineageAppendText = " III";
-                    break;
-                
-                case 4:
-                    lineageAppendText = " IV";
-                    break;
-                
-                case 5:
-                    lineageAppendText = " V";
-                    break;
-                case 6:
-                    lineageAppendText = " VI";
-                    break;
-                case 7:
-                    lineageAppendText = " VII";
-                    break;
-
-                case 8: 
-                    lineageAppendText = " VIII";
-                    break;
-
-                case 9:
-                    lineageAppendText = " IX";
-                    break;
-                
-                case 10:
-                    lineageAppendText = " X";
-                    break;
-                
-                case 11:
-                    lineageAppendText = " XI";
-                    break;
-                
-                case 12:
-                    lineageAppendText = " XII";
-                    break;
-                
-                case 13:
-                    lineageAppendText = " XIII";
-                    break;
+            
+            string lineageAppendText = "";
+            if (GeneralSettings.LineageMode != GeneralSettings.LINEAGE_MODE.LINEAGE_NONE)
+            { //if we aren't using lineages, don't set the append text
+                switch (value)
+                {
+                    // i am so sorry for this awful branching i don't know if there's a better way LMAO please let me know
+                    case 1:
+                        if(!GeneralSettings.DoOmitFirstLineage) //check that we actually want to set the text for the first lineage
+                            switch (GeneralSettings.LineageMode)
+                            {
+                                case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                    lineageAppendText = " 1";
+                                    break;
+                                case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                    lineageAppendText = " the First";
+                                    break;
+                                case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                    lineageAppendText = " I";
+                                    break;
+                            }
+                        break;
                     
-                case 14:
-                    lineageAppendText = " XIV";
-                    break;
-                                        
-                case 15:
-                    lineageAppendText = " XV";
-                    break;
-                
-                default:
-                    lineageAppendText = $" {value}";
-                    break;
+                    case 2:
+                        switch (GeneralSettings.LineageMode)
+                        {
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                lineageAppendText = " 2";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                lineageAppendText = " the Second";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                lineageAppendText = " II";
+                                break;
+                        }
+                        break;
+                    
+                    case 3:
+                        switch (GeneralSettings.LineageMode)
+                        {
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                lineageAppendText = " 3";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                lineageAppendText = " the Third";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                lineageAppendText = " III";
+                                break;
+                        }
+                        break;
+                    
+                    case 4:
+                        switch (GeneralSettings.LineageMode)
+                        {
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                lineageAppendText = " 4";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                lineageAppendText = " the Fourth";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                lineageAppendText = " IV";
+                                break;
+                        }
+                        break;
+                    
+                    case 5:
+                        switch (GeneralSettings.LineageMode)
+                        {
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                lineageAppendText = " 5";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                lineageAppendText = " the Fifth";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                lineageAppendText = " V";
+                                break;
+                        }
+                        break;
+                    
+                    case 6:
+                        switch (GeneralSettings.LineageMode)
+                        {
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                lineageAppendText = " 6";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                lineageAppendText = " the Sixth";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                lineageAppendText = " VI";
+                                break;
+                        }
+                        break;
+                        
+                    case 7:
+                        switch (GeneralSettings.LineageMode)
+                        {
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                lineageAppendText = " 7";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                lineageAppendText = " the Seventh";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                lineageAppendText = " VII";
+                                break;
+                        }
+                        break;
+
+                    case 8: 
+                        switch (GeneralSettings.LineageMode)
+                        {
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                lineageAppendText = " 8";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                lineageAppendText = " the Eighth";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                lineageAppendText = " VIII";
+                                break;
+                        }
+                        break;
+
+                    case 9:
+                        switch (GeneralSettings.LineageMode)
+                        {
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                lineageAppendText = " 9";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                lineageAppendText = " the Ninth";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                lineageAppendText = " IX";
+                                break;
+                        }
+                        break;
+                    
+                    case 10:
+                        switch (GeneralSettings.LineageMode)
+                        {
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                lineageAppendText = " 10";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                lineageAppendText = " the Tenth";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                lineageAppendText = " X";
+                                break;
+                        }
+                        break;
+                    
+                    case 11:
+                        switch (GeneralSettings.LineageMode)
+                        {
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                lineageAppendText = " 11";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                lineageAppendText = " the Eleventh";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                lineageAppendText = " XI";
+                                break;
+                        }
+                        break;
+                    
+                    case 12:
+                        switch (GeneralSettings.LineageMode)
+                        {
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                lineageAppendText = " 12";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                lineageAppendText = " the Twelfth";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                lineageAppendText = " XII";
+                                break;
+                        }
+                        break;
+                    
+                    case 13:
+                        switch (GeneralSettings.LineageMode)
+                        {
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                lineageAppendText = " 13";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                lineageAppendText = " the Thirteenth";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                lineageAppendText = " XIII";
+                                break;
+                        }
+                        break;
+                        
+                    case 14:
+                        switch (GeneralSettings.LineageMode)
+                        {
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                lineageAppendText = " 14";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                lineageAppendText = " the Fourteenth";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                lineageAppendText = " XIV";
+                                break;
+                        }
+                        break;
+                                            
+                    case 15:
+                        switch (GeneralSettings.LineageMode)
+                        {
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_NUMERAL:
+                                lineageAppendText = " 15";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_WORDS:
+                                lineageAppendText = " the Fifteenth";
+                                break;
+                            case GeneralSettings.LINEAGE_MODE.LINEAGE_ROMAN:
+                                lineageAppendText = " XV";
+                                break;
+                        }
+                        break;
+                    
+                    default:
+                        lineageAppendText = $" {value}";
+                        break;
+                }
             }
 
             Clipboard.SetText($"{selected}{lineageAppendText}");
@@ -1439,6 +1620,12 @@ namespace PagTool
                 }
             }
         }
+        
+        private void button_ConfigListLogic_Click(object sender, EventArgs e)
+        {
+            ConfigListBehaviorDialog dialog = new ConfigListBehaviorDialog();
+            GeneralSettings = dialog.Show(GeneralSettings); //pass in current settings, get back updated settings
+        }
 
         #endregion
 
@@ -1553,8 +1740,9 @@ namespace PagTool
             return response;
         }
 
-        #endregion    
-        
+        #endregion
+
+
         
     }
 }

@@ -515,6 +515,7 @@
             this.button_ConfigListLogic.TabIndex = 3;
             this.button_ConfigListLogic.Text = "Configure List Logic";
             this.button_ConfigListLogic.UseVisualStyleBackColor = true;
+            this.button_ConfigListLogic.Click += new System.EventHandler(this.button_ConfigListLogic_Click);
             // 
             // button_SaveData
             // 
@@ -716,7 +717,7 @@
             this.label_VersionInfo.Name = "label_VersionInfo";
             this.label_VersionInfo.Size = new System.Drawing.Size(786, 20);
             this.label_VersionInfo.TabIndex = 3;
-            this.label_VersionInfo.Text = "Version 2.34 Beta || https://github.com/corptact/PagTool || Do Not Distribute || " + "Corporate Tactics 2021";
+            this.label_VersionInfo.Text = "Version 2.50 Beta || https://github.com/corptact/PagTool || Do Not Distribute || " + "Corporate Tactics 2021";
             this.label_VersionInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // richTextBox_ConsoleDebugLog
