@@ -103,6 +103,8 @@ namespace PagTool
 
         //used to let threads know if the application is terminating
         private bool _isApplicationClosing = false;
+        public Thread updateAndRefreshComponentsThread;
+        public Thread chatReminderThread;
 
         #endregion
         
@@ -135,13 +137,17 @@ namespace PagTool
             //RegisterAllHotkeys();
 
             // then, start thread to auto-refresh contents of components every 5 seconds
-            Thread updateAndRefreshComponentsThread = new Thread(new ThreadStart(UpdateThreadTimer));
+            updateAndRefreshComponentsThread = new Thread(new ThreadStart(UpdateThreadTimer));
             updateAndRefreshComponentsThread.Start();
 
             // connect twitch bot to IRC chat
             if(GeneralSettings.DoConnectOnStartup)
                 _twitchChatBot.Connect(_twitchBotCredentials[0],
                 _twitchBotCredentials[1], _twitchBotCredentials[2]); 
+            
+            // launch chat reminder thread
+            chatReminderThread = new Thread(new ThreadStart(ChatReminderThreadTimer));
+            chatReminderThread.Start();
         }
 
         #region Hotkey Management
@@ -229,7 +235,7 @@ namespace PagTool
         {
             while (!_isApplicationClosing)
             {
-                Thread.Sleep(1000 * GeneralSettings.AutoRefreshSeconds); // every five seconds
+                Thread.Sleep(1000 * GeneralSettings.AutoRefreshSeconds); //set in debug screen
                 
                 //visual only
                 DoAllUpdates();
@@ -237,6 +243,20 @@ namespace PagTool
                 // save data
                 WriteAllConfigToFiles();
                 WriteAllDataToFiles();
+            }
+        }
+        
+        void ChatReminderThreadTimer()
+        {
+            //wait a bit first to give client time to connect
+            Thread.Sleep(5000);
+            
+            while (!_isApplicationClosing)
+            {
+                Thread.Sleep(1000 * ConfigCommandBehavior.ChatReminderSeconds); // set in cmdbehavior
+                
+                //send message to chat
+                _twitchChatBot.Chat(ConfigCommandBehavior.ChatReminder);
             }
         }
 
@@ -1450,6 +1470,9 @@ namespace PagTool
             
             _isApplicationClosing = true;
             UnregisterAllHotkeys();
+            
+            updateAndRefreshComponentsThread.Abort();
+            chatReminderThread.Abort();
         }
         
         // pop a file dialog and store the dataset to it

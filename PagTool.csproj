@@ -116,6 +116,9 @@
       <EmbeddedResource Update="ConfigCommandAliasDialog.resx">
         <DependentUpon>ConfigCommandAliasDialog.cs</DependentUpon>
       </EmbeddedResource>
+      <EmbeddedResource Update="ConfigCommandBehaviorDialog.resx">
+        <DependentUpon>ConfigCommandBehaviorDialog.cs</DependentUpon>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>

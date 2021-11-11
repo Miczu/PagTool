@@ -14,11 +14,14 @@ namespace PagTool
         public string ResponseCmdBlacklistTriggered = "$USERNAME, your name is blacklisted. Please change your username if you wish to be added.";
         public string ResponseCmdWaitlistEmpty = "The waitlist is currently empty! Type !name to be added to the waitlist.";
         public string ResponseCmdChatReconnect = "The program is reconnecting to chat... please wait a moment...";
+        public string ChatReminder = "Type !name in chat to add yourself to the waiting pool.";
+        public int ChatReminderSeconds = 600; //10 minutes
         
         //constructor using only default values
         public ConfigCommandBehaviorResult() { }
 
         //define values (passed to form when loading current settings from memory)
+        /* code is never used lmao
         public ConfigCommandBehaviorResult(string responseCmdNameAdd, string responseCmdNameAlreadyExists, string responseCmdCheckStatus,
             string responseCmdUserDrawn, string responseCmdBlacklistTriggered, string responseCmdWaitlistEmpty, string responseCmdChatReconnect)
         {
@@ -30,6 +33,7 @@ namespace PagTool
             ResponseCmdWaitlistEmpty = responseCmdWaitlistEmpty;
             ResponseCmdChatReconnect = responseCmdChatReconnect;
         }
+        */
     }
     
     //IN THIS FORM: define the text that will return to the users after completing a !chatCommand
@@ -55,6 +59,8 @@ namespace PagTool
             textBox_ResponseCmdBlacklistTriggered.Text = currentSettings.ResponseCmdBlacklistTriggered;
             textBox_ResponseCmdWaitlistEmpty.Text = currentSettings.ResponseCmdWaitlistEmpty;
             textBox_ResponseCmdChatReconnect.Text = currentSettings.ResponseCmdChatReconnect;
+            textBox_ChatReminder.Text = currentSettings.ChatReminder;
+            numericUpDown_ChatReminderSeconds.Value = currentSettings.ChatReminderSeconds;
 
             //show the dialog
             var result = ShowDialog();
@@ -70,6 +76,8 @@ namespace PagTool
                 updatedSettings.ResponseCmdBlacklistTriggered = textBox_ResponseCmdBlacklistTriggered.Text;
                 updatedSettings.ResponseCmdWaitlistEmpty = textBox_ResponseCmdWaitlistEmpty.Text;
                 updatedSettings.ResponseCmdChatReconnect = textBox_ResponseCmdChatReconnect.Text;
+                updatedSettings.ChatReminder = textBox_ChatReminder.Text;
+                updatedSettings.ChatReminderSeconds = Convert.ToInt32(numericUpDown_ChatReminderSeconds.Value);
                 
                 return updatedSettings;
             } else
@@ -81,7 +89,7 @@ namespace PagTool
             MessageBox.Show("Format strings currently implemented:\n" +
                             "$TEST -- format string demo.\n" +
                             "$USERNAME -- prints the user's name.\n" +
-                            "$LINEAGE -- prints the user's current lineage as a value.\n" +
+                            "$LINEAGE -- prints the user's current lineage as an integer value.\n" +
                             "$WAITCOUNT -- the current number of users in the waitlist.\n" +
                             "$FULLSTATUS -- a complete report on the user's status in the list.\n" +
                             "$QUICKSTATUS -- a short report on a user's status.");
