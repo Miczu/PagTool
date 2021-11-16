@@ -226,7 +226,7 @@ namespace PagTool
         
         private void _OnConnected(object sender, OnConnectedArgs e)
         {
-            LogOutput += $"{ParseLogLevel(LOG_LEVEL.LOG_INFO)}Connected to IRC: @{e.BotUsername}\n";
+            LogOutput += $"{ParseLogLevel(LOG_LEVEL.LOG_INFO)}Connected to IRC: @{e.BotUsername} in channel #{_twitchUsername}\n";
         }
         
         private void _OnLog(object sender, OnLogArgs e)
