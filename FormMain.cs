@@ -456,6 +456,9 @@ namespace PagTool
                 if(e != null) //if e was passed to this function, it's from chat, and we should reply in turn
                     _twitchChatBot.Chat(_twitchChatBot.TryReplaceFormatStrings(ConfigCommandBehavior.ResponseCmdNameAdd, e));
             }
+            
+            // update display lists
+            DoAllUpdates();
         }
         
         public void TryMoveNameToDead(string name, OnChatCommandReceivedArgs e = null)
@@ -482,6 +485,9 @@ namespace PagTool
                 if(e != null) //if e was passed to this function, it's from chat, and we should reply in turn
                     _twitchChatBot.Chat(_twitchChatBot.TryReplaceFormatStrings(ConfigCommandBehavior.ResponseCmdMoveToDead, e));
             }
+            
+            // update display lists
+            DoAllUpdates();
         }
 
         public void TrySelectRandomUser() //get a random user from waitlist (according to SelectRandom behavior options)
