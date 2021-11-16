@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage_ModifyData = new System.Windows.Forms.TabPage();
             this.button_ClearDead = new System.Windows.Forms.Button();
@@ -72,6 +73,7 @@
             this.button_ConfigCommandBehavior = new System.Windows.Forms.Button();
             this.button_ConfigCommandAliases = new System.Windows.Forms.Button();
             this.tabPage_Debug = new System.Windows.Forms.TabPage();
+            this.label_Crab = new System.Windows.Forms.Label();
             this.button_ManualChat = new System.Windows.Forms.Button();
             this.textBox_ManualChat = new System.Windows.Forms.TextBox();
             this.label_RefreshTime = new System.Windows.Forms.Label();
@@ -594,6 +596,7 @@
             // 
             // tabPage_Debug
             // 
+            this.tabPage_Debug.Controls.Add(this.label_Crab);
             this.tabPage_Debug.Controls.Add(this.button_ManualChat);
             this.tabPage_Debug.Controls.Add(this.textBox_ManualChat);
             this.tabPage_Debug.Controls.Add(this.label_RefreshTime);
@@ -611,6 +614,15 @@
             this.tabPage_Debug.TabIndex = 3;
             this.tabPage_Debug.Text = "Debug";
             this.tabPage_Debug.UseVisualStyleBackColor = true;
+            // 
+            // label_Crab
+            // 
+            this.label_Crab.Image = ((System.Drawing.Image) (resources.GetObject("label_Crab.Image")));
+            this.label_Crab.Location = new System.Drawing.Point(766, 6);
+            this.label_Crab.Name = "label_Crab";
+            this.label_Crab.Size = new System.Drawing.Size(20, 20);
+            this.label_Crab.TabIndex = 13;
+            this.label_Crab.DoubleClick += new System.EventHandler(this.label_Crab_DoubleClick);
             // 
             // button_ManualChat
             // 
@@ -787,6 +799,7 @@
         private System.Windows.Forms.Button button_TwitchApiDialog;
         private System.Windows.Forms.CheckBox checkBox_ConnectOnStartup;
         private System.Windows.Forms.CheckBox checkBox_doVerboseLogging;
+        private System.Windows.Forms.Label label_Crab;
         private System.Windows.Forms.Label label_RefreshTime;
         private System.Windows.Forms.Label label_VersionInfo;
         private System.Windows.Forms.Label label2;

@@ -1689,6 +1689,12 @@ namespace PagTool
             ConfigListBehaviorDialog dialog = new ConfigListBehaviorDialog();
             GeneralSettings = dialog.Show(GeneralSettings); //pass in current settings, get back updated settings
         }
+        
+        private void label_Crab_DoubleClick(object sender, EventArgs e)
+        {
+            //send crab fact
+            _twitchChatBot.Chat($"🦀 {CrabFacts.getRandomFact()}");
+        }
 
         #endregion
 
@@ -1804,7 +1810,6 @@ namespace PagTool
         }
 
         #endregion
-
 
         
     }
