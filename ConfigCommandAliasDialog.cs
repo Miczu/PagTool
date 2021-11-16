@@ -18,16 +18,22 @@ namespace PagTool
         // for this dialog: command descriptor (e.g., Add Name (!name)) + command aliases (with one minimum default value)
         public bool DoCmdNameAdd = true; public string[] AliasCmdNameAdd = new []{"name"}; //add me to the list.
         public bool DoCmdCheckStatus = true; public string[] AliasCmdCheckStatus = new []{"status"}; //where am i in the list?
+        public bool DoCmdMoveToDead = true; public string[] AliasCmdMoveToDead = new []{"dead"}; //i died! put me in the dead list (so i will be auto-shuffled back into the waitlist)
+        public bool DoCmdHelp = true; public string[] AliasCmdHelp = new []{"help"}; //how do i use this thing?!
 
         //use defaults only
         public ConfigCommandAliasResult() { }
 
         // define all default values in the constructor
         public ConfigCommandAliasResult(bool doCmdNameAdd, string[] aliasCmdNameAdd,
-                                        bool doCmdCheckStatus, string[] aliasCmdCheckStatus)
+                                        bool doCmdCheckStatus, string[] aliasCmdCheckStatus,
+                                        bool doCmdMoveToDead, string[] aliasCmdMoveToDead,
+                                        bool doCmdHelp, string[] aliasCmdHelp)
         {
             DoCmdNameAdd = doCmdNameAdd; AliasCmdNameAdd = aliasCmdNameAdd;
             DoCmdCheckStatus = doCmdNameAdd; AliasCmdCheckStatus = aliasCmdCheckStatus;
+            DoCmdMoveToDead = doCmdNameAdd; AliasCmdMoveToDead = aliasCmdCheckStatus;
+            DoCmdHelp = doCmdHelp; AliasCmdHelp = aliasCmdHelp;
         }
     }
     
@@ -55,6 +61,14 @@ namespace PagTool
             textBox_AliasDoCmdCheckStatus.Text = (currentSettings.AliasCmdCheckStatus == null) ? 
                 "status" : (String.Join(" ", currentSettings.AliasCmdCheckStatus));
             
+            checkBox_DoCmdMoveToDead.Checked = currentSettings.DoCmdMoveToDead;
+            textBox_AliasDoCmdMoveToDead.Text = (currentSettings.AliasCmdMoveToDead == null) ? 
+                "dead" : (String.Join(" ", currentSettings.AliasCmdMoveToDead));
+            
+            checkBox_DoCmdHelp.Checked = currentSettings.DoCmdHelp;
+            textBox_AliasDoCmdHelp.Text = (currentSettings.AliasCmdHelp == null) ? 
+                "help" : (String.Join(" ", currentSettings.AliasCmdHelp));
+            
             //show the dialog
             var result = ShowDialog();
 
@@ -69,6 +83,14 @@ namespace PagTool
                 updatedSettings.DoCmdCheckStatus = checkBox_DoCmdCheckStatus.Checked;
                 updatedSettings.AliasCmdCheckStatus = (String.IsNullOrWhiteSpace(textBox_AliasDoCmdCheckStatus.Text)) ? 
                     new[] {"status"} : textBox_AliasDoCmdCheckStatus.Text.Split(' ');
+                
+                updatedSettings.DoCmdMoveToDead = checkBox_DoCmdMoveToDead.Checked;
+                updatedSettings.AliasCmdMoveToDead = (String.IsNullOrWhiteSpace(textBox_AliasDoCmdMoveToDead.Text)) ? 
+                    new[] {"dead"} : textBox_AliasDoCmdMoveToDead.Text.Split(' ');
+                
+                updatedSettings.DoCmdHelp = checkBox_DoCmdHelp.Checked;
+                updatedSettings.AliasCmdHelp = (String.IsNullOrWhiteSpace(textBox_AliasDoCmdHelp.Text)) ? 
+                    new[] {"help"} : textBox_AliasDoCmdHelp.Text.Split(' ');
                 
                 return updatedSettings;
             } else

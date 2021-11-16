@@ -136,7 +136,7 @@ namespace PagTool
 
             string commandText = e.Command.CommandText.ToLower(); //ignore case
 
-            if(_parent.ConfigCommandAlias.DoCmdNameAdd) // NameAdd
+            if(_parent.ConfigCommandAlias.DoCmdNameAdd) //NameAdd
                 foreach (string s in _parent.ConfigCommandAlias.AliasCmdNameAdd)
                 {
                     if (commandText.Equals(s))
@@ -145,7 +145,7 @@ namespace PagTool
                     }
                 }
             
-            if(_parent.ConfigCommandAlias.DoCmdCheckStatus) // NameAdd
+            if(_parent.ConfigCommandAlias.DoCmdCheckStatus) // CheckStatus
                 foreach (string s in _parent.ConfigCommandAlias.AliasCmdCheckStatus)
                 {
                     if (commandText.Equals(s))
@@ -155,7 +155,25 @@ namespace PagTool
                     }
                 }
             
+            if(_parent.ConfigCommandAlias.DoCmdMoveToDead) // MoveToDead
+                foreach (string s in _parent.ConfigCommandAlias.AliasCmdMoveToDead)
+                {
+                    if (commandText.Equals(s))
+                    {
+                        //if the user exists in active, move them to dead
+                        _parent.TryMoveNameToDead(e.Command.ChatMessage.DisplayName, e); 
+                    }
+                }
             
+            if(_parent.ConfigCommandAlias.DoCmdHelp) // Help
+                foreach (string s in _parent.ConfigCommandAlias.AliasCmdHelp)
+                {
+                    if (commandText.Equals(s))
+                    {
+                        //send the help prompt
+                        Chat(TryReplaceFormatStrings(_parent.ConfigCommandBehavior.ResponseCmdHelp, e));
+                    }
+                }
         }
 
         public string TryReplaceFormatStrings(string response, OnChatCommandReceivedArgs e)

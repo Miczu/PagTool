@@ -16,24 +16,12 @@ namespace PagTool
         public string ResponseCmdChatReconnect = "The program is reconnecting to chat... please wait a moment...";
         public string ChatReminder = "Type !name in chat to add yourself to the waiting pool.";
         public int ChatReminderSeconds = 600; //10 minutes
+        public string ResponseCmdMoveToDead = "$USERNAME, fare thee well! You are now dead.";
+        public string ResponseCmdCannotDie = "$USERNAME, you cannot die! Your name is not active!";
+        public string ResponseCmdHelp = "Use !name to add yourself to the list. Use !dead to mark yourself as dead, when you die in battle.";
         
         //constructor using only default values
         public ConfigCommandBehaviorResult() { }
-
-        //define values (passed to form when loading current settings from memory)
-        /* code is never used lmao
-        public ConfigCommandBehaviorResult(string responseCmdNameAdd, string responseCmdNameAlreadyExists, string responseCmdCheckStatus,
-            string responseCmdUserDrawn, string responseCmdBlacklistTriggered, string responseCmdWaitlistEmpty, string responseCmdChatReconnect)
-        {
-            ResponseCmdNameAdd = responseCmdNameAdd;
-            ResponseCmdNameAlreadyExists = responseCmdNameAlreadyExists;
-            ResponseCmdCheckStatus = responseCmdCheckStatus;
-            ResponseCmdUserDrawn = responseCmdUserDrawn;
-            ResponseCmdBlacklistTriggered = responseCmdBlacklistTriggered;
-            ResponseCmdWaitlistEmpty = responseCmdWaitlistEmpty;
-            ResponseCmdChatReconnect = responseCmdChatReconnect;
-        }
-        */
     }
     
     //IN THIS FORM: define the text that will return to the users after completing a !chatCommand
@@ -61,6 +49,9 @@ namespace PagTool
             textBox_ResponseCmdChatReconnect.Text = currentSettings.ResponseCmdChatReconnect;
             textBox_ChatReminder.Text = currentSettings.ChatReminder;
             numericUpDown_ChatReminderSeconds.Value = currentSettings.ChatReminderSeconds;
+            textBox_ResponseCmdMoveToDead.Text = currentSettings.ResponseCmdMoveToDead;
+            textBox_ResponseCmdCannotDie.Text = currentSettings.ResponseCmdCannotDie;
+            textBox_ResponseCmdHelp.Text = currentSettings.ResponseCmdHelp;
 
             //show the dialog
             var result = ShowDialog();
@@ -78,6 +69,9 @@ namespace PagTool
                 updatedSettings.ResponseCmdChatReconnect = textBox_ResponseCmdChatReconnect.Text;
                 updatedSettings.ChatReminder = textBox_ChatReminder.Text;
                 updatedSettings.ChatReminderSeconds = Convert.ToInt32(numericUpDown_ChatReminderSeconds.Value);
+                updatedSettings.ResponseCmdMoveToDead = textBox_ResponseCmdMoveToDead.Text;
+                updatedSettings.ResponseCmdCannotDie = textBox_ResponseCmdCannotDie.Text;
+                updatedSettings.ResponseCmdHelp = textBox_ResponseCmdHelp.Text;
                 
                 return updatedSettings;
             } else

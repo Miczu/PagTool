@@ -39,6 +39,10 @@ namespace PagTool
             this.label3 = new System.Windows.Forms.Label();
             this.textBox_AliasDoCmdCheckStatus = new System.Windows.Forms.TextBox();
             this.checkBox_DoCmdCheckStatus = new System.Windows.Forms.CheckBox();
+            this.checkBox_DoCmdMoveToDead = new System.Windows.Forms.CheckBox();
+            this.textBox_AliasDoCmdMoveToDead = new System.Windows.Forms.TextBox();
+            this.checkBox_DoCmdHelp = new System.Windows.Forms.CheckBox();
+            this.textBox_AliasDoCmdHelp = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -76,9 +80,9 @@ namespace PagTool
             // textBox_AliasDoCmdNameAdd
             // 
             this.textBox_AliasDoCmdNameAdd.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_AliasDoCmdNameAdd.Location = new System.Drawing.Point(98, 191);
+            this.textBox_AliasDoCmdNameAdd.Location = new System.Drawing.Point(106, 191);
             this.textBox_AliasDoCmdNameAdd.Name = "textBox_AliasDoCmdNameAdd";
-            this.textBox_AliasDoCmdNameAdd.Size = new System.Drawing.Size(445, 20);
+            this.textBox_AliasDoCmdNameAdd.Size = new System.Drawing.Size(437, 20);
             this.textBox_AliasDoCmdNameAdd.TabIndex = 5;
             // 
             // label2
@@ -103,9 +107,9 @@ namespace PagTool
             // textBox_AliasDoCmdCheckStatus
             // 
             this.textBox_AliasDoCmdCheckStatus.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_AliasDoCmdCheckStatus.Location = new System.Drawing.Point(98, 165);
+            this.textBox_AliasDoCmdCheckStatus.Location = new System.Drawing.Point(106, 165);
             this.textBox_AliasDoCmdCheckStatus.Name = "textBox_AliasDoCmdCheckStatus";
-            this.textBox_AliasDoCmdCheckStatus.Size = new System.Drawing.Size(445, 20);
+            this.textBox_AliasDoCmdCheckStatus.Size = new System.Drawing.Size(437, 20);
             this.textBox_AliasDoCmdCheckStatus.TabIndex = 9;
             // 
             // checkBox_DoCmdCheckStatus
@@ -118,6 +122,42 @@ namespace PagTool
             this.checkBox_DoCmdCheckStatus.Text = "Check Status";
             this.checkBox_DoCmdCheckStatus.UseVisualStyleBackColor = true;
             // 
+            // checkBox_DoCmdMoveToDead
+            // 
+            this.checkBox_DoCmdMoveToDead.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBox_DoCmdMoveToDead.Location = new System.Drawing.Point(12, 139);
+            this.checkBox_DoCmdMoveToDead.Name = "checkBox_DoCmdMoveToDead";
+            this.checkBox_DoCmdMoveToDead.Size = new System.Drawing.Size(102, 20);
+            this.checkBox_DoCmdMoveToDead.TabIndex = 8;
+            this.checkBox_DoCmdMoveToDead.Text = "Move To Dead";
+            this.checkBox_DoCmdMoveToDead.UseVisualStyleBackColor = true;
+            // 
+            // textBox_AliasDoCmdMoveToDead
+            // 
+            this.textBox_AliasDoCmdMoveToDead.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_AliasDoCmdMoveToDead.Location = new System.Drawing.Point(106, 139);
+            this.textBox_AliasDoCmdMoveToDead.Name = "textBox_AliasDoCmdMoveToDead";
+            this.textBox_AliasDoCmdMoveToDead.Size = new System.Drawing.Size(437, 20);
+            this.textBox_AliasDoCmdMoveToDead.TabIndex = 9;
+            // 
+            // checkBox_DoCmdHelp
+            // 
+            this.checkBox_DoCmdHelp.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBox_DoCmdHelp.Location = new System.Drawing.Point(12, 113);
+            this.checkBox_DoCmdHelp.Name = "checkBox_DoCmdHelp";
+            this.checkBox_DoCmdHelp.Size = new System.Drawing.Size(91, 20);
+            this.checkBox_DoCmdHelp.TabIndex = 8;
+            this.checkBox_DoCmdHelp.Text = "Show Help";
+            this.checkBox_DoCmdHelp.UseVisualStyleBackColor = true;
+            // 
+            // textBox_AliasDoCmdHelp
+            // 
+            this.textBox_AliasDoCmdHelp.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_AliasDoCmdHelp.Location = new System.Drawing.Point(106, 113);
+            this.textBox_AliasDoCmdHelp.Name = "textBox_AliasDoCmdHelp";
+            this.textBox_AliasDoCmdHelp.Size = new System.Drawing.Size(437, 20);
+            this.textBox_AliasDoCmdHelp.TabIndex = 9;
+            // 
             // ConfigCommandAliasDialog
             // 
             this.AcceptButton = this.buttonOK;
@@ -125,7 +165,11 @@ namespace PagTool
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(555, 269);
+            this.Controls.Add(this.textBox_AliasDoCmdHelp);
+            this.Controls.Add(this.textBox_AliasDoCmdMoveToDead);
             this.Controls.Add(this.textBox_AliasDoCmdCheckStatus);
+            this.Controls.Add(this.checkBox_DoCmdHelp);
+            this.Controls.Add(this.checkBox_DoCmdMoveToDead);
             this.Controls.Add(this.checkBox_DoCmdCheckStatus);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -146,10 +190,14 @@ namespace PagTool
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.CheckBox checkBox_DoCmdCheckStatus;
+        private System.Windows.Forms.CheckBox checkBox_DoCmdHelp;
+        private System.Windows.Forms.CheckBox checkBox_DoCmdMoveToDead;
         private System.Windows.Forms.CheckBox checkBox_DoCmdNameAdd;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox_AliasDoCmdCheckStatus;
+        private System.Windows.Forms.TextBox textBox_AliasDoCmdHelp;
+        private System.Windows.Forms.TextBox textBox_AliasDoCmdMoveToDead;
         private System.Windows.Forms.TextBox textBox_AliasDoCmdNameAdd;
 
         #endregion

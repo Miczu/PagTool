@@ -457,6 +457,32 @@ namespace PagTool
                     _twitchChatBot.Chat(_twitchChatBot.TryReplaceFormatStrings(ConfigCommandBehavior.ResponseCmdNameAdd, e));
             }
         }
+        
+        public void TryMoveNameToDead(string name, OnChatCommandReceivedArgs e = null)
+        {
+            //check all three lists for redundancy
+            //check blacklist
+            //if all good, add <name> to <list>
+
+            // first, check the blacklist. TODO BLACKLLIST
+            
+            // is the name active?
+            if (!_listActive.Contains(name)) //should cover all cases where the name is not active
+            {
+                //reject attempt and log. name isn't alive.
+                _twitchChatBot.LogLine($"Name isn't active, cannot die: <{name}>. Skipped.", ChatBot.LOG_LEVEL.LOG_WARNING);
+                if(e != null) //if e was passed to this function, it's from chat, and we should reply in turn
+                    _twitchChatBot.Chat(_twitchChatBot.TryReplaceFormatStrings(ConfigCommandBehavior.ResponseCmdCannotDie, e));
+            }
+            else //name is active
+            {
+                _listActive.Remove(name); // unalive!
+                _listDead.Add(name); // die!
+                _twitchChatBot.LogLine($"Name died: <{name}>.", ChatBot.LOG_LEVEL.LOG_INFO);
+                if(e != null) //if e was passed to this function, it's from chat, and we should reply in turn
+                    _twitchChatBot.Chat(_twitchChatBot.TryReplaceFormatStrings(ConfigCommandBehavior.ResponseCmdMoveToDead, e));
+            }
+        }
 
         public void TrySelectRandomUser() //get a random user from waitlist (according to SelectRandom behavior options)
         {
