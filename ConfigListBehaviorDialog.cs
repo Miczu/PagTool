@@ -20,14 +20,16 @@ namespace PagTool
             //populate all switches based on currentSettings
             comboBox_LineageMode.SelectedIndex = (int) currentSettings.LineageMode;
             checkBox_DoOmitFirstLineage.Checked = currentSettings.DoOmitFirstLineage;
-            
-            
-            
-            
-            DialogResult res = ShowDialog(); //show the dialog: all changes to settings will be set by components in their update events
+            checkBox_DoAutoRecycleFromDead.Checked = currentSettings.DoAutoRecycleFromDead;
+
+            DialogResult res = ShowDialog(); //show the dialog
             
             if (res == DialogResult.OK) //if affirmative
             {
+                //all changes to settings will be set by components 
+                thisSettings.DoOmitFirstLineage = checkBox_DoOmitFirstLineage.Checked;
+                thisSettings.DoAutoRecycleFromDead = checkBox_DoAutoRecycleFromDead.Checked;
+                
                 return thisSettings;
             }
             else //cancel, don't make changes
@@ -52,11 +54,6 @@ namespace PagTool
                     thisSettings.LineageMode = GeneralSettings.LINEAGE_MODE.LINEAGE_NONE;
                     break;
             }
-        }
-
-        private void checkBox_DoOmitFirstLineage_CheckedChanged(object sender, EventArgs e)
-        {
-            thisSettings.DoOmitFirstLineage = checkBox_DoOmitFirstLineage.Checked;
         }
     }
 }

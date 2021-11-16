@@ -53,22 +53,11 @@ namespace PagTool
         }
         public LINEAGE_MODE LineageMode = LINEAGE_MODE.LINEAGE_NONE; // which mode should the lineage be printed in
         public bool DoOmitFirstLineage = true; // whether or not the first lineage should be omitted
+        
+        public bool DoAutoRecycleFromDead = true; // should the dead list be shuffled into the waiting list if the waiting list is empty?
 
         //defaults only
         public GeneralSettings() { }
-
-        //overridable
-        /* this code is never actually used
-        public GeneralSettings(bool doVerboseLog, bool doConnectOnStartup, int autoRefreshSeconds,
-                        bool doAskConfirmClearButtons, bool doAskConfirmClearHotkey)
-        {
-            DoVerboseLog = doVerboseLog;
-            DoConnectOnStartup = doConnectOnStartup;
-            AutoRefreshSeconds = autoRefreshSeconds;
-            DoAskConfirmClearButtons = doAskConfirmClearButtons;
-            DoAskConfirmClearHotkey = doAskConfirmClearHotkey;
-        }
-        */
     }
 
     public partial class FormMain : Form
@@ -525,9 +514,22 @@ namespace PagTool
             }
             else
             { // list is empty
-                //log that and return
-                _twitchChatBot.LogLine($"Waiting list is empty! Cannot select random user.", ChatBot.LOG_LEVEL.LOG_WARNING);
-                _twitchChatBot.Chat(ConfigCommandBehavior.ResponseCmdWaitlistEmpty);
+                if (GeneralSettings.DoAutoRecycleFromDead) //dead >> waiting automatically
+                { 
+                    //move all dead into waiting
+                    ShuffleDeadIntoWaiting();
+                    //todo trigger here to let chat know?
+                    _twitchChatBot.LogLine($"Waiting list is empty -- Shuffled dead list into waiting list.", ChatBot.LOG_LEVEL.LOG_WARNING);
+
+                    //try to get a name again!
+                    TrySelectRandomUser();
+                }
+                else //classic behavior
+                {
+                    //log that and return
+                    _twitchChatBot.LogLine($"Waiting list is empty! Cannot select random user.", ChatBot.LOG_LEVEL.LOG_WARNING);
+                    _twitchChatBot.Chat(ConfigCommandBehavior.ResponseCmdWaitlistEmpty);
+                }
             }
         }
 
@@ -847,6 +849,16 @@ namespace PagTool
                 DoAllUpdates();                        
             }
         }
+
+        public void ShuffleDeadIntoWaiting()
+        {
+            //predicated on the fact that no duplicates should exist in any of the three lists, we can safely just move every element without worrying about it generating errors
+            _listWaiting.AddRange(_listDead.ToArray());
+            _listDead.Clear();
+            
+            _twitchChatBot.LogLine("Shuffled contents of ListDead into ListWaiting.", ChatBot.LOG_LEVEL.LOG_INFO);
+            DoAllUpdates();
+        }
         
         #endregion
 
@@ -911,12 +923,7 @@ namespace PagTool
         
         private void button_ShuffleDeadIntoWaiting_Click(object sender, EventArgs e)
         {
-            //predicated on the fact that no duplicates should exist in any of the three lists, we can safely just move every element without worrying about it generating errors
-            _listWaiting.AddRange(_listDead.ToArray());
-            _listDead.Clear();
-            
-            _twitchChatBot.LogLine("Shuffled contents of ListDead into ListWaiting.", ChatBot.LOG_LEVEL.LOG_INFO);
-            DoAllUpdates();
+            ShuffleDeadIntoWaiting();
         }
         private void button_ShuffleBothIntoWaiting_Click(object sender, EventArgs e)
         {
