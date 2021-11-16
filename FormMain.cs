@@ -504,6 +504,7 @@ namespace PagTool
                 }
                 
                 PutSelectedToClipboard(selected);
+                richTextBox_SelectedUserDisplay.Text = (selected);
                 
                 _listActive.Add(selected);
                 _listWaiting.Remove(selected);
