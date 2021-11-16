@@ -154,6 +154,8 @@ namespace PagTool
                         Chat(TryReplaceFormatStrings(_parent.ConfigCommandBehavior.ResponseCmdCheckStatus, e));
                     }
                 }
+            
+            
         }
 
         public string TryReplaceFormatStrings(string response, OnChatCommandReceivedArgs e)

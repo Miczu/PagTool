@@ -134,7 +134,7 @@ namespace PagTool
             DoAllUpdates();
             
             //register global hotkeys
-            //RegisterAllHotkeys();
+            RegisterAllHotkeys();
 
             // then, start thread to auto-refresh contents of components every 5 seconds
             updateAndRefreshComponentsThread = new Thread(new ThreadStart(UpdateThreadTimer));
