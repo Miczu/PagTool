@@ -29,7 +29,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage_ModifyData = new System.Windows.Forms.TabPage();
             this.button_ClearDead = new System.Windows.Forms.Button();
@@ -91,9 +90,6 @@
             this.tabPage_Debug.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.numericUpDown_AutoRefreshSeconds)).BeginInit();
             this.SuspendLayout();
-            // 
-            // tabControl
-            // 
             this.tabControl.Controls.Add(this.tabPage_ModifyData);
             this.tabControl.Controls.Add(this.tabPage_Configure);
             this.tabControl.Controls.Add(this.tabPage_Debug);
@@ -103,9 +99,6 @@
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(800, 450);
             this.tabControl.TabIndex = 1;
-            // 
-            // tabPage_ModifyData
-            // 
             this.tabPage_ModifyData.Controls.Add(this.button_ClearDead);
             this.tabPage_ModifyData.Controls.Add(this.button_ClearActive);
             this.tabPage_ModifyData.Controls.Add(this.button_ClearWaiting);
@@ -147,9 +140,6 @@
             this.tabPage_ModifyData.TabIndex = 0;
             this.tabPage_ModifyData.Text = "Modify Data";
             this.tabPage_ModifyData.UseVisualStyleBackColor = true;
-            // 
-            // button_ClearDead
-            // 
             this.button_ClearDead.Location = new System.Drawing.Point(176, 316);
             this.button_ClearDead.Name = "button_ClearDead";
             this.button_ClearDead.Size = new System.Drawing.Size(80, 30);
@@ -157,9 +147,6 @@
             this.button_ClearDead.Text = "Clear Dead";
             this.button_ClearDead.UseVisualStyleBackColor = true;
             this.button_ClearDead.Click += new System.EventHandler(this.button_ClearDead_Click);
-            // 
-            // button_ClearActive
-            // 
             this.button_ClearActive.Location = new System.Drawing.Point(91, 316);
             this.button_ClearActive.Name = "button_ClearActive";
             this.button_ClearActive.Size = new System.Drawing.Size(80, 30);
@@ -167,9 +154,6 @@
             this.button_ClearActive.Text = "Clear Active";
             this.button_ClearActive.UseVisualStyleBackColor = true;
             this.button_ClearActive.Click += new System.EventHandler(this.button_ClearActive_Click);
-            // 
-            // button_ClearWaiting
-            // 
             this.button_ClearWaiting.Location = new System.Drawing.Point(6, 316);
             this.button_ClearWaiting.Name = "button_ClearWaiting";
             this.button_ClearWaiting.Size = new System.Drawing.Size(80, 30);
@@ -177,9 +161,6 @@
             this.button_ClearWaiting.Text = "Clear Waiting";
             this.button_ClearWaiting.UseVisualStyleBackColor = true;
             this.button_ClearWaiting.Click += new System.EventHandler(this.button_ClearWaiting_Click);
-            // 
-            // button_ClearAll
-            // 
             this.button_ClearAll.BackColor = System.Drawing.Color.Red;
             this.button_ClearAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_ClearAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
@@ -190,9 +171,6 @@
             this.button_ClearAll.Text = "Clear All";
             this.button_ClearAll.UseVisualStyleBackColor = false;
             this.button_ClearAll.Click += new System.EventHandler(this.button_ClearAll_Click);
-            // 
-            // button_ClearLineage
-            // 
             this.button_ClearLineage.Location = new System.Drawing.Point(6, 244);
             this.button_ClearLineage.Name = "button_ClearLineage";
             this.button_ClearLineage.Size = new System.Drawing.Size(250, 30);
@@ -200,9 +178,6 @@
             this.button_ClearLineage.Text = "Clear Lineage";
             this.button_ClearLineage.UseVisualStyleBackColor = true;
             this.button_ClearLineage.Click += new System.EventHandler(this.button_ClearLineage_Click);
-            // 
-            // button_ShuffleBothIntoWaiting
-            // 
             this.button_ShuffleBothIntoWaiting.Location = new System.Drawing.Point(134, 280);
             this.button_ShuffleBothIntoWaiting.Name = "button_ShuffleBothIntoWaiting";
             this.button_ShuffleBothIntoWaiting.Size = new System.Drawing.Size(122, 30);
@@ -210,9 +185,6 @@
             this.button_ShuffleBothIntoWaiting.Text = "Both >> Waiting";
             this.button_ShuffleBothIntoWaiting.UseVisualStyleBackColor = true;
             this.button_ShuffleBothIntoWaiting.Click += new System.EventHandler(this.button_ShuffleBothIntoWaiting_Click);
-            // 
-            // button_ShuffleDeadIntoWaiting
-            // 
             this.button_ShuffleDeadIntoWaiting.Location = new System.Drawing.Point(6, 280);
             this.button_ShuffleDeadIntoWaiting.Name = "button_ShuffleDeadIntoWaiting";
             this.button_ShuffleDeadIntoWaiting.Size = new System.Drawing.Size(122, 30);
@@ -220,9 +192,6 @@
             this.button_ShuffleDeadIntoWaiting.Text = "Only Dead >> Waiting";
             this.button_ShuffleDeadIntoWaiting.UseVisualStyleBackColor = true;
             this.button_ShuffleDeadIntoWaiting.Click += new System.EventHandler(this.button_ShuffleDeadIntoWaiting_Click);
-            // 
-            // button_SelectRandom
-            // 
             this.button_SelectRandom.BackColor = System.Drawing.Color.Lime;
             this.button_SelectRandom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_SelectRandom.Location = new System.Drawing.Point(7, 352);
@@ -232,9 +201,6 @@
             this.button_SelectRandom.Text = "Select Random Name";
             this.button_SelectRandom.UseVisualStyleBackColor = false;
             this.button_SelectRandom.Click += new System.EventHandler(this.button_SelectRandom_Click);
-            // 
-            // button_LoadData
-            // 
             this.button_LoadData.Location = new System.Drawing.Point(134, 6);
             this.button_LoadData.Name = "button_LoadData";
             this.button_LoadData.Size = new System.Drawing.Size(122, 30);
@@ -242,9 +208,6 @@
             this.button_LoadData.Text = "Load Data";
             this.button_LoadData.UseVisualStyleBackColor = true;
             this.button_LoadData.Click += new System.EventHandler(this.button_LoadData_Click);
-            // 
-            // button_LineageAdd
-            // 
             this.button_LineageAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_LineageAdd.Location = new System.Drawing.Point(270, 393);
             this.button_LineageAdd.Name = "button_LineageAdd";
@@ -253,9 +216,6 @@
             this.button_LineageAdd.Text = "Add";
             this.button_LineageAdd.UseVisualStyleBackColor = true;
             this.button_LineageAdd.Click += new System.EventHandler(this.button_LineageAdd_Click);
-            // 
-            // button_LineageRemove
-            // 
             this.button_LineageRemove.Enabled = false;
             this.button_LineageRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_LineageRemove.Location = new System.Drawing.Point(326, 393);
@@ -265,9 +225,6 @@
             this.button_LineageRemove.Text = "Del";
             this.button_LineageRemove.UseVisualStyleBackColor = true;
             this.button_LineageRemove.Click += new System.EventHandler(this.button_LineageRemove_Click);
-            // 
-            // button_LineageIncrement
-            // 
             this.button_LineageIncrement.Enabled = false;
             this.button_LineageIncrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_LineageIncrement.Location = new System.Drawing.Point(384, 393);
@@ -277,9 +234,6 @@
             this.button_LineageIncrement.Text = "Inc +";
             this.button_LineageIncrement.UseVisualStyleBackColor = true;
             this.button_LineageIncrement.Click += new System.EventHandler(this.button_LineageIncrement_Click);
-            // 
-            // richTextBox_SelectedUserDisplay
-            // 
             this.richTextBox_SelectedUserDisplay.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.richTextBox_SelectedUserDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.richTextBox_SelectedUserDisplay.ForeColor = System.Drawing.Color.Lime;
@@ -292,27 +246,18 @@
             this.richTextBox_SelectedUserDisplay.TabIndex = 28;
             this.richTextBox_SelectedUserDisplay.Text = "test name";
             this.richTextBox_SelectedUserDisplay.WordWrap = false;
-            // 
-            // listBox_CurrentLineage
-            // 
             this.listBox_CurrentLineage.FormattingEnabled = true;
             this.listBox_CurrentLineage.Location = new System.Drawing.Point(270, 6);
             this.listBox_CurrentLineage.Name = "listBox_CurrentLineage";
             this.listBox_CurrentLineage.Size = new System.Drawing.Size(220, 381);
             this.listBox_CurrentLineage.TabIndex = 27;
             this.listBox_CurrentLineage.SelectedIndexChanged += new System.EventHandler(this.listBox_CurrentLineage_SelectedIndexChanged);
-            // 
-            // verticalDivider2
-            // 
             this.verticalDivider2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.verticalDivider2.Location = new System.Drawing.Point(262, 0);
             this.verticalDivider2.Margin = new System.Windows.Forms.Padding(3);
             this.verticalDivider2.Name = "verticalDivider2";
             this.verticalDivider2.Size = new System.Drawing.Size(2, 424);
             this.verticalDivider2.TabIndex = 26;
-            // 
-            // button_LineageDecrement
-            // 
             this.button_LineageDecrement.Enabled = false;
             this.button_LineageDecrement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_LineageDecrement.Location = new System.Drawing.Point(440, 393);
@@ -322,18 +267,12 @@
             this.button_LineageDecrement.Text = "Dec -";
             this.button_LineageDecrement.UseVisualStyleBackColor = true;
             this.button_LineageDecrement.Click += new System.EventHandler(this.button_LineageDecrement_Click);
-            // 
-            // label2
-            // 
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label2.Location = new System.Drawing.Point(496, 0);
             this.label2.Margin = new System.Windows.Forms.Padding(3);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(2, 424);
             this.label2.TabIndex = 21;
-            // 
-            // button_ListDead_Remove
-            // 
             this.button_ListDead_Remove.Enabled = false;
             this.button_ListDead_Remove.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListDead_Remove.Location = new System.Drawing.Point(504, 393);
@@ -343,9 +282,6 @@
             this.button_ListDead_Remove.Text = "x";
             this.button_ListDead_Remove.UseVisualStyleBackColor = true;
             this.button_ListDead_Remove.Click += new System.EventHandler(this.button_ListDead_Remove_Click);
-            // 
-            // button_ListDead_Add
-            // 
             this.button_ListDead_Add.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListDead_Add.Location = new System.Drawing.Point(504, 361);
             this.button_ListDead_Add.Name = "button_ListDead_Add";
@@ -354,9 +290,6 @@
             this.button_ListDead_Add.Text = "+";
             this.button_ListDead_Add.UseVisualStyleBackColor = true;
             this.button_ListDead_Add.Click += new System.EventHandler(this.button_ListDead_Add_Click);
-            // 
-            // button_ListDead_MoveToActive
-            // 
             this.button_ListDead_MoveToActive.Enabled = false;
             this.button_ListDead_MoveToActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListDead_MoveToActive.Location = new System.Drawing.Point(504, 328);
@@ -366,9 +299,6 @@
             this.button_ListDead_MoveToActive.Text = "↑";
             this.button_ListDead_MoveToActive.UseVisualStyleBackColor = true;
             this.button_ListDead_MoveToActive.Click += new System.EventHandler(this.button_ListDead_MoveToActive_Click);
-            // 
-            // button_ListDead_MoveToWaiting
-            // 
             this.button_ListDead_MoveToWaiting.Enabled = false;
             this.button_ListDead_MoveToWaiting.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListDead_MoveToWaiting.Location = new System.Drawing.Point(504, 296);
@@ -378,9 +308,6 @@
             this.button_ListDead_MoveToWaiting.Text = "⇈";
             this.button_ListDead_MoveToWaiting.UseVisualStyleBackColor = true;
             this.button_ListDead_MoveToWaiting.Click += new System.EventHandler(this.button_ListDead_MoveToWaiting_Click);
-            // 
-            // button_ListActive_MoveToDead
-            // 
             this.button_ListActive_MoveToDead.Enabled = false;
             this.button_ListActive_MoveToDead.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListActive_MoveToDead.Location = new System.Drawing.Point(504, 248);
@@ -390,9 +317,6 @@
             this.button_ListActive_MoveToDead.Text = "↓";
             this.button_ListActive_MoveToDead.UseVisualStyleBackColor = true;
             this.button_ListActive_MoveToDead.Click += new System.EventHandler(this.button_ListActive_MoveToDead_Click);
-            // 
-            // button_ListActive_Remove
-            // 
             this.button_ListActive_Remove.Enabled = false;
             this.button_ListActive_Remove.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListActive_Remove.Location = new System.Drawing.Point(504, 216);
@@ -402,9 +326,6 @@
             this.button_ListActive_Remove.Text = "x";
             this.button_ListActive_Remove.UseVisualStyleBackColor = true;
             this.button_ListActive_Remove.Click += new System.EventHandler(this.button_ListActive_Remove_Click);
-            // 
-            // button_ListActive_Add
-            // 
             this.button_ListActive_Add.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ListActive_Add.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListActive_Add.Location = new System.Drawing.Point(504, 183);
@@ -414,9 +335,6 @@
             this.button_ListActive_Add.Text = "+";
             this.button_ListActive_Add.UseVisualStyleBackColor = true;
             this.button_ListActive_Add.Click += new System.EventHandler(this.button_ListActive_Add_Click);
-            // 
-            // button_ListActive_MoveToWaiting
-            // 
             this.button_ListActive_MoveToWaiting.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ListActive_MoveToWaiting.Enabled = false;
             this.button_ListActive_MoveToWaiting.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
@@ -427,9 +345,6 @@
             this.button_ListActive_MoveToWaiting.Text = "↑";
             this.button_ListActive_MoveToWaiting.UseVisualStyleBackColor = true;
             this.button_ListActive_MoveToWaiting.Click += new System.EventHandler(this.button_ListActive_MoveToWaiting_Click);
-            // 
-            // button_ListWaiting_MoveToDead
-            // 
             this.button_ListWaiting_MoveToDead.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ListWaiting_MoveToDead.Enabled = false;
             this.button_ListWaiting_MoveToDead.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
@@ -440,9 +355,6 @@
             this.button_ListWaiting_MoveToDead.Text = "⇊";
             this.button_ListWaiting_MoveToDead.UseVisualStyleBackColor = true;
             this.button_ListWaiting_MoveToDead.Click += new System.EventHandler(this.button_ListWaiting_MoveToDead_Click);
-            // 
-            // button_ListWaiting_MoveToActive
-            // 
             this.button_ListWaiting_MoveToActive.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ListWaiting_MoveToActive.Enabled = false;
             this.button_ListWaiting_MoveToActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
@@ -453,9 +365,6 @@
             this.button_ListWaiting_MoveToActive.Text = "↓";
             this.button_ListWaiting_MoveToActive.UseVisualStyleBackColor = true;
             this.button_ListWaiting_MoveToActive.Click += new System.EventHandler(this.button_ListWaiting_MoveToActive_Click);
-            // 
-            // button_ListWaiting_Remove
-            // 
             this.button_ListWaiting_Remove.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ListWaiting_Remove.Enabled = false;
             this.button_ListWaiting_Remove.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
@@ -466,9 +375,6 @@
             this.button_ListWaiting_Remove.Text = "x";
             this.button_ListWaiting_Remove.UseVisualStyleBackColor = true;
             this.button_ListWaiting_Remove.Click += new System.EventHandler(this.button_ListWaiting_Remove_Click);
-            // 
-            // button_ListWaiting_Add
-            // 
             this.button_ListWaiting_Add.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ListWaiting_Add.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.button_ListWaiting_Add.Location = new System.Drawing.Point(504, 5);
@@ -478,9 +384,6 @@
             this.button_ListWaiting_Add.Text = "+";
             this.button_ListWaiting_Add.UseVisualStyleBackColor = true;
             this.button_ListWaiting_Add.Click += new System.EventHandler(this.button_ListWaiting_Add_Click);
-            // 
-            // listBox_ListDead
-            // 
             this.listBox_ListDead.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox_ListDead.FormattingEnabled = true;
             this.listBox_ListDead.Location = new System.Drawing.Point(536, 297);
@@ -488,9 +391,6 @@
             this.listBox_ListDead.Size = new System.Drawing.Size(250, 121);
             this.listBox_ListDead.TabIndex = 7;
             this.listBox_ListDead.SelectedIndexChanged += new System.EventHandler(this.listBox_ListDead_SelectedIndexChanged);
-            // 
-            // listBox_ListActive
-            // 
             this.listBox_ListActive.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox_ListActive.FormattingEnabled = true;
             this.listBox_ListActive.Location = new System.Drawing.Point(536, 152);
@@ -498,9 +398,6 @@
             this.listBox_ListActive.Size = new System.Drawing.Size(250, 121);
             this.listBox_ListActive.TabIndex = 6;
             this.listBox_ListActive.SelectedIndexChanged += new System.EventHandler(this.listBox_ListActive_SelectedIndexChanged);
-            // 
-            // listBox_ListWaiting
-            // 
             this.listBox_ListWaiting.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox_ListWaiting.FormattingEnabled = true;
             this.listBox_ListWaiting.Location = new System.Drawing.Point(536, 6);
@@ -508,9 +405,6 @@
             this.listBox_ListWaiting.Size = new System.Drawing.Size(250, 121);
             this.listBox_ListWaiting.TabIndex = 5;
             this.listBox_ListWaiting.SelectedIndexChanged += new System.EventHandler(this.listBox_ListWaiting_SelectedIndexChanged);
-            // 
-            // button_ConfigListLogic
-            // 
             this.button_ConfigListLogic.Location = new System.Drawing.Point(6, 42);
             this.button_ConfigListLogic.Name = "button_ConfigListLogic";
             this.button_ConfigListLogic.Size = new System.Drawing.Size(250, 30);
@@ -518,9 +412,6 @@
             this.button_ConfigListLogic.Text = "Configure List Logic";
             this.button_ConfigListLogic.UseVisualStyleBackColor = true;
             this.button_ConfigListLogic.Click += new System.EventHandler(this.button_ConfigListLogic_Click);
-            // 
-            // button_SaveData
-            // 
             this.button_SaveData.Location = new System.Drawing.Point(6, 6);
             this.button_SaveData.Name = "button_SaveData";
             this.button_SaveData.Size = new System.Drawing.Size(122, 30);
@@ -528,9 +419,6 @@
             this.button_SaveData.Text = "Save Data";
             this.button_SaveData.UseVisualStyleBackColor = true;
             this.button_SaveData.Click += new System.EventHandler(this.button_SaveData_Click);
-            // 
-            // tabPage_Configure
-            // 
             this.tabPage_Configure.Controls.Add(this.button_TwitchApiDialog);
             this.tabPage_Configure.Controls.Add(this.button_ConfigCredentials);
             this.tabPage_Configure.Controls.Add(this.button_ConfigHotkeys);
@@ -543,9 +431,6 @@
             this.tabPage_Configure.TabIndex = 1;
             this.tabPage_Configure.Text = "Configure";
             this.tabPage_Configure.UseVisualStyleBackColor = true;
-            // 
-            // button_TwitchApiDialog
-            // 
             this.button_TwitchApiDialog.Location = new System.Drawing.Point(6, 190);
             this.button_TwitchApiDialog.Name = "button_TwitchApiDialog";
             this.button_TwitchApiDialog.Size = new System.Drawing.Size(200, 40);
@@ -553,9 +438,6 @@
             this.button_TwitchApiDialog.Text = "Twitch API Dialog";
             this.button_TwitchApiDialog.UseVisualStyleBackColor = true;
             this.button_TwitchApiDialog.Click += new System.EventHandler(this.button_TwitchApiDialog_Click);
-            // 
-            // button_ConfigCredentials
-            // 
             this.button_ConfigCredentials.Location = new System.Drawing.Point(6, 144);
             this.button_ConfigCredentials.Name = "button_ConfigCredentials";
             this.button_ConfigCredentials.Size = new System.Drawing.Size(200, 40);
@@ -563,9 +445,6 @@
             this.button_ConfigCredentials.Text = "Configure Twitch Credentials";
             this.button_ConfigCredentials.UseVisualStyleBackColor = true;
             this.button_ConfigCredentials.Click += new System.EventHandler(this.button_ConfigCredentials_Click);
-            // 
-            // button_ConfigHotkeys
-            // 
             this.button_ConfigHotkeys.Location = new System.Drawing.Point(6, 98);
             this.button_ConfigHotkeys.Name = "button_ConfigHotkeys";
             this.button_ConfigHotkeys.Size = new System.Drawing.Size(200, 40);
@@ -573,9 +452,6 @@
             this.button_ConfigHotkeys.Text = "Configure Hotkeys";
             this.button_ConfigHotkeys.UseVisualStyleBackColor = true;
             this.button_ConfigHotkeys.Click += new System.EventHandler(this.button_ConfigHotkeys_Click);
-            // 
-            // button_ConfigCommandBehavior
-            // 
             this.button_ConfigCommandBehavior.Location = new System.Drawing.Point(6, 52);
             this.button_ConfigCommandBehavior.Name = "button_ConfigCommandBehavior";
             this.button_ConfigCommandBehavior.Size = new System.Drawing.Size(200, 40);
@@ -583,9 +459,6 @@
             this.button_ConfigCommandBehavior.Text = "Configure Command Behavior";
             this.button_ConfigCommandBehavior.UseVisualStyleBackColor = true;
             this.button_ConfigCommandBehavior.Click += new System.EventHandler(this.button_ConfigCommandBehavior_Click);
-            // 
-            // button_ConfigCommandAliases
-            // 
             this.button_ConfigCommandAliases.Location = new System.Drawing.Point(6, 6);
             this.button_ConfigCommandAliases.Name = "button_ConfigCommandAliases";
             this.button_ConfigCommandAliases.Size = new System.Drawing.Size(200, 40);
@@ -593,9 +466,6 @@
             this.button_ConfigCommandAliases.Text = "Configure Command Aliases";
             this.button_ConfigCommandAliases.UseVisualStyleBackColor = true;
             this.button_ConfigCommandAliases.Click += new System.EventHandler(this.button_ConfigCommandAliases_Click);
-            // 
-            // tabPage_Debug
-            // 
             this.tabPage_Debug.Controls.Add(this.label_Crab);
             this.tabPage_Debug.Controls.Add(this.button_ManualChat);
             this.tabPage_Debug.Controls.Add(this.textBox_ManualChat);
@@ -614,18 +484,14 @@
             this.tabPage_Debug.TabIndex = 3;
             this.tabPage_Debug.Text = "Debug";
             this.tabPage_Debug.UseVisualStyleBackColor = true;
-            // 
-            // label_Crab
-            // 
-            this.label_Crab.Image = ((System.Drawing.Image) (resources.GetObject("label_Crab.Image")));
+            this.label_Crab.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.label_Crab.Location = new System.Drawing.Point(766, 6);
             this.label_Crab.Name = "label_Crab";
             this.label_Crab.Size = new System.Drawing.Size(20, 20);
             this.label_Crab.TabIndex = 13;
+            this.label_Crab.Text = "🦀";
+            this.label_Crab.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label_Crab.DoubleClick += new System.EventHandler(this.label_Crab_DoubleClick);
-            // 
-            // button_ManualChat
-            // 
             this.button_ManualChat.Enabled = false;
             this.button_ManualChat.Location = new System.Drawing.Point(686, 401);
             this.button_ManualChat.Name = "button_ManualChat";
@@ -634,27 +500,18 @@
             this.button_ManualChat.Text = "Chat...";
             this.button_ManualChat.UseVisualStyleBackColor = true;
             this.button_ManualChat.Click += new System.EventHandler(this.button_ManualChat_Click);
-            // 
-            // textBox_ManualChat
-            // 
             this.textBox_ManualChat.Location = new System.Drawing.Point(6, 401);
             this.textBox_ManualChat.Name = "textBox_ManualChat";
             this.textBox_ManualChat.Size = new System.Drawing.Size(674, 20);
             this.textBox_ManualChat.TabIndex = 11;
             this.textBox_ManualChat.TextChanged += new System.EventHandler(this.textBox_ManualChat_TextChanged);
             this.textBox_ManualChat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_ManualChat_KeyDown);
-            // 
-            // label_RefreshTime
-            // 
             this.label_RefreshTime.Location = new System.Drawing.Point(255, 28);
             this.label_RefreshTime.Name = "label_RefreshTime";
             this.label_RefreshTime.Size = new System.Drawing.Size(121, 20);
             this.label_RefreshTime.TabIndex = 10;
             this.label_RefreshTime.Text = "Auto-Refresh Time (sec)";
             this.label_RefreshTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // numericUpDown_AutoRefreshSeconds
-            // 
             this.numericUpDown_AutoRefreshSeconds.Location = new System.Drawing.Point(382, 29);
             this.numericUpDown_AutoRefreshSeconds.Minimum = new decimal(new int[] {5, 0, 0, 0});
             this.numericUpDown_AutoRefreshSeconds.Name = "numericUpDown_AutoRefreshSeconds";
@@ -662,9 +519,6 @@
             this.numericUpDown_AutoRefreshSeconds.TabIndex = 9;
             this.numericUpDown_AutoRefreshSeconds.Value = new decimal(new int[] {10, 0, 0, 0});
             this.numericUpDown_AutoRefreshSeconds.ValueChanged += new System.EventHandler(this.numericUpDown_AutoRefreshSeconds_ValueChanged);
-            // 
-            // button_SaveDebugLog
-            // 
             this.button_SaveDebugLog.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_SaveDebugLog.Location = new System.Drawing.Point(468, 29);
             this.button_SaveDebugLog.Margin = new System.Windows.Forms.Padding(3, 3, 6, 3);
@@ -674,9 +528,6 @@
             this.button_SaveDebugLog.Text = "Save Log...";
             this.button_SaveDebugLog.UseVisualStyleBackColor = true;
             this.button_SaveDebugLog.Click += new System.EventHandler(this.button_SaveDebugLog_Click);
-            // 
-            // checkBox_ConnectOnStartup
-            // 
             this.checkBox_ConnectOnStartup.Checked = true;
             this.checkBox_ConnectOnStartup.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox_ConnectOnStartup.Location = new System.Drawing.Point(100, 29);
@@ -686,9 +537,6 @@
             this.checkBox_ConnectOnStartup.Text = "Connect On Startup";
             this.checkBox_ConnectOnStartup.UseVisualStyleBackColor = true;
             this.checkBox_ConnectOnStartup.CheckedChanged += new System.EventHandler(this.checkBox_ConnectOnStartup_CheckedChanged);
-            // 
-            // button_ForceUpdate
-            // 
             this.button_ForceUpdate.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ForceUpdate.Location = new System.Drawing.Point(577, 29);
             this.button_ForceUpdate.Margin = new System.Windows.Forms.Padding(3, 3, 6, 3);
@@ -698,9 +546,6 @@
             this.button_ForceUpdate.Text = "Refresh Visuals";
             this.button_ForceUpdate.UseVisualStyleBackColor = true;
             this.button_ForceUpdate.Click += new System.EventHandler(this.button_ForceUpdate_Click);
-            // 
-            // button_ForceReconnect
-            // 
             this.button_ForceReconnect.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ForceReconnect.Location = new System.Drawing.Point(686, 29);
             this.button_ForceReconnect.Margin = new System.Windows.Forms.Padding(3, 3, 6, 3);
@@ -710,9 +555,6 @@
             this.button_ForceReconnect.Text = "Force Reconnect";
             this.button_ForceReconnect.UseVisualStyleBackColor = true;
             this.button_ForceReconnect.Click += new System.EventHandler(this.button_ForceReconnect_Click);
-            // 
-            // checkBox_doVerboseLogging
-            // 
             this.checkBox_doVerboseLogging.Location = new System.Drawing.Point(8, 29);
             this.checkBox_doVerboseLogging.Name = "checkBox_doVerboseLogging";
             this.checkBox_doVerboseLogging.Size = new System.Drawing.Size(86, 20);
@@ -720,29 +562,20 @@
             this.checkBox_doVerboseLogging.Text = "Verbose Log";
             this.checkBox_doVerboseLogging.UseVisualStyleBackColor = true;
             this.checkBox_doVerboseLogging.CheckedChanged += new System.EventHandler(this.checkBox_doVerboseLogging_CheckedChanged);
-            // 
-            // label_VersionInfo
-            // 
             this.label_VersionInfo.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.label_VersionInfo.Location = new System.Drawing.Point(3, 3);
             this.label_VersionInfo.Margin = new System.Windows.Forms.Padding(3);
             this.label_VersionInfo.Name = "label_VersionInfo";
             this.label_VersionInfo.Size = new System.Drawing.Size(786, 20);
             this.label_VersionInfo.TabIndex = 3;
-            this.label_VersionInfo.Text = "Version 2.53 Beta || https://github.com/corptact/PagTool || Do Not Distribute || " + "Corporate Tactics 2021";
+            this.label_VersionInfo.Text = ("Version 2.53 Beta || https://github.com/corptact/PagTool || Do Not Distribute || " + "" + "Corporate Tactics 2021");
             this.label_VersionInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // richTextBox_ConsoleDebugLog
-            // 
             this.richTextBox_ConsoleDebugLog.Location = new System.Drawing.Point(6, 55);
             this.richTextBox_ConsoleDebugLog.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
             this.richTextBox_ConsoleDebugLog.Name = "richTextBox_ConsoleDebugLog";
             this.richTextBox_ConsoleDebugLog.Size = new System.Drawing.Size(780, 337);
             this.richTextBox_ConsoleDebugLog.TabIndex = 2;
             this.richTextBox_ConsoleDebugLog.Text = "";
-            // 
-            // FormMain
-            // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(797, 448);
             this.Controls.Add(this.tabControl);
