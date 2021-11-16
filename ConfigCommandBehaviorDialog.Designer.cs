@@ -59,6 +59,8 @@ namespace PagTool
             this.labelCmdHelp = new System.Windows.Forms.Label();
             this.textBox_ResponseCmdCannotDie = new System.Windows.Forms.TextBox();
             this.label_CmdCannotDie = new System.Windows.Forms.Label();
+            this.textBox_ResponseCmdAutoShuffledDead = new System.Windows.Forms.TextBox();
+            this.label_CmdAutoShuffledDead = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize) (this.numericUpDown_ChatReminderSeconds)).BeginInit();
             this.SuspendLayout();
             // 
@@ -106,7 +108,7 @@ namespace PagTool
             // 
             this.label_FormatStringsSupported.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label_FormatStringsSupported.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.label_FormatStringsSupported.Location = new System.Drawing.Point(12, 157);
+            this.label_FormatStringsSupported.Location = new System.Drawing.Point(12, 117);
             this.label_FormatStringsSupported.Name = "label_FormatStringsSupported";
             this.label_FormatStringsSupported.Size = new System.Drawing.Size(340, 20);
             this.label_FormatStringsSupported.TabIndex = 4;
@@ -189,7 +191,7 @@ namespace PagTool
             // labelCmdWaitlistEmpty
             // 
             this.labelCmdWaitlistEmpty.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelCmdWaitlistEmpty.Location = new System.Drawing.Point(12, 95);
+            this.labelCmdWaitlistEmpty.Location = new System.Drawing.Point(12, 55);
             this.labelCmdWaitlistEmpty.Name = "labelCmdWaitlistEmpty";
             this.labelCmdWaitlistEmpty.Size = new System.Drawing.Size(104, 20);
             this.labelCmdWaitlistEmpty.TabIndex = 5;
@@ -199,7 +201,7 @@ namespace PagTool
             // textBox_ResponseCmdWaitlistEmpty
             // 
             this.textBox_ResponseCmdWaitlistEmpty.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_ResponseCmdWaitlistEmpty.Location = new System.Drawing.Point(113, 95);
+            this.textBox_ResponseCmdWaitlistEmpty.Location = new System.Drawing.Point(113, 55);
             this.textBox_ResponseCmdWaitlistEmpty.Name = "textBox_ResponseCmdWaitlistEmpty";
             this.textBox_ResponseCmdWaitlistEmpty.Size = new System.Drawing.Size(307, 20);
             this.textBox_ResponseCmdWaitlistEmpty.TabIndex = 6;
@@ -207,7 +209,7 @@ namespace PagTool
             // labelCmdChatReconnect
             // 
             this.labelCmdChatReconnect.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelCmdChatReconnect.Location = new System.Drawing.Point(12, 117);
+            this.labelCmdChatReconnect.Location = new System.Drawing.Point(12, 77);
             this.labelCmdChatReconnect.Name = "labelCmdChatReconnect";
             this.labelCmdChatReconnect.Size = new System.Drawing.Size(104, 20);
             this.labelCmdChatReconnect.TabIndex = 5;
@@ -217,7 +219,7 @@ namespace PagTool
             // textBox_ResponseCmdChatReconnect
             // 
             this.textBox_ResponseCmdChatReconnect.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_ResponseCmdChatReconnect.Location = new System.Drawing.Point(113, 118);
+            this.textBox_ResponseCmdChatReconnect.Location = new System.Drawing.Point(113, 78);
             this.textBox_ResponseCmdChatReconnect.Name = "textBox_ResponseCmdChatReconnect";
             this.textBox_ResponseCmdChatReconnect.Size = new System.Drawing.Size(307, 20);
             this.textBox_ResponseCmdChatReconnect.TabIndex = 6;
@@ -225,7 +227,7 @@ namespace PagTool
             // textBox_ChatReminder
             // 
             this.textBox_ChatReminder.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_ChatReminder.Location = new System.Drawing.Point(113, 72);
+            this.textBox_ChatReminder.Location = new System.Drawing.Point(113, 32);
             this.textBox_ChatReminder.Name = "textBox_ChatReminder";
             this.textBox_ChatReminder.Size = new System.Drawing.Size(307, 20);
             this.textBox_ChatReminder.TabIndex = 8;
@@ -233,7 +235,7 @@ namespace PagTool
             // label_ChatReminder
             // 
             this.label_ChatReminder.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label_ChatReminder.Location = new System.Drawing.Point(12, 72);
+            this.label_ChatReminder.Location = new System.Drawing.Point(12, 32);
             this.label_ChatReminder.Name = "label_ChatReminder";
             this.label_ChatReminder.Size = new System.Drawing.Size(104, 20);
             this.label_ChatReminder.TabIndex = 7;
@@ -243,7 +245,7 @@ namespace PagTool
             // numericUpDown_ChatReminderSeconds
             // 
             this.numericUpDown_ChatReminderSeconds.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown_ChatReminderSeconds.Location = new System.Drawing.Point(161, 49);
+            this.numericUpDown_ChatReminderSeconds.Location = new System.Drawing.Point(161, 9);
             this.numericUpDown_ChatReminderSeconds.Maximum = new decimal(new int[] {3600, 0, 0, 0});
             this.numericUpDown_ChatReminderSeconds.Minimum = new decimal(new int[] {60, 0, 0, 0});
             this.numericUpDown_ChatReminderSeconds.Name = "numericUpDown_ChatReminderSeconds";
@@ -254,7 +256,7 @@ namespace PagTool
             // label_ChatReminderTimer
             // 
             this.label_ChatReminderTimer.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label_ChatReminderTimer.Location = new System.Drawing.Point(12, 49);
+            this.label_ChatReminderTimer.Location = new System.Drawing.Point(12, 9);
             this.label_ChatReminderTimer.Name = "label_ChatReminderTimer";
             this.label_ChatReminderTimer.Size = new System.Drawing.Size(143, 20);
             this.label_ChatReminderTimer.TabIndex = 10;
@@ -264,7 +266,7 @@ namespace PagTool
             // label_ChatReminderSeconds
             // 
             this.label_ChatReminderSeconds.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label_ChatReminderSeconds.Location = new System.Drawing.Point(255, 49);
+            this.label_ChatReminderSeconds.Location = new System.Drawing.Point(255, 9);
             this.label_ChatReminderSeconds.Name = "label_ChatReminderSeconds";
             this.label_ChatReminderSeconds.Size = new System.Drawing.Size(143, 20);
             this.label_ChatReminderSeconds.TabIndex = 11;
@@ -325,6 +327,24 @@ namespace PagTool
             this.label_CmdCannotDie.Text = "User Cannot Die";
             this.label_CmdCannotDie.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // textBox_ResponseCmdAutoShuffledDead
+            // 
+            this.textBox_ResponseCmdAutoShuffledDead.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_ResponseCmdAutoShuffledDead.Location = new System.Drawing.Point(113, 157);
+            this.textBox_ResponseCmdAutoShuffledDead.Name = "textBox_ResponseCmdAutoShuffledDead";
+            this.textBox_ResponseCmdAutoShuffledDead.Size = new System.Drawing.Size(307, 20);
+            this.textBox_ResponseCmdAutoShuffledDead.TabIndex = 19;
+            // 
+            // label_CmdAutoShuffledDead
+            // 
+            this.label_CmdAutoShuffledDead.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label_CmdAutoShuffledDead.Location = new System.Drawing.Point(12, 157);
+            this.label_CmdAutoShuffledDead.Name = "label_CmdAutoShuffledDead";
+            this.label_CmdAutoShuffledDead.Size = new System.Drawing.Size(104, 20);
+            this.label_CmdAutoShuffledDead.TabIndex = 18;
+            this.label_CmdAutoShuffledDead.Text = "Auto-Shuffled Dead";
+            this.label_CmdAutoShuffledDead.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // ConfigCommandBehaviorDialog
             // 
             this.AcceptButton = this.buttonOK;
@@ -332,6 +352,8 @@ namespace PagTool
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(433, 414);
+            this.Controls.Add(this.textBox_ResponseCmdAutoShuffledDead);
+            this.Controls.Add(this.label_CmdAutoShuffledDead);
             this.Controls.Add(this.textBox_ResponseCmdCannotDie);
             this.Controls.Add(this.label_CmdCannotDie);
             this.Controls.Add(this.textBox_ResponseCmdHelp);
@@ -374,6 +396,7 @@ namespace PagTool
         private System.Windows.Forms.Label label_ChatReminder;
         private System.Windows.Forms.Label label_ChatReminderSeconds;
         private System.Windows.Forms.Label label_ChatReminderTimer;
+        private System.Windows.Forms.Label label_CmdAutoShuffledDead;
         private System.Windows.Forms.Label label_CmdCannotDie;
         private System.Windows.Forms.Label label_FormatStringsSupported;
         private System.Windows.Forms.Label labelCmdAddName;
@@ -388,6 +411,7 @@ namespace PagTool
         private System.Windows.Forms.NumericUpDown numericUpDown_ChatReminderSeconds;
         private System.Windows.Forms.TextBox textBox_ChatReminder;
         private System.Windows.Forms.TextBox textBox_ResponseCmdAddName;
+        private System.Windows.Forms.TextBox textBox_ResponseCmdAutoShuffledDead;
         private System.Windows.Forms.TextBox textBox_ResponseCmdBlacklistTriggered;
         private System.Windows.Forms.TextBox textBox_ResponseCmdCannotDie;
         private System.Windows.Forms.TextBox textBox_ResponseCmdChatReconnect;

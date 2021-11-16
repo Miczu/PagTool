@@ -518,7 +518,7 @@ namespace PagTool
                 { 
                     //move all dead into waiting
                     ShuffleDeadIntoWaiting();
-                    //todo trigger here to let chat know?
+                    _twitchChatBot.Chat(ConfigCommandBehavior.ResponseCmdAutoShuffledDead);
                     _twitchChatBot.LogLine($"Waiting list is empty -- Shuffled dead list into waiting list.", ChatBot.LOG_LEVEL.LOG_WARNING);
 
                     //try to get a name again!
