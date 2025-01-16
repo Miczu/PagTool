@@ -3,28 +3,6 @@ using System.Windows.Forms;
 
 namespace PagTool
 {
-    //this result: stores every string needed to be accessed by ChatBot to send upon !chatCommand execution.
-    public class ConfigCommandBehaviorResult
-    {
-        //defaults:
-        public string ResponseCmdNameAdd = "$USERNAME, you are now waiting. $WAITCOUNT users are waiting in total.";
-        public string ResponseCmdNameAlreadyExists = "$USERNAME, you have already been added! Wait for the list to be shuffled.";
-        public string ResponseCmdCheckStatus = "$FULLSTATUS";
-        public string ResponseCmdUserDrawn = "$USERNAME, you have been selected! Your lineage is now $LINEAGE.";
-        public string ResponseCmdBlacklistTriggered = "$USERNAME, your name is blacklisted. Please change your displayname if you wish to be added.";
-        public string ResponseCmdWaitlistEmpty = "The waitlist is currently empty! Type !name to be added to the waitlist.";
-        public string ResponseCmdChatReconnect = "The program is reconnecting to chat... please wait a moment...";
-        public string ChatReminder = "Type !name in chat to add yourself to the waitlist.";
-        public int ChatReminderSeconds = 600; //10 minutes
-        public string ResponseCmdMoveToDead = "$USERNAME, fare thee well! You are now dead.";
-        public string ResponseCmdCannotDie = "$USERNAME, you cannot die! Your name is not active!";
-        public string ResponseCmdHelp = "Use !name to add yourself to the list. Use !dead to mark yourself as dead, when you die in battle.";
-        public string ResponseCmdAutoShuffledDead = "The waitlist is empty! All those marked as dead have been shuffled back into the waiting list automatically. Newcomers, use !name to add yourself to the list!";
-        
-        //constructor using only default values
-        public ConfigCommandBehaviorResult() { }
-    }
-    
     //IN THIS FORM: define the text that will return to the users after completing a !chatCommand
     // can be null? ChatBot should check for this text, replace any $FORMATSTRINGS, and chat it (if not empty)
     // $FORMATSTRING examples could be @<username> or <lineageNumber> or whatever is contextually important. this will be a TODO
@@ -54,6 +32,7 @@ namespace PagTool
             textBox_ResponseCmdCannotDie.Text = currentSettings.ResponseCmdCannotDie;
             textBox_ResponseCmdHelp.Text = currentSettings.ResponseCmdHelp;
             textBox_ResponseCmdAutoShuffledDead.Text = currentSettings.ResponseCmdAutoShuffledDead;
+            textBox_ResponseCmdAutoShuffleNoDead.Text = currentSettings.ResponseCmdAutoShuffleNoDead;
 
             //show the dialog
             var result = ShowDialog();
@@ -75,7 +54,8 @@ namespace PagTool
                 updatedSettings.ResponseCmdCannotDie = textBox_ResponseCmdCannotDie.Text;
                 updatedSettings.ResponseCmdHelp = textBox_ResponseCmdHelp.Text;
                 updatedSettings.ResponseCmdAutoShuffledDead = textBox_ResponseCmdAutoShuffledDead.Text;
-                
+                updatedSettings.ResponseCmdAutoShuffleNoDead = textBox_ResponseCmdAutoShuffleNoDead.Text;
+
                 return updatedSettings;
             } else
                 return currentSettings;
