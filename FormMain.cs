@@ -517,12 +517,20 @@ namespace PagTool
                 if (GeneralSettings.DoAutoRecycleFromDead) //dead >> waiting automatically
                 { 
                     //move all dead into waiting
-                    ShuffleDeadIntoWaiting();
-                    _twitchChatBot.Chat(ConfigCommandBehavior.ResponseCmdAutoShuffledDead);
-                    _twitchChatBot.LogLine($"Waiting list is empty -- Shuffled dead list into waiting list.", ChatBot.LOG_LEVEL.LOG_WARNING);
+                    bool hasDead = ShuffleDeadIntoWaiting();
 
-                    //try to get a name again!
-                    TrySelectRandomUser();
+                    if (hasDead)
+                    {
+                        _twitchChatBot.Chat(ConfigCommandBehavior.ResponseCmdAutoShuffledDead);
+                        _twitchChatBot.LogLine($"Waiting list is empty -- Shuffled dead list into waiting list.", ChatBot.LOG_LEVEL.LOG_WARNING);
+                        //try to get a name again!
+                        TrySelectRandomUser();
+                    }
+                    else
+                    {
+                        _twitchChatBot.Chat(ConfigCommandBehavior.ResponseCmdAutoShuffleNoDead);
+                        _twitchChatBot.LogLine($"Waiting list is empty and no dead to shuffle", ChatBot.LOG_LEVEL.LOG_WARNING);
+                    }
                 }
                 else //classic behavior
                 {
@@ -850,14 +858,16 @@ namespace PagTool
             }
         }
 
-        public void ShuffleDeadIntoWaiting()
+        public bool ShuffleDeadIntoWaiting()
         {
+            bool hasDead = _listDead.Any();
             //predicated on the fact that no duplicates should exist in any of the three lists, we can safely just move every element without worrying about it generating errors
             _listWaiting.AddRange(_listDead.ToArray());
             _listDead.Clear();
             
             _twitchChatBot.LogLine("Shuffled contents of ListDead into ListWaiting.", ChatBot.LOG_LEVEL.LOG_INFO);
             DoAllUpdates();
+            return hasDead;
         }
         
         #endregion
